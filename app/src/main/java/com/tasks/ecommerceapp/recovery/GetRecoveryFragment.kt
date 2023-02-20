@@ -1,4 +1,4 @@
-package com.tasks.recovery
+package com.tasks.ecommerceapp.recovery
 
 import android.os.Bundle
 import android.text.Editable

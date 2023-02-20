@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/getRecoveryFragment"
-        android:name="com.tasks.recovery.GetRecoveryFragment"
+        android:name="com.tasks.ecommerceapp.recovery.GetRecoveryFragment"
         android:label="GetRecoveryFragment" >
 
         <action
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/recoveryFragment"
-        android:name="com.tasks.recovery.RecoveryFragment"
+        android:name="com.tasks.ecommerceapp.recovery.RecoveryFragment"
         android:label="RecoveryFragment" >
         <action
             android:id="@+id/action_recoveryFragment_to_changePasswordFragment"
@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.tasks.recovery.ChangePasswordFragment"
+        android:name="com.tasks.ecommerceapp.recovery.ChangePasswordFragment"
         android:label="ChangePasswordFragment" />
 
 
