@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:background="@drawable/bg_pin"
+    android:gravity="center_horizontal"
+    android:backgroundTint="?attr/backgroundScreen"
+    android:orientation="vertical"
+    android:layout_marginEnd="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/textColor"
+        android:textSize="32sp"
+        android:text="@string/congrats"
+        android:gravity="center"
+        android:fontFamily="@font/barlow_bold_700"
+        android:layout_marginTop="40dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/change_password_congrats"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/color_secondary"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/change_password_desc"
+        android:fontFamily="@font/nunito_font_400"
+        android:layout_marginBottom="40dp"/>
+</LinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/spllashScreenFragment">
+
+    <fragment
+        android:id="@+id/spllashScreenFragment"
+        android:name="com.tasks.ecommerceapp.intro.SplashScreenFragment"
+        android:label="SpllashScreenFragment" >
+        <action
+            android:id="@+id/action_spllashScreenFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.tasks.ecommerceapp.intro.WelcomeFragment"
+        android:label="WelcomeFragment" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_stepsFragment"
+            app:destination="@id/stepsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stepsFragment"
+        android:name="com.tasks.ecommerceapp.intro.StepsFragment"
+        android:label="StepsFragment" >
+        <action
+            android:id="@+id/action_stepsFragment_to_registration"
+            app:destination="@id/registration" />
+    </fragment>
+    <fragment
+        android:id="@+id/registration"
+        android:name="com.tasks.ecommerceapp.registration.RegistrationFragment"
+        android:label="Registration" >
+        <action
+            android:id="@+id/action_registration_to_createAccountFragment"
+            app:destination="@id/createAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment"
+        android:name="com.tasks.ecommerceapp.registration.CreateAccountFragment"
+        android:label="CreateAccountFragment" >
+        <action
+            android:id="@+id/action_createAccountFragment_to_signupAccount"
+            app:destination="@id/signupAccount" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/signupAccount"
+        android:name="com.tasks.ecommerceapp.registration.SignupEmailAndPasswordAccount"
+        android:label="SignupAccount" >
+        <action
+            android:id="@+id/action_signupAccount_to_createAccountFragment"
+            app:destination="@id/createAccountFragment" />
+        <action
+            android:id="@+id/action_signupAccount_to_verifyFragment"
+            app:destination="@id/verifyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyFragment"
+        android:name="com.tasks.ecommerceapp.verify.VerifyFragment"
+        android:label="VerifyFragment">
+        <action
+            android:id="@+id/action_verifyFragment_to_signinFragment"
+            app:destination="@id/signinFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/signinFragment"
+        android:name="com.tasks.ecommerceapp.signin.SigninFragment"
+        android:label="SigninFragment" >
+        <action
+            android:id="@+id/action_signinFragment_to_getRecoveryFragment"
+            app:destination="@id/getRecoveryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getRecoveryFragment"
+        android:name="com.tasks.recovery.GetRecoveryFragment"
+        android:label="GetRecoveryFragment" >
+
+        <action
+            android:id="@+id/action_getRecoveryFragment_to_recoveryFragment"
+            app:destination="@id/recoveryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recoveryFragment"
+        android:name="com.tasks.recovery.RecoveryFragment"
+        android:label="RecoveryFragment" >
+        <action
+            android:id="@+id/action_recoveryFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.tasks.recovery.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
+
+
+</navigation>

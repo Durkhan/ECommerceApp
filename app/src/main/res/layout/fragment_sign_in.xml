@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundScreen"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01"
+        app:srcCompat="@drawable/ic_back"
+        app:tint="?attr/textColor" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in_to_account"
+        android:textColor="?attr/textColor"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:fontFamily="@font/barlow_bold_700"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintVertical_bias="0.1" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="10dp"
+        android:textColor="?attr/textColor"
+        android:drawableTint="?attr/grey_40"
+        android:fontFamily="@font/nunito_font_400"
+        android:hint="@string/email"
+        android:textColorHint="?attr/grey_40"
+        app:layout_constraintVertical_bias="0.2"
+        android:background="@drawable/backgrounds_for_registrationsfields"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:targetApi="m"
+        tools:ignore="TextFields" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:endIconMode="password_toggle"
+        app:boxBackgroundMode="none"
+        app:hintEnabled="false"
+        app:passwordToggleTintMode="multiply"
+        app:endIconTint="@drawable/toggle_show"
+        android:background="@drawable/backgrounds_for_registrationsfields"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        >
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:padding="10dp"
+            android:drawableStart="@drawable/ic_password"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:drawablePadding="8dp"
+            android:textSize="18sp"
+            android:textColor="?attr/textColor"
+            android:fontFamily="@font/nunito_font_400"
+            android:textColorHint="?attr/grey_40"
+
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/signin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/sign_in"
+        android:textAllCaps="false"
+        android:enabled="false"
+        android:textSize="16sp"
+        app:backgroundTint="?attr/grey_40"
+        android:background="@drawable/button_background"
+        android:textColor="?attr/grey_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.3"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signin">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/nunito_font_400"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/or_with_continue"
+            android:textColor="?attr/color_secondary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2.5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/textView9"
+            android:backgroundTint="?attr/grey_40"
+            android:background="@drawable/backgrounds_for_registrationsfields"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2.5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/textView9"
+            android:background="@drawable/backgrounds_for_registrationsfields"
+            android:backgroundTint="?attr/grey_40" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/signWithFacebook"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/backgrounds_for_registrationsfields"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="15dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintEnd_toStartOf="@id/sign_with_google"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:srcCompat="@drawable/ic_facebook"
+        app:tint="?attr/textColor" />
+    <ImageButton
+        android:id="@+id/sign_with_google"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintVertical_bias="0.4"
+        android:background="@drawable/backgrounds_for_registrationsfields"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="15dp"
+        app:layout_constraintEnd_toStartOf="@id/sign_with_apple"
+        app:layout_constraintStart_toEndOf="@id/signWithFacebook"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:srcCompat="@drawable/ic_google"
+        app:tint="?attr/textColor" />
+    <ImageButton
+        android:id="@+id/sign_with_apple"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintVertical_bias="0.4"
+        android:background="@drawable/backgrounds_for_registrationsfields"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="15dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/sign_with_google"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:srcCompat="@drawable/ic_applelogo"
+        app:tint="?attr/textColor" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_with_apple">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_account"
+            android:textColor="?attr/grey_40"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/nunito_font_400"/>
+
+        <TextView
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up"
+            android:textColor="?attr/carrot"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/nunito_600"/>
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/carrot"
+        android:textColor="?attr/color_secondary"
+        android:textSize="16sp"
+        android:fontFamily="@font/nunito_font_400"
+        android:text="@string/remember_me"
+        app:layout_constraintBottom_toTopOf="@+id/signin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        tools:targetApi="m" />
+    <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_the_password"
+        android:fontFamily="@font/nunito_font_400"
+        android:textSize="18sp"
+        android:textColor="?attr/color_secondary"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/signin" />
+</androidx.constraintlayout.widget.ConstraintLayout>
