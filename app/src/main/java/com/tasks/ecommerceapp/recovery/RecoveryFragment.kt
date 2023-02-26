@@ -72,6 +72,7 @@ class RecoveryFragment:Fragment() {
         })
 
         setTimer().start()
+        findNavController().navigate(R.id.action_recoveryFragment_to_changePasswordFragment)
 
         binding?.verify?.setOnClickListener {
             if (verifyCode==viewModel.verificationCode){
@@ -128,8 +129,6 @@ class RecoveryFragment:Fragment() {
             checksViewValids.setEnabled(binding?.verify)
         }
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

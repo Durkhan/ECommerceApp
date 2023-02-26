@@ -21,7 +21,10 @@ interface CustomerService {
 
 
     @PUT("customers/password")
-    suspend fun changePassword(@Header("Authorization") authHeader:String,@Body request: ChangePasswordRequest): ChangePasswordResponse
+    suspend fun changePassword(@Header("Authorization") token:String,
+                               @Body request: ChangePasswordRequest): ChangePasswordResponse
 
+    @PUT("customers/")
+    suspend fun updateCustomer(@Header("Authorization") token:String,@Body customer: CustomerRegister): CustomerRegisterResponse
 
 }

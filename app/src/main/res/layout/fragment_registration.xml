@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/backgrounds_for_registrationsfields"
+        android:background="@drawable/background_not_focused_edittext_fields"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/backgrounds_for_registrationsfields"
+        android:background="@drawable/background_not_focused_edittext_fields"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/sign_with_apple"
         app:layout_constraintEnd_toEndOf="parent"
@@ -150,7 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/backgrounds_for_registrationsfields"
+        android:background="@drawable/background_not_focused_edittext_fields"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -210,7 +210,7 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/textView9"
             android:backgroundTint="?attr/grey_40"
-            android:background="@drawable/backgrounds_for_registrationsfields"
+            android:background="@drawable/background_not_focused_edittext_fields"
 />
 
         <View
@@ -218,26 +218,19 @@
             android:layout_height="2.5dp"
             android:layout_marginTop="10dp"
             android:layout_toLeftOf="@+id/textView9"
-            android:background="@drawable/backgrounds_for_registrationsfields"
+            android:background="@drawable/background_not_focused_edittext_fields"
             android:backgroundTint="?attr/grey_40" />
     </RelativeLayout>
 
 
     <Button
         android:id="@+id/sign_in_with_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        style="@style/CustomButtonStyle"
+        app:backgroundTint="?attr/button_backgroundColor"
         android:text="@string/sign_with_password"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:layout_constraintVertical_bias="0.4"
-        android:background="@drawable/button_background"
-        android:textColor="?attr/button_text_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="?attr/button_backgroundColor"
+        android:enabled="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 

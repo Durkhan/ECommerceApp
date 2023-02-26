@@ -25,6 +25,9 @@ class CustomerRepository @Inject constructor(private val service: CustomerServic
     private val _registerResult = MutableLiveData<Results<CustomerRegisterResponse>>()
     val registerResult: LiveData<Results<CustomerRegisterResponse>> = _registerResult
 
+    private val _updateResult = MutableLiveData<Results<CustomerRegisterResponse>>()
+    val updateResult: LiveData<Results<CustomerRegisterResponse>> = _updateResult
+
     suspend fun registerCustomer(email: String, password: String, firstName: String, lastName: String,userName:String) {
         try {
             val response = service.registerCustomer(
@@ -93,13 +96,35 @@ class CustomerRepository @Inject constructor(private val service: CustomerServic
     }
 
 
-    suspend fun changePassword(authHeader: String,password: String, newPassword:String): Results<ChangePasswordResponse> {
-        val request = ChangePasswordRequest(password,newPassword)
+    suspend fun changePassword(authHeader: String,chunked:String,password: String, newPassword:String): Results<ChangePasswordResponse> {
+        val request = ChangePasswordRequest(password=password,newPassword=newPassword)
         return try {
             val response = service.changePassword(authHeader,request)
             Results.Success(response)
         } catch (e: Exception) {
             Results.Error(e.message.toString())
+        }
+    }
+
+     suspend fun updateCustomer(token: String,email: String, gender: String, firstName: String, lastName: String,userName:String,avatarUrl:String,date:String) {
+        return try {
+            val response = service.updateCustomer(token = token,
+                CustomerRegister(
+                    firstName=firstName,
+                    lastName = lastName,
+                    login = userName,
+                    gender = gender,
+                    email = email,
+                    avatarUrl = avatarUrl,
+                    date = date
+                )
+            )
+           _updateResult.postValue(Results.Success(response))
+
+        } catch (e: IOException) {
+            _updateResult.postValue(Results.Error(e.message ?: "Unknown error"))
+        } catch (e: HttpException) {
+            _updateResult.postValue(Results.Error(e.message ?: "Unknown error"))
         }
     }
 

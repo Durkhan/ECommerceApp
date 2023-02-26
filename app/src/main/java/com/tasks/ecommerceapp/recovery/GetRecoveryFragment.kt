@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -50,7 +52,7 @@ class GetRecoveryFragment:Fragment() {
 
             override fun onTextChanged(emailOrusername: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 toEmail=emailOrusername.toString()
-                checkEdittext()
+                checkEdittext(binding?.userNameOrEmail as EditText)
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -67,10 +69,10 @@ class GetRecoveryFragment:Fragment() {
 
     }
 
-    private fun checkEdittext() {
+    private fun checkEdittext(editText:EditText) {
+        checksViewValids.checkFocusedEdittext(editText)
         if(toEmail.isBlank()){
             checksViewValids.notEnabled(binding?.mcontinue)
-
         }
         else{
             checksViewValids.setEnabled(binding?.mcontinue)
@@ -85,21 +87,26 @@ class GetRecoveryFragment:Fragment() {
             viewmodel.getCustomer(dataStoreManager.token.first(),toEmail)
         }
 
-        viewmodel.customer.observe(viewLifecycleOwner) { result ->
+        viewmodel .customer.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Results.Success -> {
                     val customer = result.data
                     val verificationCode= randomNumber()
                     viewmodel.verificationCode= verificationCode.toString()
-                    viewmodel.toEmail=customer.email.toString()
+                    viewmodel.toEmail=customer.email.toString( )
                     viewmodel.password=result.data.password.toString()
-                    viewmodel.sendVerificationNumber(customer.email.toString(),verificationCode)
-                    findNavController().navigate(R.id.action_getRecoveryFragment_to_recoveryFragment)
+                    if(toEmail==customer.email || toEmail==customer.login){
+                        viewmodel.sendVerificationNumber(customer.email.toString(),verificationCode)
+                        findNavController().navigate(R.id.action_getRecoveryFragment_to_recoveryFragment)
+                    }
+                    else{
+                        Toast.makeText(requireContext(),getString(R.string.please_write_correct_username),Toast.LENGTH_LONG).show()
+                    }
+
                 }
                 is Results.Error -> {
                     val errorMessage = result.exception
                     Log.d("Error Message",""+errorMessage)
-                    findNavController().navigate(R.id.action_getRecoveryFragment_to_recoveryFragment)
                 }
             }
         }

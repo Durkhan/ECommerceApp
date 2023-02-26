@@ -17,15 +17,64 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="welcome_background">@color/welcome_background</item>
         <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
-        <item name="grey_20"> @color/grey_20</item>
-        <item name="grey_40"> @color/grey_40</item>
+        <item name="grey_20">@color/grey_20</item>
+        <item name="grey_40">@color/grey_40</item>
         <item name="carrot">@color/carrot</item>
+        <item name="not_focused_edittext_drawableTintColor">@color/grey_40</item>
+        <item name="focused_edittext_drawableTintColor">@color/textColor_light</item>
 
         <item name="button_backgroundColor">@color/button_backgroundColor</item>
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
     </style>
 
+
+    <style name="MyEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">10</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:fontFamily">@font/nunito_font_400</item>
+        <item name="android:textColorHint">?attr/grey_40</item>
+        <item name="android:drawableTint" tools:ignore="NewApi">?attr/grey_20</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:background">@drawable/pin_selectable_background</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="rippleColor">@color/carrot</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textColor">?attr/grey_20</item>
+        <item name="backgroundTint">?attr/grey_40</item>
+        <item name="android:enabled">false</item>
+    </style>
+
+    <style name="CustomTextViewStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:fontFamily">@font/nunito_font_400</item>
+        <item name="android:textColor">?attr/color_secondary</item>
+    </style>
+
+    <style name="Theme.ECommerceApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ECommerceApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.ECommerceApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

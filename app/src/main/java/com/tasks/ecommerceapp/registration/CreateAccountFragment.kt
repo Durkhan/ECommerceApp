@@ -6,7 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -39,13 +39,13 @@ class CreateAccountFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
+        binding!!.mcontinue.isEnabled=true
         binding?.firstName?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 firstName=s.toString()
-                checkEdittextNotEmpty()
+                checkEdittextNotEmpty(binding?.firstName as EditText)
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -55,7 +55,8 @@ class CreateAccountFragment:Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 lastName=s.toString()
-                checkEdittextNotEmpty()
+                checkEdittextNotEmpty(binding?.lastName as EditText)
+
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -65,7 +66,8 @@ class CreateAccountFragment:Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 userName=s.toString()
-                checkEdittextNotEmpty()
+                checkEdittextNotEmpty(binding?.userName as EditText)
+
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -80,7 +82,8 @@ class CreateAccountFragment:Fragment() {
     }
 
 
-    private fun checkEdittextNotEmpty() {
+    private fun checkEdittextNotEmpty(editText: EditText) {
+        checksViewValids.checkFocusedEdittext(editText)
        if(firstName.isBlank() || lastName.isBlank() || userName.isBlank()) {
            checksViewValids.notEnabled(binding?.mcontinue)
        }else{

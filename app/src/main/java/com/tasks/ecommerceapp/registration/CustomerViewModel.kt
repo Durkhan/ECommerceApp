@@ -1,5 +1,6 @@
 package com.tasks.ecommerceapp.registration
 
+import android.content.SyncRequest
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -62,9 +63,9 @@ class CustomerViewModel @Inject constructor(
 
 
 
-    fun changePassword(authHeader:String,password: String, newPassword: String) {
+    fun changePassword(authHeader:String,chunked:String,password: String, newPassword: String) {
         viewModelScope.launch {
-            _changePasswordResult.value = repository.changePassword(authHeader,password,newPassword)
+            _changePasswordResult.value = repository.changePassword(authHeader,chunked,password,newPassword)
         }
     }
 }

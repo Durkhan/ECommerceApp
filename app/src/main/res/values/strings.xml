@@ -50,4 +50,21 @@
     <string name="passwords_dont_match">Passwords don\'t match</string>
     <string name="congrats">Congratulations!</string>
     <string name="change_password_desc">Your password recovered. Account is ready to use. You will be redirected to the Home page in a few seconds… </string>
+    <string name="please_write_correct_username">Please,write a correct username or email</string>
+    <string name="fill_your_profile">Fill your profile</string>
+    <string name="full_name">Full name</string>
+    <string name="nickname">Nickname</string>
+    <string name="date">Date</string>
+    <string name="telephone">Phone number</string>
+    <string name="gender">Gender</string>
+    <string name="skip">Skip</string>
+    <string name="create_pin">Create new PIN</string>
+    <string name="add_new_pin">Add a PIN number to make\nyour account more secure</string>
+    <string name="please_put_your_finger">Please put your finger\n on the fingerprint scanner\nto get stardet</string>
+    <string name="confirm">Confirm</string>
+    <string name="add_new_finger_print">Add a fingerprint to make\nyour account more secure</string>
+    <string name="set_your_finger_print">Set your fingerprint</string>
+    <string name="succesful_set_pin_desc">Your account is hard secured.\nYou will be redirected to the Home page in a few seconds... </string>
+    <string name="fingerprint_authentication_failed">Fingerprint authentication failed</string>
+    <string name="fingerprint_authentication_not_supported">Fingerprint authentication not supported</string>
 </resources>

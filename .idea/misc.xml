@@ -5,12 +5,20 @@
       <map>
         <entry key="..\:/Users/Durkhan/.gradle/caches/transforms-3/40e7766587b8dc16e11c613c660ec111/transformed/VerifyCodeEditText-1.2.0/res/drawable/bottom_selected_icon.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.255" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/background_not_focused_edittext_fields.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/backgrounds_for_registrationsfields.xml" value="0.2725" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/bg_pin.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/button_backgroun.xml" value="0.255" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/button_background.xml" value="0.19" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/circle_imageview.xml" value="0.19" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_choose_photo.xml" value="0.19" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_email.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_password.xml" value="0.19" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/pin_selectable_background.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/pin_selected_background.xml" value="0.138" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/selectededittext_background.xml" value="0.19" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/skip_background.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/toggle_show.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/welcome_background.xml" value="0.255" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/font/barlow_bold_700.xml" value="0.29791666666666666" />
@@ -20,17 +28,24 @@
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/font/nunito_600.xml" value="0.29791666666666666" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/font/nunito_font_600.xml" value="0.29791666666666666" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/activity_main.xml" value="0.21195652173913043" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/activity_pin.xml" value="0.11407103825136612" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/dialog_alert.xml" value="0.16564207650273224" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_change_password.xml" value="0.16564207650273224" />
-        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_create_account.xml" value="0.1" />
-        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_create_email_password_account.xml" value="0.16495901639344263" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_create_account.xml" value="0.264" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_create_email_password_account.xml" value="0.264" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_first.xml" value="0.16564207650273224" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_get_recovery.xml" value="0.16564207650273224" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_profile.xml" value="0.16564207650273224" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_recovery.xml" value="0.11407103825136612" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_registration.xml" value="0.2" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_second.xml" value="0.16564207650273224" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_sign_in.xml" value="0.16564207650273224" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_splash_screen.xml" value="0.21195652173913043" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_st_fingerprint.xml" value="0.11407103825136612" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_verify.xml" value="0.2" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragment_welcome.xml" value="0.21195652173913043" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/fragmet_set_pin.xml" value="0.16564207650273224" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/listof_edittexts.xml" value="0.16564207650273224" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/sign.xml" value="0.16564207650273224" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/layout/steps_fragment.xml" value="0.21875" />
       </map>
