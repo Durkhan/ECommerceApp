@@ -1,11 +1,13 @@
 package com.tasks.ecommerceapp.signin
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -46,15 +48,17 @@ class SigninFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        findNavController().navigate(R.id.action_signinFragment_to_profileFragment)
         binding?.email?.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
 
+            @SuppressLint("NewApi", "UseCompatTextViewDrawableApis")
             override fun onTextChanged(emailText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 email=emailText.toString()
-                checkEmailorPasswordisValid()
+                checkEmailorPasswordisValid(binding?.email as EditText)
+
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -69,7 +73,7 @@ class SigninFragment:Fragment() {
 
             override fun onTextChanged(passwordText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 password=passwordText.toString()
-                checkEmailorPasswordisValid()
+                checkEmailorPasswordisValid(binding?.password as EditText)
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -101,6 +105,7 @@ class SigninFragment:Fragment() {
                     CoroutineScope(Dispatchers.IO).launch {
                         dataStoreManager.saveToken(result.data.token.toString())
                     }
+                    findNavController().navigate(R.id.action_signinFragment_to_profileFragment)
                 }
                 is Results.Error -> {
                     Toast.makeText(context,result.exception,Toast.LENGTH_LONG).show()
@@ -111,7 +116,8 @@ class SigninFragment:Fragment() {
     }
 
 
-    private fun checkEmailorPasswordisValid() {
+    private fun checkEmailorPasswordisValid(editText:EditText) {
+        checksViewValids.checkFocusedEdittext(editText)
         if(email.isBlank() || password.isBlank()|| password.length<7){
            checksViewValids.notEnabled(binding?.signin)
         }

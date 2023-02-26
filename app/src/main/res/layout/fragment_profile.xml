@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundScreen"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01">
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="?attr/textColor" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@+id/imageButton"
+            android:fontFamily="@font/nunito_font_400"
+            android:text="@string/fill_your_profile"
+            android:textColor="?attr/color_secondary"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+        <ImageView
+            android:id="@+id/user_photo"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/user_photo" />
+        <ImageView
+            android:id="@+id/choose_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_choose_photo"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/user_photo"
+            android:layout_below="@+id/user_photo"
+            android:layout_marginLeft="-35dp"
+            android:layout_marginTop="-35dp"
+            app:tint="?attr/textColor" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/full_name"
+        style="@style/MyEditTextStyle"
+        android:hint="@string/full_name"
+        android:inputType="textPersonName"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout1" />
+    <EditText
+        android:id="@+id/nick_name"
+        style="@style/MyEditTextStyle"
+        android:inputType="textPersonName"
+        android:hint="@string/nickname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/full_name" />
+    <EditText
+        android:id="@+id/email"
+        style="@style/MyEditTextStyle"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nick_name" />
+    <EditText
+        android:id="@+id/date"
+        style="@style/MyEditTextStyle"
+        android:inputType="text"
+        android:drawableEnd="@drawable/ic_calendar"
+        android:hint="@string/date"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintBottom_toTopOf="@+id/telephone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        tools:ignore="TextFields" />
+    <EditText
+        android:id="@+id/telephone"
+        style="@style/MyEditTextStyle"
+        android:inputType="text"
+        android:drawableStart="@drawable/ic_calendar"
+        android:hint="@string/telephone"
+        android:drawablePadding="10dp"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintBottom_toTopOf="@+id/gender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date"
+        tools:ignore="TextFields" />
+    <EditText
+        android:id="@+id/gender"
+        style="@style/MyEditTextStyle"
+        android:inputType="text"
+        android:hint="@string/gender"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/telephone"
+        tools:ignore="TextFields" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+    <Button
+        android:id="@+id/mcontinue_"
+        style="@style/CustomButtonStyle"
+        android:text="@string/continue_"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.1" />
+    <Button
+        android:id="@+id/skip"
+        style="@style/CustomButtonStyle"
+        android:text="@string/skip"
+        android:textColor="?attr/color_secondary"
+        android:background="@drawable/skip_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mcontinue_"
+         />
+</androidx.constraintlayout.widget.ConstraintLayout>

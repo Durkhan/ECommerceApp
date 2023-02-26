@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_signinFragment_to_getRecoveryFragment"
             app:destination="@id/getRecoveryFragment" />
+        <action
+            android:id="@+id/action_signinFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/getRecoveryFragment"
@@ -94,6 +97,10 @@
         android:id="@+id/changePasswordFragment"
         android:name="com.tasks.ecommerceapp.recovery.ChangePasswordFragment"
         android:label="ChangePasswordFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.tasks.ecommerceapp.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 
 
 </navigation>

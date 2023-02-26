@@ -21,6 +21,7 @@
     <color name="button_backgroundColor">@color/textColor_light</color>
 
 
+
     ----> dark color
     <color name="background_dark">#131C26</color>
     <color name="textColor_dark">#131C26</color>

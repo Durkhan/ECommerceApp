@@ -85,15 +85,9 @@
 
     <Button
         android:id="@+id/mcontinue_"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        style="@style/CustomButtonStyle"
         android:text="@string/continue_"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:background="@drawable/button_background"
-        android:textColor="?attr/button_text_color"
+        android:enabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:backgroundTint="?attr/button_backgroundColor"

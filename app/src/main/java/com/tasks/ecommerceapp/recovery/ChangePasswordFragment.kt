@@ -4,14 +4,15 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentChangePasswordBinding
 import com.tasks.ecommerceapp.registration.CustomerViewModel
@@ -20,6 +21,8 @@ import com.tasks.ecommerceapp.utils.DataStoreManager
 import com.tasks.ecommerceapp.utils.Results
 import com.tasks.ecommerceapp.utils.datastore
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -53,7 +56,7 @@ class ChangePasswordFragment:Fragment() {
 
             override fun onTextChanged(passwordText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 newPassword=passwordText.toString()
-                checkEmailorPasswordisValid()
+                checkEmailorPasswordisValid(binding?.newPassword as EditText)
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -68,7 +71,7 @@ class ChangePasswordFragment:Fragment() {
 
             override fun onTextChanged(passwordText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 dublicatePassword=passwordText.toString()
-                checkEmailorPasswordisValid()
+                checkEmailorPasswordisValid(binding?.dublicatePassword as EditText)
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -90,12 +93,10 @@ class ChangePasswordFragment:Fragment() {
             dataStoreManager= DataStoreManager(requireContext().datastore)
                 Log.d("LOG",""+viewModel.password.toByteArray())
 
+            lifecycleScope.launch{
+                viewModel.changePassword(dataStoreManager.token.first(),"chunked",viewModel.password,newPassword)
 
-            val credentials = "${viewModel.toEmail}:${viewModel.password}"
-            val base64 = Base64.encodeToString(credentials.toByteArray(), Base64.NO_WRAP)
-            val authorization = "Basic $base64"
-            Log.d("LOG+",""+authorization)
-            viewModel.changePassword(authorization,viewModel.password,newPassword)
+            }
             viewModel.changePasswordResult.observe(viewLifecycleOwner) { result ->
                 when (result) {
                     is Results.Success -> {
@@ -123,7 +124,10 @@ class ChangePasswordFragment:Fragment() {
 
     }
 
-    private fun checkEmailorPasswordisValid() {
+
+    private fun checkEmailorPasswordisValid(editText: EditText) {
+        checksViewValids.checkFocusedEdittext(editText)
+
         if (newPassword.length<7 || dublicatePassword.length<7){
                checksViewValids.notEnabled(binding?.change)
         } else{

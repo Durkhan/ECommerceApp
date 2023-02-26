@@ -8,8 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.activity.addCallback
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -52,7 +52,7 @@ class SignupEmailAndPasswordAccount:Fragment() {
 
             override fun onTextChanged(emailText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 email=emailText.toString()
-                checkEmailorPasswordisValid()
+                checkEmailorPasswordisValid(binding?.email as EditText)
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -67,7 +67,7 @@ class SignupEmailAndPasswordAccount:Fragment() {
 
             override fun onTextChanged(passwordText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 password=passwordText.toString()
-                checkEmailorPasswordisValid()
+                checkEmailorPasswordisValid(binding?.password as EditText)
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -87,7 +87,8 @@ class SignupEmailAndPasswordAccount:Fragment() {
 
 
 
-    private fun checkEmailorPasswordisValid() {
+    private fun checkEmailorPasswordisValid(editText:EditText) {
+        checksViewValids.checkFocusedEdittext(editText)
         if(email.isBlank() || password.isBlank()|| !isEmail(email) || password.length<7){
                checksViewValids.notEnabled(binding?.signup)
         }else{
