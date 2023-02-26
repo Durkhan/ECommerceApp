@@ -14,6 +14,7 @@
     <color name="color_secondary_light">#16212D</color>
     <color name="button_text_color">#F2F2F2</color>
     <color name="welcome_background">#EBEBEB</color>
+    <color name="grey_10">#F1EEEE</color>
     <color name="grey_20">#CFCFCF</color>
     <color name="grey_40">#B7B7B7</color>
     <color name="carrot">#FF725E</color>
@@ -23,4 +24,6 @@
     ----> dark color
     <color name="background_dark">#131C26</color>
     <color name="textColor_dark">#131C26</color>
+    <color name="dark_blue">#16212D</color>
+
 </resources>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.AllProductsFragment">
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_bar_size"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:background="@drawable/bg_search_products"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="@dimen/padding_default"
+        android:hint="@string/search_products"
+        android:paddingStart="@dimen/padding_default"
+        app:layout_constraintEnd_toStartOf="@id/ib_heart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ib_ringtone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:background="@color/white"
+        android:padding="@dimen/padding_min"
+        android:src="@drawable/ic_ringtone"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_search" />
+
+    <ImageButton
+        android:id="@+id/ib_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:background="@color/white"
+        android:padding="@dimen/padding_min"
+        android:src="@drawable/ic_heart"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toStartOf="@id/ib_ringtone"
+        app:layout_constraintTop_toTopOf="@id/et_search" />
+
+
+    <TextView
+        android:id="@+id/tv_products"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:ellipsize="marquee"
+        android:fontFamily="@font/nunito_bold"
+        android:singleLine="true"
+        android:text="@string/products"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_search" />
+
+    <ImageButton
+        android:id="@+id/ib_products_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/padding_min"
+        android:src="@drawable/ic_products_list"
+        app:layout_constraintBottom_toBottomOf="@id/tv_products"
+        app:layout_constraintEnd_toStartOf="@id/ib_ringtone"
+        app:layout_constraintTop_toTopOf="@id/tv_products" />
+
+    <ImageButton
+        android:id="@+id/ib_products_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/padding_min"
+        android:src="@drawable/ic_products_group"
+        app:layout_constraintBottom_toBottomOf="@id/tv_products"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ib_products_list"
+        app:layout_constraintTop_toTopOf="@id/tv_products" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_all_products"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_medium"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_products"
+        app:spanCount="2"
+        tools:listitem="@layout/item_products_all_list" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

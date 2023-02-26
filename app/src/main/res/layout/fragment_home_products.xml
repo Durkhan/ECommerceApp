@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.HomeProductsFragment">
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_bar_size"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:background="@drawable/bg_search_products"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="@dimen/padding_default"
+        android:hint="@string/search_products"
+        android:paddingStart="@dimen/padding_default"
+        app:layout_constraintEnd_toStartOf="@id/ib_heart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ib_ringtone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:background="@color/white"
+        android:padding="@dimen/padding_min"
+        android:src="@drawable/ic_ringtone"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_search" />
+
+    <ImageButton
+        android:id="@+id/ib_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:background="@color/white"
+        android:padding="@dimen/padding_min"
+        android:src="@drawable/ic_heart"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toStartOf="@id/ib_ringtone"
+        app:layout_constraintTop_toTopOf="@id/et_search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_top_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_search"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_product_categories_rounded" />
+
+    <TextView
+        android:id="@+id/tv_shop_categories"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:ellipsize="marquee"
+        android:fontFamily="@font/nunito_bold"
+        android:singleLine="true"
+        android:text="@string/shop_categories"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_top_categories" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_shop_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_shop_categories"
+        app:spanCount="2"
+        tools:itemCount="6"
+        tools:listitem="@layout/item_shop_categoires" />
+
+    <TextView
+        android:id="@+id/tv_products"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:ellipsize="marquee"
+        android:fontFamily="@font/nunito_bold"
+        android:singleLine="true"
+        android:text="@string/products"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_shop_categories" />
+
+    <TextView
+        android:id="@+id/tv_see_all"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:ellipsize="marquee"
+        android:fontFamily="@font/nunito_600"
+        android:padding="@dimen/padding_small"
+        android:singleLine="true"
+        android:text="@string/see_all"
+        android:textColor="@color/carrot"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_products"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_products" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_products"
+        tools:itemCount="6"
+        tools:listitem="@layout/item_products" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

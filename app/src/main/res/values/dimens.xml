@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    sizes-->
+    <dimen name="menu_height">82dp</dimen>
+    <dimen name="menu_bg_radius">15dp</dimen>
+    <dimen name="search_bar_size">45dp</dimen>
+
+    <!--    margins-->
+    <dimen name="margin_huge">32dp</dimen>
+    <dimen name="margin_20_dp">20dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+    <dimen name="margin_10_dp">8dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">6dp</dimen>
+    <dimen name="margin_min">4dp</dimen>
+    <dimen name="margin_micro">2dp</dimen>
+
+
+    <!--    paddings-->
+    <dimen name="padding_default">16dp</dimen>
+    <dimen name="padding_12_dp">12dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_min">4dp</dimen>
+    <dimen name="padding_micro">2dp</dimen>
+
+    <!--    Product sizes-->
+    <dimen name="shop_category_size">80dp</dimen>
+    <dimen name="product_size">160dp</dimen>
+
+</resources>

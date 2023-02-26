@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_small"
+    android:layout_marginTop="@dimen/margin_min"
+    android:background="@drawable/bg_search_products"
+    android:backgroundTint="@color/dark_blue">
+
+    <ImageView
+        android:id="@+id/iv_product_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_heart" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_min"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:fontFamily="@font/nunito"
+        android:paddingVertical="@dimen/padding_min"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_product_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_product_type"
+        app:layout_constraintTop_toTopOf="@id/iv_product_type"
+        tools:text="Yunus" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,4 +50,14 @@
     <string name="passwords_dont_match">Passwords don\'t match</string>
     <string name="congrats">Congratulations!</string>
     <string name="change_password_desc">Your password recovered. Account is ready to use. You will be redirected to the Home page in a few seconds… </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_orders">Orders</string>
+    <string name="menu_card">Cart</string>
+    <string name="menu_profile">Profile</string>
+    <string name="search_products">Search for everything</string>
+    <string name="shop_categories">Shop categories</string>
+    <string name="products">Products</string>
+    <string name="see_all">See all</string>
 </resources>
