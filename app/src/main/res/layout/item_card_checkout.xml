@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_default"
+    android:layout_marginTop="@dimen/margin_20_dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_product"
+        android:layout_width="@dimen/checkout_item_img_size"
+        android:layout_height="@dimen/checkout_item_img_size"
+        android:src="@drawable/img_phone_test"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="20dp" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:ellipsize="marquee"
+        android:fontFamily="@font/nunito_600"
+        android:singleLine="true"
+        android:text="Iphone 13 pro max"
+        android:textColor="?attr/textColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_product"
+        app:layout_constraintTop_toTopOf="@id/iv_product"
+        tools:text="Iphone 11 pro max" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_micro"
+        android:layout_marginTop="@dimen/margin_micro"
+        android:ellipsize="end"
+        android:fontFamily="@font/nunito_bold"
+        android:maxLines="1"
+        android:textColor="?attr/textColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:text="5.40$" />
+
+    <ImageButton
+        android:id="@+id/ib_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="@dimen/padding_min"
+        android:src="@drawable/ic_remove_product"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_product_count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:ellipsize="marquee"
+        android:fontFamily="@font/nunito_600"
+        android:singleLine="true"
+        android:text="1"
+        android:textColor="?attr/textColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/ib_remove"
+        app:layout_constraintTop_toTopOf="@id/ib_remove" />
+
+    <ImageButton
+        android:id="@+id/ib_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10_dp"
+        android:background="@null"
+        android:padding="@dimen/padding_min"
+        android:src="@drawable/ic_add_product"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_product_count" />
+
+    <CheckBox
+        android:id="@+id/chk_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/carrot"
+        android:checked="false"
+        android:padding="@dimen/padding_min"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

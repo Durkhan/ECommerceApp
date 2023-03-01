@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.CardFragment">
+
+    <ImageButton
+        android:id="@+id/ib_return_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01"
+        app:srcCompat="@drawable/ic_back"
+        app:tint="?attr/textColor" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_products"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/margin_small"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/cl_checkout"
+        app:layout_constraintTop_toBottomOf="@id/ib_return_back"
+        tools:listitem="@layout/item_card_checkout" />
+
+    <TextView
+        android:id="@+id/pin_fragment_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/nunito_font_400"
+        android:text="@string/menu_card"
+        android:textColor="?attr/color_secondary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ib_return_back"
+        app:layout_constraintStart_toEndOf="@id/ib_return_back"
+        app:layout_constraintTop_toTopOf="@id/ib_return_back" />
+
+    <ImageButton
+        android:id="@+id/ib_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_delete_product" />
+
+    <ImageButton
+        android:id="@+id/ib_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintEnd_toStartOf="@id/ib_delete"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_search"
+        app:tint="@color/carrot" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="@drawable/bg_product_card_actions"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_huge"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito"
+            android:maxLines="1"
+            android:text="@string/total_price"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_huge"
+            android:layout_marginTop="@dimen/margin_min"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_bold"
+            android:maxLines="1"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_price"
+            tools:text="USD500" />
+
+
+        <Button
+            android:id="@+id/btn_add_to_card"
+            style="@style/CustomButtonStyle"
+            android:layout_width="0dp"
+            android:layout_marginEnd="16dp"
+            android:paddingHorizontal="@dimen/padding_huge"
+            android:text="@string/checkout"
+            android:textColor="?attr/colorOnPrimary"
+            app:backgroundTint="?attr/button_backgroundColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_products"
-    app:startDestination="@id/allProductsFragment">
+    app:startDestination="@id/cardFragment">
 
     <fragment
         android:id="@+id/homeProductsFragment"
@@ -15,4 +15,21 @@
         android:name="com.tasks.ecommerceapp.ui.fragment.AllProductsFragment"
         android:label="fragment_all_products"
         tools:layout="@layout/fragment_all_products" />
+
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.tasks.ecommerceapp.ui.fragment.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail" />
+
+    <fragment
+        android:id="@+id/productFullDetailFragment"
+        android:name="com.tasks.ecommerceapp.ui.fragment.ProductFullDetailFragment"
+        android:label="fragment_product_full_detail"
+        tools:layout="@layout/fragment_product_full_detail" />
+    <fragment
+        android:id="@+id/cardFragment"
+        android:name="com.tasks.ecommerceapp.ui.fragment.CardFragment"
+        android:label="fragment_card"
+        tools:layout="@layout/fragment_card" />
 </navigation>

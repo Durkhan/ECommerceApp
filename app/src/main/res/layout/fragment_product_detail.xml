@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.CardFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageButton
+            android:id="@+id/ib_return_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_default"
+            android:background="@color/white"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_product_images"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/product_detail_rv_size"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_huge"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ib_return_back"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_product_detail" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_img_slider"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_product_images"
+            tools:listitem="@layout/item_image_slider" />
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:fontFamily="@font/nunito_bold"
+            android:text="asdsad"
+            android:textColor="?attr/textColor"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_img_slider"
+            tools:text="Iphone 11 pro max" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_small"
+            android:fontFamily="@font/nunito_font_400"
+            android:text="asdsad"
+            android:textColor="?attr/textColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_name"
+            tools:text="Description Description Description Description
+DescriptionDescriptionDescriptionDescription" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_small"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_bold"
+            android:maxLines="1"
+            android:text="asdsad"
+            android:textColor="?attr/textColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_desc"
+            tools:text="USD500" />
+
+        <TextView
+            android:id="@+id/tv_price_before_discount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_600"
+            android:maxLines="1"
+            android:text="asdsad"
+            android:textColor="?attr/textColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/tv_price"
+            app:layout_constraintTop_toTopOf="@id/tv_price"
+            tools:text="USD500" />
+
+
+        <Button
+            android:id="@+id/btn_buy_now"
+            style="@style/CustomButtonStyle"
+            android:layout_marginTop="@dimen/margin_24_dp"
+            android:enabled="true"
+            android:text="@string/buy_now"
+            app:backgroundTint="?attr/button_backgroundColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+
+        <Button
+            android:id="@+id/btn_add_to_card"
+            style="@style/CustomButtonStyle"
+            android:layout_marginTop="@dimen/margin_default"
+            android:background="@drawable/skip_background"
+            android:text="@string/skip"
+            android:textColor="?attr/color_secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_buy_now" />
+
+        <include
+            android:id="@+id/item_action_specification"
+            layout="@layout/item_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/btn_add_to_card" />
+
+        <include
+            android:id="@+id/item_action_reviews"
+            layout="@layout/item_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/item_action_specification" />
+
+
+        <include
+            android:id="@+id/item_action_questions"
+            layout="@layout/item_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/item_action_reviews" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
