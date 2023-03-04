@@ -96,7 +96,8 @@ dependencies {
     //biometric
     implementation "androidx.biometric:biometric:1.2.0-alpha04"
 
-
+     //paging
+    implementation 'androidx.paging:paging-runtime-ktx:3.1.0'
 
 
 

@@ -42,7 +42,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="-10%" />
+        android:text="-10%" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -71,14 +71,13 @@
         android:ellipsize="end"
         android:fontFamily="@font/nunito_600"
         android:maxLines="1"
-        android:text="asdsad"
         android:textColor="@color/dark_blue"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/iv_product"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_name"
-        tools:text="Description" />
+        android:text="Description" />
 
     <TextView
         android:id="@+id/tv_price"

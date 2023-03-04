@@ -1,7 +1,5 @@
 package com.tasks.ecommerceapp.registration
 
-import android.content.SyncRequest
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,14 +9,8 @@ import com.tasks.ecommerceapp.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.utils.Results
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.*
 import javax.inject.Inject
-import javax.mail.*
-import javax.mail.internet.InternetAddress
-import javax.mail.internet.MimeMessage
 
 @HiltViewModel
 class CustomerViewModel @Inject constructor(

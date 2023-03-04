@@ -25,12 +25,12 @@
         android:fontFamily="@font/nunito"
         android:paddingHorizontal="@dimen/padding_small"
         android:paddingVertical="@dimen/padding_min"
-        android:textColor="@color/white"
+        android:textColor="?attr/discount_color"
         android:textSize="8sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/iv_product"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="-10%" />
+        android:text="-10%" />
 
     <TextView
         android:id="@+id/tv_name"

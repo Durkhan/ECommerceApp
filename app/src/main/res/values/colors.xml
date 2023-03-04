@@ -18,6 +18,7 @@
     <color name="grey_20">#CFCFCF</color>
     <color name="grey_40">#B7B7B7</color>
     <color name="carrot">#FF725E</color>
+    <color name="discount_color">#F2F2F2</color>
     <color name="button_backgroundColor">@color/textColor_light</color>
 
 

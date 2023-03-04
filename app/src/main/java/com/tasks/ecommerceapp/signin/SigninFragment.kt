@@ -10,15 +10,13 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.datastore.preferences.protobuf.Empty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentSignInBinding
-import com.tasks.ecommerceapp.utils.CheckViewsValid
-import com.tasks.ecommerceapp.utils.DataStoreManager
-import com.tasks.ecommerceapp.utils.Results
-import com.tasks.ecommerceapp.utils.datastore
+import com.tasks.ecommerceapp.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,8 +46,7 @@ class SigninFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findNavController().navigate(R.id.action_signinFragment_to_profileFragment)
-        binding?.email?.addTextChangedListener(object: TextWatcher {
+        binding?.email?.addTextChangedListener(object: EmptyTextWatcher() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -66,18 +63,10 @@ class SigninFragment:Fragment() {
             }
 
         })
-        binding?.password?.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
+        binding?.password?.addTextChangedListener(object: EmptyTextWatcher() {
             override fun onTextChanged(passwordText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 password=passwordText.toString()
                 checkEmailorPasswordisValid(binding?.password as EditText)
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-
             }
 
         })
