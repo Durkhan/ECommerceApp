@@ -1,17 +1,27 @@
 package com.tasks.ecommerceapp.api
 
+import android.app.DownloadManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.tasks.ecommerceapp.customer.SearchRequest
 import com.tasks.ecommerceapp.customer.chagepassword.ChangePasswordRequest
 import com.tasks.ecommerceapp.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.customer.login.CustomerLogin
 import com.tasks.ecommerceapp.customer.login.CustomerLoginResponse
+import com.tasks.ecommerceapp.customer.catalog.CatalogResponse
+import com.tasks.ecommerceapp.customer.product.ProductResponse
+import com.tasks.ecommerceapp.customer.product.ProductsItem
+import com.tasks.ecommerceapp.customer.product.SearchProductResponse
 import com.tasks.ecommerceapp.customer.register.CustomerRegister
 import com.tasks.ecommerceapp.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.utils.Constants
 import com.tasks.ecommerceapp.utils.Results
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
@@ -27,6 +37,10 @@ class CustomerRepository @Inject constructor(private val service: CustomerServic
 
     private val _updateResult = MutableLiveData<Results<CustomerRegisterResponse>>()
     val updateResult: LiveData<Results<CustomerRegisterResponse>> = _updateResult
+
+
+
+
 
     suspend fun registerCustomer(email: String, password: String, firstName: String, lastName: String,userName:String) {
         try {
@@ -127,5 +141,52 @@ class CustomerRepository @Inject constructor(private val service: CustomerServic
             _updateResult.postValue(Results.Error(e.message ?: "Unknown error"))
         }
     }
+
+    suspend fun getCatalog(): Results<List<CatalogResponse>> {
+        return try {
+            val response = service.getCatalog()
+                Results.Success(response)
+        } catch (e: Exception) {
+            Results.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+
+    suspend fun getAllProducts(): Results<List<ProductResponse>> {
+        return try {
+            val response = service.getALlProducts()
+            Results.Success(response)
+
+        } catch (e: Exception) {
+            Results.Error(e.message ?: "Unknown error occurred")
+        }
+
+    }
+
+
+    suspend fun getFilteredProducts(
+        color: String?,
+        size: String?,
+        categories: String?,
+        sort: String?
+    ): Flow<PagingData<ProductsItem>> {
+        return Pager(
+            config = PagingConfig(pageSize = 2, enablePlaceholders = true),
+            pagingSourceFactory = {
+                ProductFilterPagingSource(service, color, size, categories, sort)
+            }
+        ).flow
+    }
+
+
+    suspend fun getSearchedProducts(searchedText:String):Results<List<SearchProductResponse>>{
+        val request =SearchRequest(searchedText)
+        return try {
+            val response = service.getSearchedProducts(request)
+            Results.Success(response)
+        } catch (e: Exception) {
+            Results.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+
 
 }

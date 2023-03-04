@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentCreateAccountBinding
 import com.tasks.ecommerceapp.utils.CheckViewsValid
+import com.tasks.ecommerceapp.utils.EmptyTextWatcher
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,43 +41,32 @@ class CreateAccountFragment:Fragment() {
 
 
         binding!!.mcontinue.isEnabled=true
-        binding?.firstName?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
+        binding?.firstName?.addTextChangedListener(object : EmptyTextWatcher() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 firstName=s.toString()
                 checkEdittextNotEmpty(binding?.firstName as EditText)
             }
-
-            override fun afterTextChanged(s: Editable?) {}
         })
-        binding?.lastName?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
+        binding?.lastName?.addTextChangedListener(object : EmptyTextWatcher()  {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 lastName=s.toString()
                 checkEdittextNotEmpty(binding?.lastName as EditText)
 
             }
-
-            override fun afterTextChanged(s: Editable?) {}
         })
-        binding?.userName?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
+        binding?.userName?.addTextChangedListener(object : EmptyTextWatcher()  {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 userName=s.toString()
                 checkEdittextNotEmpty(binding?.userName as EditText)
-
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+
         })
          binding?.mcontinue?.setOnClickListener {
              registrationViewModel.firstName=firstName
              registrationViewModel.lastName=lastName
              registrationViewModel.userName=userName
-             findNavController().navigate(R.id.action_createAccountFragment_to_signupAccount)
+             findNavController().navigate(R.id.action_createAccountFragment_to_signinFragment)
 
          }
     }

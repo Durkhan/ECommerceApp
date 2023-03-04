@@ -11,5 +11,6 @@
     <attr name="carrot" format="color"/>
     <attr name="focused_edittext_drawableTintColor" format="color"/>
     <attr name="not_focused_edittext_drawableTintColor" format="color"/>
+    <attr name="discount_color" format="color"></attr>
 
 </resources>

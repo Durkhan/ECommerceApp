@@ -16,10 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentCreateEmailPasswordAccountBinding
-import com.tasks.ecommerceapp.utils.CheckViewsValid
-import com.tasks.ecommerceapp.utils.Results
-import com.tasks.ecommerceapp.utils.isEmail
-import com.tasks.ecommerceapp.utils.randomNumber
+import com.tasks.ecommerceapp.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -45,36 +42,19 @@ class SignupEmailAndPasswordAccount:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.email?.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
+        binding?.email?.addTextChangedListener(object:EmptyTextWatcher(){
             override fun onTextChanged(emailText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 email=emailText.toString()
                 checkEmailorPasswordisValid(binding?.email as EditText)
             }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-
         })
-        binding?.password?.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
+        binding?.password?.addTextChangedListener(object:EmptyTextWatcher(){
             override fun onTextChanged(passwordText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 password=passwordText.toString()
                 checkEmailorPasswordisValid(binding?.password as EditText)
             }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-
         })
+
         binding?.signup?.setOnClickListener {
             sendVerificationNumber(email)
         }

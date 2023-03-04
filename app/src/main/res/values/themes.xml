@@ -20,6 +20,7 @@
         <item name="grey_20">@color/grey_20</item>
         <item name="grey_40">@color/grey_40</item>
         <item name="carrot">@color/carrot</item>
+        <item name="discount_color">@color/discount_color</item>
         <item name="not_focused_edittext_drawableTintColor">@color/grey_40</item>
         <item name="focused_edittext_drawableTintColor">@color/textColor_light</item>
 
