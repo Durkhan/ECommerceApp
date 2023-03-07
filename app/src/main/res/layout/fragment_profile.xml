@@ -13,8 +13,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.01">
+
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
-            android:layout_toRightOf="@+id/imageButton"
+            android:layout_toRightOf="@+id/back"
             android:fontFamily="@font/nunito_font_400"
             android:text="@string/fill_your_profile"
             android:textColor="?attr/color_secondary"
@@ -96,7 +97,7 @@
     <EditText
         android:id="@+id/date"
         style="@style/MyEditTextStyle"
-        android:inputType="text"
+        android:inputType="date"
         android:drawableEnd="@drawable/ic_calendar"
         android:hint="@string/date"
         app:layout_constraintVertical_bias="0.05"
@@ -108,16 +109,18 @@
     <EditText
         android:id="@+id/telephone"
         style="@style/MyEditTextStyle"
-        android:inputType="text"
-        android:drawableStart="@drawable/ic_calendar"
+        android:inputType="phone"
+        android:drawableStart="@drawable/flag"
         android:hint="@string/telephone"
+        android:drawableTint="@null"
         android:drawablePadding="10dp"
         app:layout_constraintVertical_bias="0.2"
         app:layout_constraintBottom_toTopOf="@+id/gender"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date"
-        tools:ignore="TextFields" />
+        tools:ignore="TextFields"
+        tools:targetApi="m" />
     <EditText
         android:id="@+id/gender"
         style="@style/MyEditTextStyle"
@@ -149,6 +152,7 @@
         android:id="@+id/skip"
         style="@style/CustomButtonStyle"
         android:text="@string/skip"
+        android:enabled="true"
         android:textColor="?attr/color_secondary"
         android:background="@drawable/skip_background"
         app:layout_constraintBottom_toBottomOf="parent"

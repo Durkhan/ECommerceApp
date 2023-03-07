@@ -99,6 +99,10 @@ dependencies {
      //paging
     implementation 'androidx.paging:paging-runtime-ktx:3.1.0'
 
+    //cloudinary
+    implementation 'com.cloudinary:cloudinary-android:1.24.0'
+
+
 
 
 

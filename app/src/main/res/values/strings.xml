@@ -36,7 +36,7 @@
     <string name="resend_code">Resend</string>
     <string name="verification_code_error_messase">Verification code is not correct</string>
     <string name="sign_in_to_account">Sing in to account</string>
-    <string name="forgot_the_password">Forgot the password?</string>
+    <string name="forgot_the_password">Change the password?</string>
     <string name="recovery">Recovery</string>
     <string name="get_sign_in">Get help signin in</string>
     <string name="enter_email_or_password_des">Enter the email address or username\nassociated with your account</string>
@@ -44,8 +44,8 @@
     <string name="enter_recovery_code">Enter recovery code</string>
     <string name="recovery_code_has_been_sent_to">Recovery code has been sent\nto</string>
     <string name="create_new_password">Create a new password</string>
-    <string name="duplicate_new_password">Duplicate new password</string>
-    <string name="enter_new_password">Enter new password</string>
+    <string name="duplicate_new_password">Enter new password</string>
+    <string name="enter_new_password">Enter old password</string>
     <string name="change">Change</string>
     <string name="passwords_dont_match">Passwords don\'t match</string>
     <string name="congrats">Congratulations!</string>
@@ -81,4 +81,6 @@
     <string name="add_to_card">Add to card</string>
     <string name="checkout">Checkout</string>
     <string name="total_price">Total price</string>
+    <string name="user_already_exists">User already exists,please try another username or email</string>
+    <string name="password_is_incorrect">password is incorrect</string>
 </resources>
