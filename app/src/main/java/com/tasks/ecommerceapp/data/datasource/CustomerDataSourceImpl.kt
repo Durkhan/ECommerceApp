@@ -18,6 +18,7 @@ import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import com.tasks.ecommerceapp.presentation.allproducts.ProductFilterPagingSource
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 import javax.inject.Inject
 
 class CustomerDataSourceImpl @Inject constructor(
@@ -111,6 +112,10 @@ class CustomerDataSourceImpl @Inject constructor(
                 query = searchProductRequest.query
             )
         )
+    }
+
+    override suspend fun getProductReviews(productId: String): Response<ReviewsForProductResponse> {
+        return customerService.getReviewsForProduct(productId)
     }
 
     override suspend fun getProductReviews(productId: String): List<ProductReviewResponse> {

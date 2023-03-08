@@ -1,6 +1,5 @@
 package com.tasks.ecommerceapp.data.api
 
-import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
 import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRequest
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
@@ -66,4 +65,9 @@ interface CustomerService {
     @DELETE("cart/{productId}")
     suspend fun deleteProductFromCart(@Header("Authorization") token:String,@Path("productId") productId:String): CartResponse
 
+
+    @GET("customers/customer/{productId}")
+    suspend fun getReviewsForProduct(
+        @Path("productId") productId: String
+    ): retrofit2.Response<ReviewsForProductResponse>
 }
