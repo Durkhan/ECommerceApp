@@ -2,12 +2,16 @@ package com.tasks.ecommerceapp.presentation.allproducts
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,18 +21,21 @@ import com.tasks.ecommerceapp.databinding.FragmentAllProductsBinding
 import com.tasks.ecommerceapp.presentation.adapter.AllProductsAdapter
 import com.tasks.ecommerceapp.presentation.adapter.SearchedProductsAdapter
 import com.tasks.ecommerceapp.common.*
+import com.tasks.ecommerceapp.common.listener.OnItemClickListener
+import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>() {
+class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(),OnItemClickListener {
     private lateinit var allProductsAdapter:AllProductsAdapter
     private lateinit var searchedProductsAdapter: SearchedProductsAdapter
     private var searchedProducts= listOf<SearchProductResponse>()
     private val viewModel: AllProductViewModel by viewModels()
     override fun getViewBinding() = FragmentAllProductsBinding.inflate(layoutInflater)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,6 +47,11 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
                 searchProducts(searched.toString())
             }
         })
+
+
+        requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().popBackStack()
+        }
     }
 
     private fun searchProducts(searched: String) {
@@ -92,6 +104,7 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
     private fun initAllProductsRecyclerView() = with(binding) {
         allProductsAdapter = AllProductsAdapter(
             requireContext(),
+            this@AllProductsFragment,
             AllProductsAdapter.DiffCallback()
         )
         lifecycleScope.launch {
@@ -101,6 +114,11 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
                 }
         }
         rvAllProducts.adapter = allProductsAdapter
+    }
+
+    override fun onItemClick(productItem: ProductsItem) {
+        val action=AllProductsFragmentDirections.actionAllProductsFragmentToProductDetailFragment(productItem)
+        findNavController().navigate(action)
     }
 
 }

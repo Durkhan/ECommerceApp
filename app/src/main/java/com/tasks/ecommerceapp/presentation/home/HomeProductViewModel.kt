@@ -24,18 +24,19 @@ class HomeProductViewModel @Inject constructor(private val getCatalogUseCases: G
     private val _productsLiveData = MutableLiveData<ProductsResults<List<ProductResponse>>>()
     val productsLiveData: LiveData<ProductsResults<List<ProductResponse>>> = _productsLiveData
 
-    @SuppressLint("NullSafeMutableLiveData")
+
     fun getCatalogs() {
         viewModelScope.launch {
-            _catalogsLiveData.postValue(getCatalogUseCases())
+            val result=getCatalogUseCases()
+            _catalogsLiveData.postValue(result)
         }
     }
 
 
-    @SuppressLint("NullSafeMutableLiveData")
     fun getAllProducts(){
         viewModelScope.launch {
-            _productsLiveData.postValue(getAllProductsUseCase())
+            val result=getAllProductsUseCase()
+            _productsLiveData.postValue(result)
         }
     }
 

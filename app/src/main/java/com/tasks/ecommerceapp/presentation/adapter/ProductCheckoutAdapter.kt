@@ -1,33 +1,40 @@
 package com.tasks.ecommerceapp.presentation.adapter
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tasks.ecommerceapp.databinding.ItemCardCheckoutBinding
 import com.tasks.ecommerceapp.common.ProductCheckOutData
 
 class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewHolder>() {
     private val products = mutableListOf<ProductCheckOutData>()
-    private var currentProductPosition = 0
 
     var productDeleteEvent: ((Boolean) -> Unit?)? = null
     var productsTotalPriceEvent: ((Double) -> Unit?)? = null
 
     inner class ViewHolder(private val binding: ItemCardCheckoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind() = with(binding) {
+        @SuppressLint("SetTextI18n")
+        fun bind(context: Context) = with(binding) {
 
             chkSelect.isChecked = false
 
-            tvName.text = products[adapterPosition].name
+            tvName.text = products[absoluteAdapterPosition].name
+            tvPrice.text="US $${products[absoluteAdapterPosition].price}"
 
+            Glide.with(context)
+                .load(products[absoluteAdapterPosition].imageUrl)
+                .into(ivProduct)
             ibRemove.setOnClickListener {
                 if (tvProductCount.text.toString() == "1") {
                     return@setOnClickListener
                 }
                 val productCount = (tvProductCount.text.toString().toInt() - 1)
                 tvProductCount.text = productCount.toString()
-                products[adapterPosition].count = tvProductCount.text.toString().toInt()
+                products[absoluteAdapterPosition].count = tvProductCount.text.toString().toInt()
 
                 if (checkAllProductsSelection()) {
                     val totalPrice = calculateTotalPrice()
@@ -39,7 +46,7 @@ class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewH
             ibAdd.setOnClickListener {
                 val productCount = (tvProductCount.text.toString().toInt() + 1)
                 tvProductCount.text = productCount.toString()
-                products[adapterPosition].count = tvProductCount.text.toString().toInt()
+                products[absoluteAdapterPosition].count = tvProductCount.text.toString().toInt()
 
                 if (checkAllProductsSelection()) {
                     val totalPrice = calculateTotalPrice()
@@ -48,7 +55,7 @@ class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewH
             }
 
             chkSelect.setOnCheckedChangeListener { _, selected ->
-                products[adapterPosition].selected = selected
+                products[absoluteAdapterPosition].selected = selected
                 productDeleteEvent?.invoke(checkAllProductsSelection())
 
                 val totalPrice = calculateTotalPrice()
@@ -80,7 +87,7 @@ class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewH
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(holder.itemView.context)
     }
 
     override fun getItemCount(): Int {
@@ -93,7 +100,7 @@ class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewH
         notifyDataSetChanged()
     }
 
-    fun removeSelectedProducts() {
+    fun removeSelectedProducts():List<ProductCheckOutData> {
         val selectedProducts = mutableListOf<ProductCheckOutData>()
 
         products.forEach { item ->
@@ -101,15 +108,7 @@ class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewH
                 selectedProducts.add(item)
             }
         }
-
-
-        selectedProducts.forEach {
-            val index = products.indexOf(it)
-            products.remove(it)
-            notifyItemRemoved(index)
-            notifyItemRangeChanged(index, products.size)
-            productsTotalPriceEvent?.invoke(0.0)
-        }
+        return selectedProducts
     }
 
     fun calculateTotalPrice(): Double {

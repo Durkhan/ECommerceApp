@@ -18,6 +18,9 @@ import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterReque
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.common.Results
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
+import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
+import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 import java.io.IOException
@@ -167,4 +170,43 @@ class CustomerRepository @Inject constructor(
         }
     }
 
+    suspend fun getProductReviews(productId:String):ProductsResults<List<ProductReviewResponse>>{
+        return try {
+            ProductsResults.Loading<List<ProductReviewResponse>>(true)
+            val response = customerDataSource.getProductReviews(productId)
+            ProductsResults.Success(response)
+        }catch (e:Exception){
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+
+
+    suspend fun addToCart(token: String,productId:String): ProductsResults<CartResponse>{
+        return try {
+            ProductsResults.Loading<CartResponse>(true)
+            val response = customerDataSource.addToCart(token,productId)
+            ProductsResults.Success(response)
+        }catch (e:Exception){
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+
+    suspend fun getCartProducts(token: String): ProductsResults<CartResponse> {
+        return try {
+            ProductsResults.Loading<CartResponse>(true)
+            val response = customerDataSource.getCartProducts(token)
+            ProductsResults.Success(response)
+        } catch (e: Exception) {
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+    suspend fun deleteCartFromProduct(token: String,productId:String): ProductsResults<CartResponse>{
+        return try {
+            ProductsResults.Loading<CartResponse>(true)
+            val response = customerDataSource.deleteProductFromCart(token,productId)
+            ProductsResults.Success(response)
+        }catch (e:Exception){
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
+    }
 }

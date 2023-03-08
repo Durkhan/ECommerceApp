@@ -12,7 +12,7 @@ class ImgSliderAdapter : RecyclerView.Adapter<ImgSliderAdapter.ViewHolder>() {
     inner class ViewHolder(private val binding: ItemImageSliderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            binding.ivSlidePointer.isEnabled = adapterPosition == currentProductPosition
+            binding.ivSlidePointer.isEnabled = absoluteAdapterPosition == currentProductPosition
         }
     }
 
@@ -34,10 +34,10 @@ class ImgSliderAdapter : RecyclerView.Adapter<ImgSliderAdapter.ViewHolder>() {
         return productImgSliderData.size
     }
 
-    fun submitImgSliderData(data: List<Int>) {
+    fun submitImgSliderData(data: Int) {
         productImgSliderData.clear()
-        productImgSliderData.addAll(data)
-        notifyDataSetChanged()
+        for (i in 1..data)
+            productImgSliderData.add(i)
     }
 
     fun updateProductPosition(position: Int) {

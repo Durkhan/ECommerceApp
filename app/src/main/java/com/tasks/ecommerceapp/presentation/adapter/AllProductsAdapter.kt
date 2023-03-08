@@ -13,14 +13,16 @@ import com.tasks.ecommerceapp.databinding.ItemProductsAllListBinding
 import com.tasks.ecommerceapp.databinding.ItemProductsGroupBinding
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.common.ProductListType
+import com.tasks.ecommerceapp.common.listener.OnItemClickListener
+
 
 class AllProductsAdapter(
     private var context: Context?,
+    private var onItemClickListener: OnItemClickListener,
     diffCallback: DiffUtil.ItemCallback<ProductsItem>
 ) : PagingDataAdapter<ProductsItem, RecyclerView.ViewHolder>(diffCallback) {
 
     private var productsType = ProductListType.LIST_TYPE
-
     class ViewHolderGroup(private val binding: ItemProductsGroupBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -37,7 +39,7 @@ class AllProductsAdapter(
             tvPrice.text= "US $$currentPrice"
             tvPriceBeforeDiscount.text="US $$previousPrice"
 
-            if (currentPrice!=previousPrice){
+            if (currentPrice!=previousPrice && previousPrice!=0.0){
                 val discountPercent=discount.div(previousPrice).times(100)
                 tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
                 tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -46,6 +48,9 @@ class AllProductsAdapter(
                 tvProductDiscount.text="0%"
                 tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
             }
+
+
+
 
         }
         }
@@ -79,10 +84,6 @@ class AllProductsAdapter(
 
     }
 
-    override fun getItemCount(): Int {
-
-        return super.getItemCount()
-    }
     override fun getItemViewType(position: Int): Int {
         return productsType.type
     }
@@ -121,6 +122,9 @@ class AllProductsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item=getItem(position)
+       holder.itemView.setOnClickListener {
+            onItemClickListener.onItemClick(item!!)
+        }
         when (holder.itemViewType) {
             ProductListType.GROUP_TYPE.type -> {
                 item?.let { (holder as ViewHolderGroup).bind(it,context) }
@@ -141,7 +145,7 @@ class AllProductsAdapter(
     }
     class DiffCallback : DiffUtil.ItemCallback<ProductsItem>() {
         override fun areItemsTheSame(oldItem: ProductsItem, newItem: ProductsItem): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem._id.toString() == newItem._id.toString()
         }
 
         override fun areContentsTheSame(oldItem: ProductsItem, newItem: ProductsItem): Boolean {

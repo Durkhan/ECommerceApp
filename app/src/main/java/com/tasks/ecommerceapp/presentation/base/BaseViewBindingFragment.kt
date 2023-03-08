@@ -27,4 +27,5 @@ abstract class BaseViewBindingFragment<VB : ViewBinding> : Fragment() {
         super.onDestroy()
     }
 
+
 }

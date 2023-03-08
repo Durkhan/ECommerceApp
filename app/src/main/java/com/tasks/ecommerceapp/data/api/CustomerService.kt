@@ -1,18 +1,17 @@
 package com.tasks.ecommerceapp.data.api
 
-import com.tasks.ecommerceapp.data.model.customer.product.SearchProductRequest
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
+import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRequest
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
 import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
-import com.tasks.ecommerceapp.data.model.customer.product.ProductFilterResponse
-import com.tasks.ecommerceapp.data.model.customer.product.ProductResponse
-import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
+import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
-import okhttp3.Response
+import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import retrofit2.http.*
 
 interface CustomerService {
@@ -54,4 +53,17 @@ interface CustomerService {
 
     @POST("products/search")
     suspend fun getSearchedProducts(@Body searched: SearchProductRequest?):List<SearchProductResponse>
+
+    @GET("comments/product/{productId}")
+    suspend fun getProductReviews(@Path("productId") productId:String):List<ProductReviewResponse>
+
+    @PUT("cart/{productId}")
+    suspend fun addToCart(@Header("Authorization") token:String,@Path("productId") productId:String): CartResponse
+
+    @GET("cart/")
+    suspend fun getCartProducts(@Header("Authorization") token:String): CartResponse
+
+    @DELETE("cart/{productId}")
+    suspend fun deleteProductFromCart(@Header("Authorization") token:String,@Path("productId") productId:String): CartResponse
+
 }

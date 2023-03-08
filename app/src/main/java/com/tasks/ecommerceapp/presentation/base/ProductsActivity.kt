@@ -2,7 +2,9 @@ package com.tasks.ecommerceapp.presentation.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.ActivityProductsBinding
 import com.tasks.ecommerceapp.extensions.hide
@@ -19,6 +21,37 @@ class ProductsActivity : AppCompatActivity() {
         binding = ActivityProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         configureBottomNavVisibility()
+        navigateFragmentsFromBottomView()
+    }
+
+    private fun navigateFragmentsFromBottomView() {
+        val navController = findNavController(R.id.fragmentContainerView)
+        NavigationUI.setupWithNavController(binding.bottomNav, navController)
+
+
+        binding.bottomNav.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.home -> {
+                    navController.navigate(R.id.homeProductsFragment)
+                    true
+                }
+                R.id.orders -> {
+//                    navController.navigate(R.id.or)
+                    true
+                }
+                R.id.card -> {
+                    navController.navigate(R.id.cardFragment)
+                    true
+                }
+                R.id.profile -> {
+                    navController.navigate(R.id.profileFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+
+
     }
 
     private fun configureBottomNavVisibility() = with(binding) {
@@ -31,4 +64,5 @@ class ProductsActivity : AppCompatActivity() {
             }
         }
     }
+
 }

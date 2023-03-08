@@ -30,7 +30,6 @@ class HomeProductsFragment : BaseViewBindingFragment<FragmentHomeProductsBinding
           getCatalog()
           getAllProducts()
 
-
         requireActivity().onBackPressedDispatcher.addCallback {
            requireActivity().finishAffinity()
         }
