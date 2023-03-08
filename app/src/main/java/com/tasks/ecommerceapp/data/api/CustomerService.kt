@@ -1,14 +1,11 @@
 package com.tasks.ecommerceapp.data.api
 
-import com.tasks.ecommerceapp.data.model.customer.product.SearchProductRequest
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRequest
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
 import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
-import com.tasks.ecommerceapp.data.model.customer.product.ProductFilterResponse
-import com.tasks.ecommerceapp.data.model.customer.product.ProductResponse
-import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
+import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
@@ -54,4 +51,9 @@ interface CustomerService {
 
     @POST("products/search")
     suspend fun getSearchedProducts(@Body searched: SearchProductRequest?):List<SearchProductResponse>
+
+    @GET("customers/customer/{productId}")
+    suspend fun getReviewsForProduct(
+        @Path("productId") productId: String
+    ): retrofit2.Response<ReviewsForProductResponse>
 }
