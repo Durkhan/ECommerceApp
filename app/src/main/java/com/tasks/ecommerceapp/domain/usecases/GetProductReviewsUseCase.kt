@@ -10,6 +10,6 @@ class GetProductReviewsUseCase @Inject constructor(
     private var customerRepository: CustomerRepository
 ) {
     suspend operator fun invoke(productId:String):ProductsResults<List<ProductReviewResponse>>{
-        return customerRepository.getProductReviews(productId)
+        return customerRepository.getProductReview(productId)
     }
 }

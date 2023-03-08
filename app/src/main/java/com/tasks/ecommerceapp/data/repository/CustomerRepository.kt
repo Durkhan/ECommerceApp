@@ -18,7 +18,6 @@ import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
@@ -166,10 +165,10 @@ class CustomerRepository @Inject constructor(
         }
     }
 
-    suspend fun getProductReviews(productId:String):ProductsResults<List<ProductReviewResponse>>{
+    suspend fun getProductReview(productId:String):ProductsResults<List<ProductReviewResponse>>{
         return try {
             ProductsResults.Loading<List<ProductReviewResponse>>(true)
-            val response = customerDataSource.getProductReviews(productId)
+            val response = customerDataSource.getProductReview(productId)
             ProductsResults.Success(response)
         }catch (e:Exception){
             ProductsResults.Error(e.message ?: "Unknown error occurred")
@@ -196,6 +195,7 @@ class CustomerRepository @Inject constructor(
             ProductsResults.Error(e.message ?: "Unknown error occurred")
         }
     }
+
     suspend fun deleteCartFromProduct(token: String,productId:String): ProductsResults<CartResponse>{
         return try {
             ProductsResults.Loading<CartResponse>(true)
@@ -205,8 +205,4 @@ class CustomerRepository @Inject constructor(
             ProductsResults.Error(e.message ?: "Unknown error occurred")
         }
     }
-    suspend fun getReviewsForProduct(productId: String): Response<ReviewsForProductResponse> {
-        return customerDataSource.getProductReviews(productId)
-    }
-
 }

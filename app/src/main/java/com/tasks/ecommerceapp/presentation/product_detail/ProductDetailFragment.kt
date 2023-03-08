@@ -134,12 +134,23 @@ class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBindi
             else {
                 tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
             }
+
+
+
             setProductImagesRecycleView(productItem,discountPercent)
             getProductReviews(productItem)
             setSimilarProducts(productItem.categories.toString())
             addToCart(productItem)
+            sendProductItemReview(productItem)
         }
 
+    }
+
+    private fun sendProductItemReview(productItem: ProductsItem) {
+        binding.itemActionReviews.setOnClickListener {
+            val action=ProductDetailFragmentDirections.actionProductDetailFragmentToProductReviewsFragment(productItem)
+            findNavController().navigate(action)
+        }
     }
 
     private fun setProductImagesRecycleView(productItem: ProductsItem,discountPercent: Double) {

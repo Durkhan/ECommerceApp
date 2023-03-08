@@ -52,7 +52,9 @@ class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDet
             }
 
         })
-        var productItem=args.productsItem
+
+
+        val productItem=args.productsItem
         imgSliderAdapter.submitImgSliderData(productItem?.imageUrls?.size!!)
         assignProductDetails(productItem)
 
@@ -82,50 +84,61 @@ class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDet
     }
 
     private fun getProductReviews(productItem: ProductsItem?) {
-            val productId =productItem?._id.toString()
-            viewModel.getProductReviews(productId)
-            viewModel.reviewsLiveData.observe(viewLifecycleOwner){result->
-                when(result){
-                    is ProductsResults.Success -> {
-                        binding.reviewsNumber.text=result.data.size.toString()
-                    }
-                    is ProductsResults.Error ->{
-                        Log.d("ProductsResults.Error ",result.exception)
-                    }
-                    else -> {}
+        val productId =productItem?._id.toString()
+        viewModel.getProductReviews(productId)
+        viewModel.reviewsLiveData.observe(viewLifecycleOwner){result->
+            when(result){
+                is ProductsResults.Success -> {
+                    binding.reviewsNumber.text=result.data.size.toString()
                 }
+                is ProductsResults.Error ->{
+                    Log.d("ProductsResults.Error ",result.exception)
+                }
+                else -> {}
             }
         }
+    }
 
-        @SuppressLint("SetTextI18n")
-        private fun assignProductDetails(productItem: ProductsItem) {
-            with(binding){
-                val currentPrice=productItem.currentPrice
-                val previousPrice=productItem.previousPrice
-                val discount=previousPrice!!-currentPrice!!
-                var discountPercent=0.0
-                tvPrice.text= "US $$currentPrice"
-                tvPriceBeforeDiscount.text="US $$previousPrice"
-                tvDesc.text=productItem.description
-                tvProductName.text=productItem.name
-                if (currentPrice!=previousPrice && previousPrice!=0.0){
-                    discountPercent=discount.div(previousPrice).times(100)
-                    tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                }
-                else {
-                    tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
-                }
-                setProductImagesRecycleView(productItem,discountPercent)
-                getProductReviews(productItem)
-                setSimilarProducts(productItem.categories.toString())
-                addToCart(productItem)
+    @SuppressLint("SetTextI18n")
+    private fun assignProductDetails(productItem: ProductsItem) {
+        with(binding){
+            val currentPrice=productItem.currentPrice
+            val previousPrice=productItem.previousPrice
+            val discount=previousPrice!!-currentPrice!!
+            var discountPercent=0.0
+            tvPrice.text= "US $$currentPrice"
+            tvPriceBeforeDiscount.text="US $$previousPrice"
+            tvDesc.text=productItem.description
+            tvProductName.text=productItem.name
+            if (currentPrice!=previousPrice && previousPrice!=0.0){
+                discountPercent=discount.div(previousPrice).times(100)
+                tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             }
+            else {
+                tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
+            }
+            setProductImagesRecycleView(productItem,discountPercent)
+            getProductReviews(productItem)
+            setSimilarProducts(productItem.categories.toString())
+            addToCart(productItem)
+            sendProductItemReview(productItem)
         }
+    }
 
-        private fun setProductImagesRecycleView(productItem: ProductsItem,discountPercent: Double) {
-            val adapter = ProductFullDetailImagesAdapter(requireContext(),productItem.imageUrls!!,discountPercent)
-            binding.rvProductImages.adapter = adapter
+
+    private fun sendProductItemReview(productItem: ProductsItem) {
+        binding.itemActionReviews.setOnClickListener {
+            val action=ProductFullDetailFragmentDirections.actionProductFullDetailFragmentToProductReviewsFragment(productItem)
+            findNavController().navigate(action)
         }
+    }
+
+
+    private fun setProductImagesRecycleView(productItem: ProductsItem,discountPercent: Double) {
+        val adapter = ProductFullDetailImagesAdapter(requireContext(),productItem.imageUrls!!,discountPercent)
+        binding.rvProductImages.adapter = adapter
+    }
+
 
     private fun setSimilarProducts(category: String) {
         binding.rvSimilarProducts.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -141,6 +154,7 @@ class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDet
         }
         binding.rvSimilarProducts.adapter = similarProductsAdapter
     }
+
 
     override fun onSimilarItemClick(productItem: ProductsItem) {
         assignProductDetails(productItem)

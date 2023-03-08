@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.RecyclerView
-import com.tasks.ecommerceapp.data.model.customer.product.ReviewsForProductResponse
+import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import com.tasks.ecommerceapp.databinding.ItemProductReviewsBinding
 
 class ProductReviewsAdapter : RecyclerView.Adapter<ProductReviewsAdapter.ViewHolder>() {
 
-    private val reviewsList = mutableListOf<ReviewsForProductResponse>()
+    private val reviewsList = mutableListOf<ProductReviewResponse>()
 
     class ViewHolder(private val binding: ItemProductReviewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: ReviewsForProductResponse) = with(binding) {
+        fun bind(product: ProductReviewResponse) = with(binding) {
             tvComment.text = product.content
             tvCommentDate.text = product.customer?.date
             tvCustomerName.text = product.customer?.firstName
@@ -43,7 +43,7 @@ class ProductReviewsAdapter : RecyclerView.Adapter<ProductReviewsAdapter.ViewHol
 
     override fun getItemCount() = reviewsList.size
 
-    fun submitList(reviewsList: List<ReviewsForProductResponse>) {
+    fun submitList(reviewsList: List<ProductReviewResponse>) {
         this.reviewsList.clear()
         this.reviewsList.addAll(reviewsList)
         notifyDataSetChanged()

@@ -36,6 +36,10 @@
         <action
             android:id="@+id/action_productDetailFragment_to_productFullDetailFragment"
             app:destination="@id/productFullDetailFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_toProductReviewsFragment"
+            app:destination="@id/ProductReviewsFragment" />
+
     </fragment>
 
     <fragment
@@ -47,6 +51,9 @@
             app:argType="com.tasks.ecommerceapp.data.model.customer.product.ProductsItem"
             android:name="productsItem"
             app:nullable="true"/>
+        <action
+            android:id="@+id/action_productFullDetailFragment_toProductReviewsFragment"
+            app:destination="@id/ProductReviewsFragment" />
     </fragment>
 
     <fragment
@@ -54,5 +61,16 @@
         android:name="com.tasks.ecommerceapp.presentation.cart.CardFragment"
         android:label="fragment_card"
         tools:layout="@layout/fragment_card" />
+    <fragment
+        android:id="@+id/ProductReviewsFragment"
+        android:name="com.tasks.ecommerceapp.presentation.product_review.ProductReviewsFragment"
+        android:label="ProductReviewsFragment"
+        tools:layout="@layout/fragment_product_reviews">
+        <argument
+            app:argType="com.tasks.ecommerceapp.data.model.customer.product.ProductsItem"
+            android:name="productsItem"
+            app:nullable="true"/>
+    </fragment>
+
 
 </navigation>

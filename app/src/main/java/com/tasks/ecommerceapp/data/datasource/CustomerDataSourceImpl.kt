@@ -114,11 +114,7 @@ class CustomerDataSourceImpl @Inject constructor(
         )
     }
 
-    override suspend fun getProductReviews(productId: String): Response<ReviewsForProductResponse> {
-        return customerService.getReviewsForProduct(productId)
-    }
-
-    override suspend fun getProductReviews(productId: String): List<ProductReviewResponse> {
+    override suspend fun getProductReview(productId: String): List<ProductReviewResponse> {
         return customerService.getProductReviews(productId)
     }
 
