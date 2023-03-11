@@ -55,11 +55,6 @@ interface CustomerService {
     @POST("products/search")
     suspend fun getSearchedProducts(@Body searched: SearchProductRequest?):List<SearchProductResponse>
 
-    @GET("customers/customer/{productId}")
-    suspend fun getReviewsForProduct(
-        @Path("productId") productId: String
-    ): Response<ReviewsForProductResponse>
-
     @GET("orders")
     suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>>
 

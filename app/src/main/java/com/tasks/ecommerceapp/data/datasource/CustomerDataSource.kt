@@ -14,6 +14,7 @@ import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRespo
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 
 interface CustomerDataSource {
     suspend fun registerCustomer(customer: CustomerRegisterRequest): CustomerRegisterResponse
@@ -29,6 +30,5 @@ interface CustomerDataSource {
     suspend fun addToCart(token: String,productId:String): CartResponse
     suspend fun getCartProducts(token: String):CartResponse
     suspend fun deleteProductFromCart(token: String,productId: String):CartResponse
-    suspend fun getProductReviews(productId:String):Response<ReviewsForProductResponse>
     suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>>
 }
