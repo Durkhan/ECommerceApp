@@ -1,16 +1,18 @@
 package com.tasks.ecommerceapp.data.api
 
 import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
+import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRequest
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
-import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
+import retrofit2.Response
 import retrofit2.http.*
 
 interface CustomerService {
@@ -52,6 +54,14 @@ interface CustomerService {
 
     @POST("products/search")
     suspend fun getSearchedProducts(@Body searched: SearchProductRequest?):List<SearchProductResponse>
+
+    @GET("customers/customer/{productId}")
+    suspend fun getReviewsForProduct(
+        @Path("productId") productId: String
+    ): Response<ReviewsForProductResponse>
+
+    @GET("orders")
+    suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>>
 
     @GET("comments/product/{productId}")
     suspend fun getProductReviews(@Path("productId") productId:String):List<ProductReviewResponse>

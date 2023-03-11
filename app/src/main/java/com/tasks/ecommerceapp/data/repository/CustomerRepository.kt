@@ -10,6 +10,7 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
@@ -163,6 +164,14 @@ class CustomerRepository @Inject constructor(
         } catch (e: Exception) {
             ProductsResults.Error(e.message ?: "Unknown error occurred")
         }
+    }
+
+    suspend fun getReviewsForProduct(productId: String): Response<ReviewsForProductResponse> {
+        return customerDataSource.getProductReviews(productId)
+    }
+
+    suspend fun getAllOrders() : Response<List<GetAllOrdersResponse>>{
+        return customerDataSource.getAllOrders()
     }
 
     suspend fun getProductReview(productId:String):ProductsResults<List<ProductReviewResponse>>{

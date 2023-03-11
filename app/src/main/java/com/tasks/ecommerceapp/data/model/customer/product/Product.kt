@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class Product(
 
     @SerializedName("enabled") var enabled: Boolean? = null,
-    @SerializedName("imageUrls") var imageUrls: ArrayList<String> = arrayListOf(),
+    @SerializedName("imageUrls") var imageUrls: List<String> = listOf(),
     @SerializedName("quantity") var quantity: Int? = null,
     @SerializedName("_id") var id: String? = null,
     @SerializedName("name") var name: String? = null,

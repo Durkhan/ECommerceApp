@@ -7,6 +7,7 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
@@ -28,4 +29,6 @@ interface CustomerDataSource {
     suspend fun addToCart(token: String,productId:String): CartResponse
     suspend fun getCartProducts(token: String):CartResponse
     suspend fun deleteProductFromCart(token: String,productId: String):CartResponse
+    suspend fun getProductReviews(productId:String):Response<ReviewsForProductResponse>
+    suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>>
 }
