@@ -9,6 +9,7 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
@@ -118,5 +119,7 @@ class CustomerDataSourceImpl @Inject constructor(
         return customerService.getReviewsForProduct(productId)
     }
 
-
+    override suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>> {
+        return customerService.getAllOrders()
+    }
 }

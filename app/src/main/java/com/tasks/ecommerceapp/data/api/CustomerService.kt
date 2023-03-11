@@ -1,15 +1,16 @@
 package com.tasks.ecommerceapp.data.api
 
+import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRequest
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
-import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
-import okhttp3.Response
+import retrofit2.Response
 import retrofit2.http.*
 
 interface CustomerService {
@@ -21,15 +22,23 @@ interface CustomerService {
 
 
     @GET("customers/customer")
-    suspend fun getCustomer(@Header("Authorization") token:String,@Query("customer") customer: String,): CustomerResponse
+    suspend fun getCustomer(
+        @Header("Authorization") token: String,
+        @Query("customer") customer: String,
+    ): CustomerResponse
 
 
     @PUT("customers/password")
-    suspend fun changePassword(@Header("Authorization") token:String,
-                               @Body request: ChangePasswordRequest): ChangePasswordResponse
+    suspend fun changePassword(
+        @Header("Authorization") token: String,
+        @Body request: ChangePasswordRequest
+    ): ChangePasswordResponse
 
     @PUT("customers/")
-    suspend fun updateCustomer(@Header("Authorization") token:String,@Body customer: CustomerRegisterRequest): CustomerRegisterResponse
+    suspend fun updateCustomer(
+        @Header("Authorization") token: String,
+        @Body customer: CustomerRegisterRequest
+    ): CustomerRegisterResponse
 
 
     @GET("catalog")
@@ -50,10 +59,14 @@ interface CustomerService {
 
 
     @POST("products/search")
-    suspend fun getSearchedProducts(@Body searched: SearchProductRequest?):List<SearchProductResponse>
+    suspend fun getSearchedProducts(@Body searched: SearchProductRequest?): List<SearchProductResponse>
 
     @GET("customers/customer/{productId}")
     suspend fun getReviewsForProduct(
         @Path("productId") productId: String
-    ): retrofit2.Response<ReviewsForProductResponse>
+    ): Response<ReviewsForProductResponse>
+
+    @GET("orders")
+    suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>>
+
 }

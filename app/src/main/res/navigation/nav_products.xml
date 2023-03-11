@@ -36,4 +36,9 @@
         android:name="com.tasks.ecommerceapp.presentation.product_detail.CardFragment"
         android:label="fragment_card"
         tools:layout="@layout/fragment_card" />
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.tasks.ecommerceapp.presentation.orders.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" />
 </navigation>
