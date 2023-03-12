@@ -1,7 +1,10 @@
 package com.tasks.ecommerceapp.presentation.profile
 
+import android.annotation.SuppressLint
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +23,8 @@ import com.tasks.ecommerceapp.common.*
 import com.tasks.ecommerceapp.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.io.File
+
 
 @AndroidEntryPoint
 class ProfileFragment :Fragment() {
@@ -82,34 +87,37 @@ class ProfileFragment :Fragment() {
 
 
          binding?.back?.setOnClickListener {
-             findNavController().popBackStack()
+             requireActivity().finishAffinity()
          }
 
         requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().popBackStack()
+            requireActivity().finishAffinity()
         }
 
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
-                viewModel.selectedImage.postValue(uri)
+                Glide.with(this)
+                    .load(uri)
+                    .transform(CircleCrop())
+                    .into(binding?.userPhoto!!)
+
+                viewModel.getUploadedImageUrl(
+                    uri,
+                    requireContext()
+                )
             }
+
+
         }
 
 
 
     }
 
+
     private fun choosePhoto() {
         binding?.choosePhoto?.setOnClickListener {
             selectImageFromGallery()
-            viewModel.selectedImage.observe(viewLifecycleOwner) { uri ->
-                if (uri != null) {
-                    Glide.with(this)
-                        .load(uri)
-                        .transform(CircleCrop())
-                        .into(binding?.userPhoto!!)
-                }
-            }
         }
     }
 
@@ -120,29 +128,35 @@ class ProfileFragment :Fragment() {
     }
 
     private fun updateCustomer() {
+        viewModel.imageUrl.observe(viewLifecycleOwner){
+            viewModel.avatarUrl=it
+        }
         binding?.mcontinue?.setOnClickListener {
             val date = binding?.date?.text.toString()
             val gender = binding?.gender?.text.toString()
-            lifecycleScope.launch {
-                var avatarUrl = ""
-                if (viewModel.selectedImage.value != null) {
-                    avatarUrl = viewModel.getUploadedImageUrl(
-                        viewModel.selectedImage.value!!,
-                        requireContext()
+
+
+
+            try {
+                lifecycleScope.launch {
+                    Log.d("Images",""+viewModel.avatarUrl)
+
+                    viewModel.updateCustomer(
+                        viewModel.getToken(),
+                        email = email,
+                        gender = gender,
+                        firstName = firstName,
+                        lastName = lastName,
+                        userName = userName,
+                        avatarUrl = viewModel.avatarUrl.toString(),
+                        date = date,
+                        telephone = phoneNumber
                     )
                 }
-                viewModel.updateCustomer(
-                    viewModel.getToken(),
-                    email = email,
-                    gender = gender,
-                    firstName = firstName,
-                    lastName = lastName,
-                    userName = userName,
-                    avatarUrl = avatarUrl,
-                    date = date,
-                    telephone = phoneNumber
-                )
+            }catch (e:Exception){
+
             }
+
             viewModel.updateCustomerResult.observe(viewLifecycleOwner) { result ->
                 when (result) {
                     is Results.Success -> {

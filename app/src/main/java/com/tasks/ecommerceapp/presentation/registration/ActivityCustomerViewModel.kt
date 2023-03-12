@@ -1,9 +1,12 @@
 package com.tasks.ecommerceapp.presentation.registration
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.auth0.jwt.JWT
+import com.auth0.jwt.interfaces.DecodedJWT
 import com.tasks.ecommerceapp.common.DataStoreManager
 import com.tasks.ecommerceapp.domain.usecases.ChangePasswordUseCase
 import com.tasks.ecommerceapp.domain.usecases.GetCustomerUseCase
@@ -16,14 +19,13 @@ import com.tasks.ecommerceapp.common.Results
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class ActivityCustomerViewModel @Inject constructor(
-    private val getCustomerUseCase: GetCustomerUseCase,
     private val registerCustomerUseCase: RegisterCustomerUseCase,
     private val sendVerificationUseCase: SendVerificationUseCase,
-    private val changePasswordUseCase: ChangePasswordUseCase,
     private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
     var firstName =""
@@ -32,12 +34,6 @@ class ActivityCustomerViewModel @Inject constructor(
     var toEmail=""
     var verificationCode=""
 
-
-    private val _changePasswordResult = MutableLiveData<Results<ChangePasswordResponse>>()
-    val changePasswordResult: LiveData<Results<ChangePasswordResponse>> = _changePasswordResult
-
-    private val _customer = MutableLiveData<Results<CustomerResponse>>()
-    val customer: LiveData<Results<CustomerResponse>> = _customer
 
 
     private val _registerResult = MutableLiveData<Results<CustomerRegisterResponse>>()
@@ -60,32 +56,36 @@ class ActivityCustomerViewModel @Inject constructor(
     fun sendVerificationNumber(toEmail: String, code: Int): LiveData<Unit>{
         val result = MutableLiveData<Unit>()
         viewModelScope.launch {
-            sendVerificationUseCase.invoke(toEmail, code)
+            sendVerificationUseCase(toEmail, code)
         }
         return result
     }
 
-
-
-    fun getCustomer(token:String,customer:String) {
-        viewModelScope.launch {
-            _customer.postValue(getCustomerUseCase.getCustomer(token,customer))
-        }
-    }
-
-
-
-    fun changePassword(authHeader:String,password: String, newPassword: String) {
-        viewModelScope.launch {
-            _changePasswordResult.postValue(changePasswordUseCase.changePassword(authHeader,password,newPassword))
-        }
-    }
 
     fun saveNotFistTime(){
         viewModelScope.launch {
             dataStoreManager.setFirstTime(false)
         }
     }
+
+    suspend fun isAccessTokenExpired(): Boolean {
+        return try{
+            val token=getToken().removePrefix("Bearer ")
+            val jwt: DecodedJWT = JWT.decode(token)
+            val expirationTime: Date = jwt.expiresAt
+
+            Date().after(expirationTime)
+        }catch (e:Exception){
+            Log.d("AccessTokenDecoded",e.message.toString())
+            true
+        }
+
+    }
+
+    suspend fun isDarkMode():Boolean{
+        return dataStoreManager.isDarkMode.first()
+    }
+
     suspend fun getToken():String{
             return dataStoreManager.token.first()
     }

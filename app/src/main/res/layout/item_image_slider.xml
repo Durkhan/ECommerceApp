@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/iv_slide_pointer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/margin_10_dp"
+        android:layout_height="@dimen/margin_10_dp"
         android:layout_marginEnd="@dimen/margin_small"
         android:src="@drawable/ic_image_slider"
         app:layout_constraintEnd_toEndOf="parent"

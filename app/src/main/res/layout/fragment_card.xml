@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundScreen"
     tools:context=".presentation.cart.CardFragment">
 
     <ImageButton
@@ -113,8 +114,12 @@
             android:layout_marginEnd="16dp"
             android:paddingHorizontal="@dimen/padding_huge"
             android:text="@string/checkout"
-            android:textColor="?attr/colorOnPrimary"
-            app:backgroundTint="?attr/button_backgroundColor"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:enabled="true"
+            android:textColor="@color/button_text_color"
+            android:background="@drawable/button_background"
+            app:backgroundTint="@color/color_secondary_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

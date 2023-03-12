@@ -20,12 +20,29 @@
     <color name="carrot">#FF725E</color>
     <color name="discount_color">#F2F2F2</color>
     <color name="button_backgroundColor">@color/textColor_light</color>
+    <color name="text_previous_color">#16212D</color>
+    <color name="editText_background_color">#16212D</color>
+    <color name="non_selected_edittext_backroun_light">#E0E0E0</color>
 
 
 
     ----> dark color
     <color name="background_dark">#131C26</color>
-    <color name="textColor_dark">#131C26</color>
-    <color name="dark_blue">#16212D</color>
+    <color name="textColor_dark">#F2F2F2</color>
+    <color name="color_secondary_dark">#CFCFCF</color>
+    <color name="button_text_color_dark">#16212D</color>
+    <color name="welcome_background_dark">@color/color_secondary_light</color>
+    <color name="grey_10_dark">#F1EEEE</color>
+    <color name="grey_20_dark">#CFCFCF</color>
+    <color name="grey_40_dark">#233447</color>
+    <color name="carrot_dark">#FF725E</color>
+    <color name="discount_color_dark">#F2F2F2</color>
+    <color name="button_backgroundColor_dark">@color/textColor_dark</color>
+    <color name="text_previous_color_dark">@color/grey_20_dark</color>
+    <color name="text_input_color_dark">#233447</color>
+    <color name="editText_background_color_dark">#F2F2F2</color>
+    <color name="non_selected_edittext_backroun_dark">#233447</color>
+
+
 
 </resources>

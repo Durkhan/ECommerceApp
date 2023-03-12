@@ -64,17 +64,13 @@ class CustomerRepository @Inject constructor(
         }
     }
 
-
-
     private fun setAuthToken(token: String?) {
         apiAuthenticator.setAuthToken(token)
     }
 
-
-
-    suspend fun getCustomer(token:String,customer:String): Results<CustomerResponse> {
+    suspend fun getCustomer(token:String): Results<CustomerResponse> {
         return try {
-            val response = customerDataSource.getCustomer(token,customer)
+            val response = customerDataSource.getCustomer(token)
             Results.Success(response)
         } catch (e: Exception) {
             Results.Error(e.message ?: "An error occurred")

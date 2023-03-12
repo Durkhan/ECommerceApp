@@ -64,7 +64,7 @@ class SearchedProductsAdapter(private val data: List<SearchProductResponse>) : R
             val previousPrice=data[absoluteAdapterPosition].previousPrice
             val discount=previousPrice!!-currentPrice!!
             tvPriceBeforeDiscount.text= "US $$previousPrice"
-            if (currentPrice!=previousPrice){
+            if (currentPrice!=previousPrice && previousPrice!=0.0){
                 val discountPercent=discount.div(previousPrice).times(100)
                 tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
                 tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG

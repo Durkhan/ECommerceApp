@@ -26,8 +26,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_default"
-                android:background="@null"
+                android:background="@android:color/transparent"
                 android:src="@drawable/ic_back"
+                app:tint="?attr/textColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <ImageButton
@@ -77,7 +78,7 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:fontFamily="@font/nunito_font_400"
                 android:text="asdsad"
-                android:textColor="?attr/textColor"
+                android:textColor="?attr/text_previous_color"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +113,7 @@ DescriptionDescriptionDescriptionDescription" />
                 android:fontFamily="@font/nunito_600"
                 android:maxLines="1"
                 android:text="asdsad"
-                android:textColor="@color/dark_blue"
+                android:textColor="?attr/text_previous_color"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/tv_price"
@@ -143,12 +144,12 @@ DescriptionDescriptionDescriptionDescription" />
                     android:id="@+id/ib_specification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_default"
-                    android:background="@color/white"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_baseline_chevron_right_24"
-                    />
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/margin_default"
+                    app:tint="?attr/textColor"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_chevron_right_24" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -185,12 +186,12 @@ DescriptionDescriptionDescriptionDescription" />
                     android:id="@+id/ib_review"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_default"
-                    android:background="@color/white"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_baseline_chevron_right_24"
-                    />
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/margin_default"
+                    app:tint="?attr/textColor"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_chevron_right_24" />
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/item_action_questions"
@@ -227,12 +228,12 @@ DescriptionDescriptionDescriptionDescription" />
                     android:id="@+id/ib_question"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_default"
-                    android:background="@color/white"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_baseline_chevron_right_24"
-                    />
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/margin_default"
+                    app:tint="?attr/textColor"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_chevron_right_24" />
             </RelativeLayout>
 
 
@@ -294,21 +295,25 @@ DescriptionDescriptionDescriptionDescription" />
             android:layout_width="0dp"
             android:layout_marginTop="@dimen/margin_default"
             android:background="@drawable/skip_background"
+            android:textColor="@color/button_text_color"
             android:enabled="true"
+            android:layout_marginStart="16dp"
             android:text="@string/add_to_card"
-            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toStartOf="@id/btn_buy_now"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_buy_now"
-            style="@style/CustomButtonStyle"
+            android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_marginStart="0dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/buy_now"
-            android:textColor="?attr/colorOnPrimary"
-            app:backgroundTint="?attr/button_backgroundColor"
+            android:textAllCaps="false"
+            android:enabled="true"
+            android:textColor="@color/button_text_color"
+            android:background="@drawable/button_background"
+            app:backgroundTint="@color/color_secondary_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_add_to_card"
             app:layout_constraintTop_toTopOf="@id/btn_add_to_card" />

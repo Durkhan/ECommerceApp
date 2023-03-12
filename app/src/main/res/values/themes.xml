@@ -1,32 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ECommerceApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+    <style name="Theme.ECommerceApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
 
-        <item name="backgroundScreen">@color/white</item>
-        <item name="textColor">@color/textColor_light</item>
-        <item name="color_secondary">@color/color_secondary_light</item>
-        <item name="button_text_color">@color/button_text_color</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="welcome_background">@color/welcome_background</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
-        <item name="grey_20">@color/grey_20</item>
-        <item name="grey_40">@color/grey_40</item>
-        <item name="carrot">@color/carrot</item>
-        <item name="discount_color">@color/discount_color</item>
-        <item name="not_focused_edittext_drawableTintColor">@color/grey_40</item>
-        <item name="focused_edittext_drawableTintColor">@color/textColor_light</item>
-
-        <item name="button_backgroundColor">@color/button_backgroundColor</item>
-        <!-- Status bar color. -->
-        <!-- Customize your theme here. -->
     </style>
 
 
@@ -38,7 +14,7 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">?attr/textColor</item>
         <item name="android:fontFamily">@font/nunito_font_400</item>
-        <item name="android:textColorHint">?attr/grey_40</item>
+        <item name="android:textColorHint">?attr/text_input_color</item>
         <item name="android:drawableTint" tools:ignore="NewApi">?attr/grey_20</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:imeOptions">actionDone</item>
@@ -60,6 +36,27 @@
         <item name="android:enabled">false</item>
     </style>
 
+    <style name="PinEdittextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginEnd">30dp</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:digits">1234567890</item>
+        <item name="pinBackgroundIsSquare">true</item>
+        <item name="pinTextBottomPadding">15dp</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">4</item>
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:textAlignment">center</item>
+        <item name="pinCharacterSpacing">40dp</item>
+        <item name="pinBackgroundDrawable">@drawable/pin_selected_background</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/barlow_bold_700</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
     <style name="CustomTextViewStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -77,6 +74,76 @@
     <style name="Theme.ECommerceApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.ECommerceApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+<!--    Light Theme   -->
+
+    <style name="LightTheme" parent="Theme.ECommerceApp">
+        <item name="colorPrimary">?attr/backgroundScreen</item>
+        <item name="colorPrimaryVariant">?attr/backgroundScreen</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="backgroundScreen">@color/white</item>
+        <item name="textColor">@color/textColor_light</item>
+        <item name="color_secondary">@color/color_secondary_light</item>
+        <item name="button_text_color">@color/button_text_color</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="welcome_background">@color/welcome_background</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="grey_20">@color/grey_20</item>
+        <item name="grey_40">@color/grey_40</item>
+        <item name="carrot">@color/carrot</item>
+        <item name="button_backgroundColor">@color/button_backgroundColor</item>
+        <item name="discount_color">@color/discount_color</item>
+        <item name="not_focused_edittext_drawableTintColor">@color/grey_40</item>
+        <item name="focused_edittext_drawableTintColor">@color/textColor_light</item>
+        <item name="text_previous_color">@color/color_secondary_light</item>
+        <item name="text_input_color">@color/grey_40</item>
+        <item name="selectable_edittext_background">@color/color_secondary_light</item>
+        <item name="non_selected_edittext_background">@color/non_selected_edittext_backroun_light</item>
+        <item name="chip_stroke_color">@color/carrot</item>
+        <item name="dark_light_icon_color">@color/carrot</item>
+        <item name="dark_light_background_color">@color/carrot</item>
+        <item name="dark_icon_color_background">@color/background_light</item>
+        <item name="search_hint_color">@color/grey_20</item>
+        <item name="search_drawable_tint">@color/background_dark</item>
+        <item name="dialog_background">@color/white</item>
+    </style>
+
+
+    <!--    Dark Theme   -->
+
+    <style name="DarkTheme" parent="Theme.ECommerceApp">
+        <item name="backgroundScreen">@color/background_dark</item>
+        <item name="textColor">@color/textColor_dark</item>
+        <item name="color_secondary">@color/color_secondary_dark</item>
+        <item name="button_text_color">@color/button_text_color_dark</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="welcome_background">@color/welcome_background_dark</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/background_dark</item>
+        <item name="grey_20">@color/text_input_color_dark </item>
+        <item name="grey_40">@color/grey_40</item>
+        <item name="carrot">@color/carrot_dark</item>
+        <item name="discount_color">@color/discount_color_dark</item>
+        <item name="not_focused_edittext_drawableTintColor">@color/grey_40_dark</item>
+        <item name="focused_edittext_drawableTintColor">@color/textColor_dark</item>
+        <item name="text_previous_color">@color/text_previous_color_dark</item>
+        <item name="text_input_color">#233447</item>
+        <item name="selectable_edittext_background">@color/editText_background_color_dark</item>
+        <item name="button_backgroundColor">@color/button_backgroundColor_dark</item>
+        <item name="non_selected_edittext_background">@color/non_selected_edittext_backroun_dark</item>
+        <item name="chip_stroke_color">@color/non_selected_edittext_backroun_dark</item>
+        <item name="dark_light_background_color">@color/background_dark</item>
+        <item name="dark_light_icon_color">@color/white</item>
+        <item name="dark_icon_color_background">@color/text_input_color_dark</item>
+        <item name="search_background_color">@color/color_secondary_light</item>
+        <item name="search_stroke_color">@color/text_input_color_dark</item>
+        <item name="search_hint_color">@color/text_input_color_dark</item>
+        <item name="search_drawable_tint">@color/background_light</item>
+        <item name="dialog_background">@color/color_secondary_light</item>
+    </style>
 
 
 </resources>

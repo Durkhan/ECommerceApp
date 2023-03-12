@@ -76,17 +76,12 @@ class SigninFragment:Fragment() {
             findNavController().navigate(R.id.createAccountFragment)
         }
 
-        changePassword()
+
         checkRemember()
 
 
     }
 
-    private fun changePassword() {
-        binding.forgotPassword.setOnClickListener {
-              findNavController().navigate(R.id.action_signinFragment_to_getRecoveryFragment)
-        }
-    }
     private fun checkRemember() {
         binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
             rememberMe = isChecked

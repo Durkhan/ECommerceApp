@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/spllashScreenFragment">
+    >
 
     <fragment
         android:id="@+id/spllashScreenFragment"
@@ -85,42 +85,12 @@
         android:id="@+id/signinFragment"
         android:name="com.tasks.ecommerceapp.presentation.signin.SigninFragment"
         android:label="SigninFragment" >
-        <action
-            android:id="@+id/action_signinFragment_to_getRecoveryFragment"
-            app:destination="@id/getRecoveryFragment" />
 
         <action
             android:id="@+id/action_signinFragment_to_signupAccount"
             app:destination="@id/signupAccount" />
-        <action
-            android:id="@+id/action_signinFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/getRecoveryFragment"
-        android:name="com.tasks.ecommerceapp.presentation.recovery.GetRecoveryFragment"
-        android:label="GetRecoveryFragment" >
 
-        <action
-            android:id="@+id/action_getRecoveryFragment_to_recoveryFragment"
-            app:destination="@id/recoveryFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/recoveryFragment"
-        android:name="com.tasks.ecommerceapp.presentation.recovery.RecoveryFragment"
-        android:label="RecoveryFragment" >
-        <action
-            android:id="@+id/action_recoveryFragment_to_changePasswordFragment"
-            app:destination="@id/changePasswordFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/changePasswordFragment"
-        android:name="com.tasks.ecommerceapp.presentation.recovery.ChangePasswordFragment"
-        android:label="ChangePasswordFragment" >
-        <action
-            android:id="@+id/action_changePasswordFragment_to_signinFragment"
-            app:destination="@id/signinFragment" />
-    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.tasks.ecommerceapp.presentation.profile.ProfileFragment"

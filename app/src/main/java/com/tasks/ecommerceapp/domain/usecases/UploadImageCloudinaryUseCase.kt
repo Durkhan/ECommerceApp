@@ -10,26 +10,33 @@ import javax.inject.Inject
 import com.tasks.ecommerceapp.common.Constants.CLOUDINARY_API_KEY
 import com.tasks.ecommerceapp.common.Constants.CLOUDINARY_API_SECRET
 import com.tasks.ecommerceapp.common.Constants.CLOUDINARY_CLOUD_NAME
+import com.tasks.ecommerceapp.common.Constants.CLOUDINARY_CLOUD_UPLOAD_PRESET
+import com.tasks.ecommerceapp.common.listener.UploadImageCallback
 
 class UploadImageCloudinaryUseCase @Inject constructor() {
 
-    suspend operator fun invoke(uri: Uri, context:Context):String{
+   operator fun invoke(
+        uri: Uri,
+        context: Context,
+        callback: UploadImageCallback
+    ){
 
         val config: HashMap<String, String> = HashMap()
         config["cloud_name"] = CLOUDINARY_CLOUD_NAME
         config["api_key"] = CLOUDINARY_API_KEY
         config["api_secret"] = CLOUDINARY_API_SECRET
         MediaManager.init(context, config)
-        var url: String? =null
 
-        MediaManager.get().upload(uri).unsigned("fspeqgfs").callback(object :UploadCallback{
+
+        MediaManager.get().upload(uri).unsigned(CLOUDINARY_CLOUD_UPLOAD_PRESET).callback(object :UploadCallback{
             override fun onStart(requestId: String?) {}
             override fun onProgress(requestId: String?, bytes: Long, totalBytes: Long) {}
 
             override fun onSuccess(requestId: String?, resultData: MutableMap<Any?, Any?>?) {
                 if (resultData != null) {
                     val publicId = resultData["public_id"] as String
-                    url = MediaManager.get().url().generate(publicId)
+                    val url = MediaManager.get().url().generate(publicId)
+                    callback.onUploadSuccess(url)
                 }
             }
 
@@ -40,7 +47,5 @@ class UploadImageCloudinaryUseCase @Inject constructor() {
             override fun onReschedule(requestId: String?, error: ErrorInfo?) {}
         }).dispatch()
 
-     return url.toString()
-
-    }
+   }
 }

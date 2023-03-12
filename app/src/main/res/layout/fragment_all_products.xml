@@ -18,16 +18,20 @@
         android:drawablePadding="@dimen/padding_default"
         android:hint="@string/search_products"
         android:paddingStart="@dimen/padding_default"
+        android:drawableTint="?attr/search_drawable_tint"
+        android:textColorHint="?attr/search_hint_color"
+        android:textColor="?attr/textColor"
         app:layout_constraintEnd_toStartOf="@id/ib_heart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="m" />
 
     <ImageButton
         android:id="@+id/ib_ringtone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_default"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         android:padding="@dimen/padding_min"
         android:src="@drawable/ic_ringtone"
         app:layout_constraintBottom_toBottomOf="@id/et_search"
@@ -39,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_default"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         android:padding="@dimen/padding_min"
         android:src="@drawable/ic_heart"
         app:layout_constraintBottom_toBottomOf="@id/et_search"
@@ -57,7 +61,7 @@
         android:fontFamily="@font/nunito_bold"
         android:singleLine="true"
         android:text="@string/products"
-        android:textColor="@color/dark_blue"
+        android:textColor="?attr/textColor"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_search" />

@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.*
 import com.tasks.ecommerceapp.databinding.FragmentChangePasswordBinding
-import com.tasks.ecommerceapp.presentation.registration.ActivityCustomerViewModel
+import com.tasks.ecommerceapp.presentation.my_profile.MyProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 class ChangePasswordFragment:Fragment() {
     private var _binding: FragmentChangePasswordBinding?=null
     private val binding get()=_binding!!
-    private val viewModel: ActivityCustomerViewModel by activityViewModels()
+    private val viewModel: MyProfileViewModel by activityViewModels()
     private var oldPassword=""
     private var newPassword=""
     private val checkViewsValid: CheckViewsValid by lazy {
@@ -74,7 +74,7 @@ class ChangePasswordFragment:Fragment() {
 
     private fun changePassword(oldPassword: String, newPassword: String) {
            lifecycleScope.launch {
-               viewModel.changePassword(viewModel.getToken(),oldPassword,newPassword)
+               viewModel.changePassword(oldPassword,newPassword)
            }
             viewModel.changePasswordResult.observe(viewLifecycleOwner) { result ->
                 when (result) {
@@ -107,7 +107,7 @@ class ChangePasswordFragment:Fragment() {
             dialog.show()
             delay(2000)
             dialog.dismiss()
-            findNavController().navigate(R.id.signinFragment)
+            findNavController().navigate(R.id.profileFragment)
         }
     }
 

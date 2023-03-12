@@ -2,10 +2,12 @@ package com.tasks.ecommerceapp.presentation.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.tasks.ecommerceapp.R
+import com.tasks.ecommerceapp.common.DARK_MODE
 import com.tasks.ecommerceapp.databinding.ActivityProductsBinding
 import com.tasks.ecommerceapp.extensions.hide
 import com.tasks.ecommerceapp.extensions.show
@@ -18,6 +20,14 @@ class ProductsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (DARK_MODE){
+            setTheme(R.style.DarkTheme)
+            WindowInsetsControllerCompat(window,window.decorView)
+                .isAppearanceLightStatusBars=false
+        }
+        else{
+            setTheme(R.style.LightTheme)
+        }
         binding = ActivityProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         configureBottomNavVisibility()
@@ -44,7 +54,7 @@ class ProductsActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
-                    navController.navigate(R.id.profileFragment)
+                    navController.navigate(R.id.myProfileFragment)
                     true
                 }
                 else -> false

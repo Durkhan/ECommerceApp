@@ -11,6 +11,19 @@
     <attr name="carrot" format="color"/>
     <attr name="focused_edittext_drawableTintColor" format="color"/>
     <attr name="not_focused_edittext_drawableTintColor" format="color"/>
-    <attr name="discount_color" format="color"></attr>
+    <attr name="discount_color" format="color"/>
+    <attr name="text_previous_color" format="color"/>
+    <attr name="text_input_color" format="color"/>
+    <attr name="selectable_edittext_background" format="color"/>
+    <attr name="non_selected_edittext_background" format="color"/>
+    <attr name="chip_stroke_color" format="color"/>
+    <attr name="dark_light_background_color" format="color"/>
+    <attr name="dark_light_icon_color" format="color"/>
+    <attr name="dark_icon_color_background" format="color"/>
+    <attr name="search_background_color" format="color"/>
+    <attr name="search_stroke_color" format="color"/>
+    <attr name="search_hint_color" format="color"/>
+    <attr name="search_drawable_tint" format="color"/>
+    <attr name="dialog_background" format="color"/>
 
 </resources>

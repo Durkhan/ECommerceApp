@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
 interface CustomerDataSource {
     suspend fun registerCustomer(customer: CustomerRegisterRequest): CustomerRegisterResponse
     suspend fun loginCustomer(customer: CustomerLoginRequest):CustomerLoginResponse
-    suspend fun getCustomer(token:String,customer:String): CustomerResponse
+    suspend fun getCustomer(token:String): CustomerResponse
     suspend fun changePassword(token:String,passwords:ChangePasswordRequest):ChangePasswordResponse
     suspend fun updateCustomer(token: String,customer: CustomerRegisterRequest):CustomerRegisterResponse
     suspend fun getCatalog():List<CatalogResponse>

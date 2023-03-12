@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tasks.ecommerceapp.R
+import com.tasks.ecommerceapp.common.EmptyTextWatcher
 import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.presentation.base.BaseViewBindingFragment
 import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
@@ -18,6 +19,8 @@ import com.tasks.ecommerceapp.data.model.customer.product.ProductResponse
 import com.tasks.ecommerceapp.presentation.adapter.CategoryAdapter
 import com.tasks.ecommerceapp.presentation.adapter.ProductsinHomeAdapter
 import com.tasks.ecommerceapp.common.Results
+import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
+import com.tasks.ecommerceapp.presentation.adapter.SearchedProductsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,10 +28,18 @@ class HomeProductsFragment : BaseViewBindingFragment<FragmentHomeProductsBinding
 
     override fun getViewBinding() = FragmentHomeProductsBinding.inflate(layoutInflater)
     private val viewModel: HomeProductViewModel by viewModels()
+
+    private lateinit var searchedProductsAdapter: SearchedProductsAdapter
+    private var searchedProducts= listOf<SearchProductResponse>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
           getCatalog()
           getAllProducts()
+        binding.etSearch.addTextChangedListener(object : EmptyTextWatcher(){
+            override fun onTextChanged(searched: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                searchProducts(searched.toString())
+            }
+        })
 
         requireActivity().onBackPressedDispatcher.addCallback {
            requireActivity().finishAffinity()
@@ -37,6 +48,8 @@ class HomeProductsFragment : BaseViewBindingFragment<FragmentHomeProductsBinding
             findNavController().navigate(R.id.action_homeProductsFragment_to_allProductsFragment)
         }
     }
+
+
 
     private fun getAllProducts() {
         viewModel.getAllProducts()
@@ -52,6 +65,33 @@ class HomeProductsFragment : BaseViewBindingFragment<FragmentHomeProductsBinding
                 }
                 is ProductsResults.Error -> {
                   Log.d("ResultError",result.exception)
+                }
+            }
+
+        }
+    }
+    private fun searchProducts(searched: String) {
+        viewModel.getSearchedProducts(searched)
+        viewModel.searchedProductsLiveData.observe(viewLifecycleOwner){result->
+            when(result){
+                is ProductsResults.Loading->{
+                    binding.progressbar.visibility=View.VISIBLE
+                }
+                is ProductsResults.Success ->{
+                    if (searched.isBlank()){
+                        binding.rvAllProducts.visibility=View.GONE
+                        binding.constraint.visibility=View.VISIBLE
+                    }
+                    else{
+                        binding.rvAllProducts.visibility=View.VISIBLE
+                        binding.constraint.visibility=View.GONE
+                        searchedProducts=result.data
+                        searchedProductsAdapter= SearchedProductsAdapter(searchedProducts)
+                        binding.rvAllProducts.adapter=searchedProductsAdapter
+                    }
+                }
+                is ProductsResults.Error ->{
+                    Log.d("Data",""+result.exception)
                 }
             }
 

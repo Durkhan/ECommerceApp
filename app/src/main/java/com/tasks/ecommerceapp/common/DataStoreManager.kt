@@ -28,7 +28,7 @@ class DataStoreManager@Inject constructor(@ApplicationContext private val contex
         val pin_= stringPreferencesKey(name="pin")
         val rememberMe= booleanPreferencesKey(name = "rememberMe_")
         val firstTime= booleanPreferencesKey(name = "firstTime_")
-
+        val darkMode= booleanPreferencesKey(name = "darkMode_")
     }
 
     suspend fun saveToken(string: String){
@@ -70,5 +70,16 @@ class DataStoreManager@Inject constructor(@ApplicationContext private val contex
             it[firstTime]?:true
         }
 
+
+    suspend fun setDarkMode(boolean: Boolean){
+        dataStore.edit {
+            it[darkMode]=boolean
+        }
+    }
+
+    val isDarkMode:Flow<Boolean>
+        get()=dataStore.data.map {
+            it[darkMode]?:false
+        }
 
 }

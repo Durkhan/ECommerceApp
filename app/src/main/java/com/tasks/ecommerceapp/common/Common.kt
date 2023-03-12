@@ -3,6 +3,9 @@ package com.tasks.ecommerceapp.common
 import java.util.*
 
 
+var DARK_MODE=false
+
+
 fun isEmail(text: String): Boolean {
         val regex = Regex("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}")
         return regex.matches(text)

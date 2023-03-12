@@ -22,6 +22,7 @@ import com.tasks.ecommerceapp.common.CheckViewsValid
 import com.tasks.ecommerceapp.common.EmptyTextWatcher
 import com.tasks.ecommerceapp.common.obfuscateString
 import com.tasks.ecommerceapp.common.randomNumber
+import com.tasks.ecommerceapp.presentation.my_profile.MyProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +30,7 @@ class RecoveryFragment:Fragment() {
     private var _binding: FragmentRecoveryBinding?=null
     private val binding get()=_binding
     private var verifyCode =""
-    private val viewModel: ActivityCustomerViewModel by activityViewModels()
+    private val viewModel: MyProfileViewModel by activityViewModels()
 
     private val checkViewsValid: CheckViewsValid by lazy {
         CheckViewsValid(requireContext())

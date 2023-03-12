@@ -17,6 +17,7 @@ import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentGetRecoveryBinding
 import com.tasks.ecommerceapp.presentation.registration.ActivityCustomerViewModel
 import com.tasks.ecommerceapp.common.*
+import com.tasks.ecommerceapp.presentation.my_profile.MyProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -27,7 +28,7 @@ class GetRecoveryFragment:Fragment() {
     private var _binding:FragmentGetRecoveryBinding?=null
     private val binding get()=_binding!!
     private var toEmail=""
-    private val viewModel: ActivityCustomerViewModel by activityViewModels()
+    private val viewModel: MyProfileViewModel by activityViewModels()
     private val checkViewsValid: CheckViewsValid by lazy {
         CheckViewsValid(requireContext())
     }
@@ -72,32 +73,18 @@ class GetRecoveryFragment:Fragment() {
     }
     private fun recoveryAccount() {
         toEmail=binding.userNameOrEmail.text.toString()
-        lifecycleScope.launch{
-            viewModel.getCustomer(viewModel.getToken(),toEmail)
+        val verificationCode= randomNumber()
+        viewModel.verificationCode= verificationCode.toString()
+        if(toEmail==viewModel.toEmail || toEmail==viewModel.login){
+            viewModel.sendVerificationNumber(viewModel.toEmail,verificationCode)
+            findNavController().navigate(R.id.recoveryFragment)
         }
-        viewModel.customer.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Results.Success -> {
-                    val customer = result.data
-                    val verificationCode= randomNumber()
-                    viewModel.verificationCode= verificationCode.toString()
-                    viewModel.toEmail=customer.email.toString( )
-                    if(toEmail==customer.email || toEmail==customer.login){
-                        viewModel.sendVerificationNumber(customer.email.toString(),verificationCode)
-                        findNavController().navigate(R.id.recoveryFragment)
-                    }
-                    else{
-                        binding.userNameOrEmail.error=getString(R.string.please_write_correct_username)
-                    }
+        else{
+            binding.userNameOrEmail.error=getString(R.string.please_write_correct_username)
+        }
 
-                }
-                is Results.Error -> {
-                    val errorMessage = result.exception
-                    Log.d("Error Message",""+errorMessage)
-                }
-            }
-        }
     }
+
 
 
     override fun onDestroyView() {

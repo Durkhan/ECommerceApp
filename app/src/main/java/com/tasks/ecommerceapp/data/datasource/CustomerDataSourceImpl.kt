@@ -45,10 +45,9 @@ class CustomerDataSourceImpl @Inject constructor(
         )
     }
 
-    override suspend fun getCustomer(token: String, customer: String): CustomerResponse {
+    override suspend fun getCustomer(token: String): CustomerResponse {
         return customerService.getCustomer(
-            token=token,
-            customer=customer
+            token=token
         )
     }
 

@@ -70,7 +70,7 @@
         android:layout_marginStart="@dimen/margin_micro"
         android:layout_marginTop="@dimen/margin_micro"
         android:ellipsize="end"
-        android:fontFamily="@font/nunito_600"
+        android:fontFamily="@font/nunito_font_400"
         android:maxLines="1"
         android:text="asdsad"
         android:textColor="?attr/color_secondary"

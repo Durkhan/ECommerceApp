@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundScreen"
     tools:context=".presentation.product_detail.ProductDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,8 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_default"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_back"
+            app:tint="?attr/textColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -119,6 +121,7 @@ DescriptionDescriptionDescriptionDescription" />
             android:layout_marginTop="@dimen/margin_24_dp"
             android:enabled="true"
             android:text="@string/buy_now"
+            android:textColor="?attr/button_text_color"
             app:backgroundTint="?attr/button_backgroundColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -159,12 +162,12 @@ DescriptionDescriptionDescriptionDescription" />
                 android:id="@+id/ib_specification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_default"
-                android:background="@color/white"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_baseline_chevron_right_24"
-                />
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_default"
+                app:tint="?attr/textColor"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_chevron_right_24" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -201,9 +204,10 @@ DescriptionDescriptionDescriptionDescription" />
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_default"
-                android:background="@color/white"
+                android:background="@android:color/transparent"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                app:tint="?attr/textColor"
                 android:src="@drawable/ic_baseline_chevron_right_24"
                />
         </RelativeLayout>
@@ -243,9 +247,10 @@ DescriptionDescriptionDescriptionDescription" />
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_default"
-                android:background="@color/white"
+                android:background="@android:color/transparent"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                app:tint="?attr/textColor"
                 android:src="@drawable/ic_baseline_chevron_right_24"
                />
         </RelativeLayout>

@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:backgroundTint="?attr/backgroundScreen"
     android:layout_marginEnd="20dp"
     app:cardCornerRadius="15dp"
     android:layout_marginStart="20dp">
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:background="?attr/dialog_background"
         android:orientation="vertical"
         >
 

@@ -22,7 +22,7 @@ interface CustomerService {
 
 
     @GET("customers/customer")
-    suspend fun getCustomer(@Header("Authorization") token:String,@Query("customer") customer: String,): CustomerResponse
+    suspend fun getCustomer(@Header("Authorization") token:String): CustomerResponse
 
 
     @PUT("customers/password")
