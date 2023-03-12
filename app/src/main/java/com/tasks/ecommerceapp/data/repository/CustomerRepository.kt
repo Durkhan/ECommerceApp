@@ -10,6 +10,7 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
@@ -18,6 +19,7 @@ import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
@@ -159,6 +161,10 @@ class CustomerRepository @Inject constructor(
         } catch (e: Exception) {
             ProductsResults.Error(e.message ?: "Unknown error occurred")
         }
+    }
+
+    suspend fun getAllOrders() : Response<List<GetAllOrdersResponse>>{
+        return customerDataSource.getAllOrders()
     }
 
     suspend fun getProductReview(productId:String):ProductsResults<List<ProductReviewResponse>>{

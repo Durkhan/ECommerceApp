@@ -46,7 +46,7 @@ class ProductsActivity : AppCompatActivity() {
                     true
                 }
                 R.id.orders -> {
-//                    navController.navigate(R.id.or)
+                    navController.navigate(R.id.ordersFragment)
                     true
                 }
                 R.id.card -> {

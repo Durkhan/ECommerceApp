@@ -3,6 +3,7 @@ package com.tasks.ecommerceapp.presentation.my_profile
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.addCallback
@@ -101,7 +102,11 @@ class MyProfileFragment : BaseViewBindingFragment<FragmentMyProfilBinding>(){
                         .transform(CircleCrop())
                         .into(binding.userPhoto)
                 }
+                is Results.Error ->{
+                    Log.d("Results.Error",result.exception)
+                }
             }
+
         }
     }
 
