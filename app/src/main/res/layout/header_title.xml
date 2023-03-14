@@ -19,17 +19,28 @@
         app:tint="?attr/textColor" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/frag_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="5dp"
         android:fontFamily="@font/nunito_font_400"
-        android:textColor="?attr/color_secondary"
+        android:textColor="?attr/textColor"
         android:textSize="18sp"
+        android:text="@string/orders"
         app:layout_constraintBottom_toBottomOf="@id/ib_back"
         app:layout_constraintStart_toEndOf="@id/ib_back"
         app:layout_constraintTop_toTopOf="@id/ib_back"
         tools:text="Fragment" />
 
+    <ImageButton
+        android:id="@+id/search_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_search"
+        app:tint="@color/carrot" />
 </androidx.constraintlayout.widget.ConstraintLayout>

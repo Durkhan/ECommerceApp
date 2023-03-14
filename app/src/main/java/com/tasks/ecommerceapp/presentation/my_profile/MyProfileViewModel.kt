@@ -36,13 +36,15 @@ class MyProfileViewModel @Inject constructor(
 
     fun changePassword(password: String, newPassword: String) {
         viewModelScope.launch {
-            _changePasswordResult.postValue(changePasswordUseCase.changePassword(dataStoreManager.token.first(),password,newPassword))
+            val result=changePasswordUseCase(dataStoreManager.token.first(),password,newPassword)
+            _changePasswordResult.postValue(result)
         }
     }
 
     fun getCustomer() {
         viewModelScope.launch {
-            _customer.postValue(getCustomerUseCase.getCustomer(dataStoreManager.token.first()))
+            val result=getCustomerUseCase(dataStoreManager.token.first())
+            _customer.postValue(result)
         }
     }
 

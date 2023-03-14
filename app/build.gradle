@@ -52,7 +52,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.paging:paging-common-ktx:3.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -83,6 +82,7 @@ dependencies {
     
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     implementation 'org.mindrot:jbcrypt:0.4'
+
     //ediText for verify
     implementation ('com.alimuzaffar.lib:pinentryedittext:2.0.6') {
         // Exclude is only needed if you already have
@@ -101,6 +101,8 @@ dependencies {
 
      //paging
     implementation 'androidx.paging:paging-runtime-ktx:3.1.0'
+    implementation 'androidx.paging:paging-common-ktx:3.0.0'
+
 
     //cloudinary
     implementation 'com.cloudinary:cloudinary-android:1.24.0'
@@ -108,13 +110,5 @@ dependencies {
     implementation 'org.mongodb:mongodb-driver-sync:4.3.1'
 
     implementation 'com.auth0:java-jwt:4.3.0'
-
-
-
-
-
-
-
-
 
 }

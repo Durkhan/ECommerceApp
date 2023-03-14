@@ -10,14 +10,22 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
+import com.tasks.ecommerceapp.common.listener.AddToWishListListener
+import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.databinding.ItemProductDetailBinding
 import com.tasks.ecommerceapp.databinding.ItemProductDetailFullBinding
+import com.tasks.ecommerceapp.presentation.product_detail.ProductFullDetailFragment
 import java.util.*
 
-class ProductFullDetailImagesAdapter (private var context: Context, private var imageUrls: List<String>, private var discountPercent: Double) : PagerAdapter() {
+class ProductFullDetailImagesAdapter(
+    private var context: Context,
+    private var productsItem: ProductsItem,
+    private var discountPercent: Double,
+    private var addToWishListListener: AddToWishListListener
+) : PagerAdapter() {
 
     override fun getCount(): Int {
-        return imageUrls.size
+        return productsItem.imageUrls?.size ?: 0
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -29,13 +37,16 @@ class ProductFullDetailImagesAdapter (private var context: Context, private var 
         val inflater=LayoutInflater.from(context)
         val binding=ItemProductDetailFullBinding.inflate(inflater,container,false)
 
-        Glide.with(context).load(imageUrls[position])
+        Glide.with(context).load(productsItem.imageUrls?.get(position))
             .placeholder(android.R.drawable.progress_indeterminate_horizontal)
             .error(android.R.drawable.stat_notify_error)
-            .into(binding.ivProduct);
+            .into(binding.ivProduct)
         binding.tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
 
         Objects.requireNonNull(container).addView(binding.root)
+        binding.ibHeart.setOnClickListener {
+            addToWishListListener.addToWishList(productsItem)
+        }
         return binding.root
     }
 

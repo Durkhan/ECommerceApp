@@ -1,9 +1,13 @@
 package com.tasks.ecommerceapp.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.tasks.ecommerceapp.R
+import com.tasks.ecommerceapp.common.OrderSelectionItem
 import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
 import com.tasks.ecommerceapp.databinding.ItemOrdersBinding
 
@@ -27,6 +31,9 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
             rvProducts.isVisible = model.selected
             lnEmptyDetail.isVisible = model.selected
             tvStatus.text = model.status
+            statusImage.setImageResource(model.drawable)
+            statusText.text=model.text
+
 
             val productsAdapter = OrderProductAdapter()
             rvProducts.adapter = productsAdapter
@@ -36,6 +43,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
                     productsAdapter.status = productOrder.status ?: ""
                     lnEmptyDetail.isVisible = productOrder.products.isEmpty()
                     productsAdapter.submitData(productOrder.products)
+
                 } else if (absoluteAdapterPosition == 2 && productOrder.status == "cancelled") {
                     productsAdapter.status = productOrder.status ?: ""
                     lnEmptyDetail.isVisible = productOrder.products.isEmpty()
@@ -57,6 +65,15 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: OrdersAdapter.ViewHolder, position: Int) {
         holder.bind(selectionItemList[position])
+
+        if (position==2){
+            holder.binding.myWishList.visibility=View.VISIBLE
+            holder.binding.myWishList.setOnClickListener {
+                Navigation.findNavController(holder.itemView)
+                    .navigate(R.id.action_ordersFragment_to_wishListFragment)
+            }
+        }
+
     }
 
     override fun getItemCount() = selectionItemList.size

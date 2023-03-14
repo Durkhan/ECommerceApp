@@ -13,12 +13,14 @@ import com.tasks.ecommerceapp.databinding.ItemProductsAllListBinding
 import com.tasks.ecommerceapp.databinding.ItemProductsGroupBinding
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.common.ProductListType
+import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.OnItemClickListener
 
 
 class AllProductsAdapter(
     private var context: Context?,
     private var onItemClickListener: OnItemClickListener,
+    private var addToWishListListener: AddToWishListListener,
     diffCallback: DiffUtil.ItemCallback<ProductsItem>
 ) : PagingDataAdapter<ProductsItem, RecyclerView.ViewHolder>(diffCallback) {
 
@@ -27,7 +29,11 @@ class AllProductsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(productItem: ProductsItem, context: Context?) = with(binding) {
+        fun bind(
+            productItem: ProductsItem,
+            context: Context?,
+            onItemClickListener: OnItemClickListener
+        ) = with(binding) {
             Glide.with(context!!)
                 .load(productItem.imageUrls?.get(0)!!)
                 .into(binding.ivProduct)
@@ -48,9 +54,9 @@ class AllProductsAdapter(
                 tvProductDiscount.text="0%"
                 tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
             }
-
-
-
+            ivProduct.setOnClickListener {
+                onItemClickListener.onItemClick(productItem)
+            }
 
         }
         }
@@ -59,7 +65,12 @@ class AllProductsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(productItem: ProductsItem, context: Context?) = with(binding) {
+        fun bind(
+            productItem: ProductsItem,
+            context: Context?,
+            addToWishListListener: AddToWishListListener,
+            onItemClickListener: OnItemClickListener
+        ) = with(binding) {
             Glide.with(context!!)
                 .load(productItem.imageUrls?.get(0)!!)
                 .into(binding.ivProduct)
@@ -79,6 +90,12 @@ class AllProductsAdapter(
             else{
                 tvProductDiscount.text="0%"
                 tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
+            }
+            ibHeart.setOnClickListener {
+                addToWishListListener.addToWishList(productItem)
+            }
+            ivProduct.setOnClickListener {
+                onItemClickListener.onItemClick(productItem)
             }
         }
 
@@ -122,16 +139,13 @@ class AllProductsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item=getItem(position)
-       holder.itemView.setOnClickListener {
-            onItemClickListener.onItemClick(item!!)
-        }
         when (holder.itemViewType) {
             ProductListType.GROUP_TYPE.type -> {
-                item?.let { (holder as ViewHolderGroup).bind(it,context) }
+                item?.let { (holder as ViewHolderGroup).bind(it,context,onItemClickListener) }
             }
 
             ProductListType.LIST_TYPE.type -> {
-                item?.let { (holder as ViewHolderList).bind(it,context) }
+                item?.let { (holder as ViewHolderList).bind(it,context,addToWishListListener,onItemClickListener) }
 
             }
         }

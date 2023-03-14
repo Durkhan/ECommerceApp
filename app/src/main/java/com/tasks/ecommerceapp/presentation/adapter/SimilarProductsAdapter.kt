@@ -9,12 +9,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.SimilarItemClickListener
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.databinding.ItemProductsBinding
 
 class SimilarProductsAdapter (
     private var similarItemClickListener: SimilarItemClickListener,
+    private var addToWishListListener: AddToWishListListener,
     diffCallback: DiffUtil.ItemCallback<ProductsItem>,
 ) : PagingDataAdapter<ProductsItem, RecyclerView.ViewHolder>(diffCallback) {
 
@@ -22,7 +24,12 @@ class SimilarProductsAdapter (
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(productItem: ProductsItem, context: Context?) = with(binding) {
+        fun bind(
+            productItem: ProductsItem,
+            context: Context?,
+            similarItemClickListener: SimilarItemClickListener,
+            addToWishListListener: AddToWishListListener
+        ) = with(binding) {
             Glide.with(context!!)
                 .load(productItem.imageUrls?.get(0)!!)
                 .into(binding.ivProduct)
@@ -43,6 +50,12 @@ class SimilarProductsAdapter (
                 tvProductDiscount.text="0%"
                 tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
             }
+            binding.ivProduct.setOnClickListener {
+                similarItemClickListener.onSimilarItemClick(productItem)
+            }
+            binding.ibHeart.setOnClickListener {
+                addToWishListListener.addToWishList(productItem)
+            }
 
 
 
@@ -62,10 +75,8 @@ class SimilarProductsAdapter (
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item=getItem(position)
-        item?.let { (holder as ViewHolderGroup).bind(it,holder.itemView.context) }
-        holder.itemView.setOnClickListener {
-            item?.let { it1 -> similarItemClickListener.onSimilarItemClick(it1) }
-        }
+        item?.let { (holder as ViewHolderGroup).bind(it,holder.itemView.context,similarItemClickListener,addToWishListListener) }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

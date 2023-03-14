@@ -15,5 +15,4 @@ data class CustomerRegisterRequest(
     val login: String? = null,
     val firstName: String? = null,
     val password: String? = null,
-    val token:String?=null
     ):Parcelable
