@@ -4,18 +4,16 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.tasks.ecommerceapp.data.api.CustomerService
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
 import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
 import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRequest
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
 import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
-import com.tasks.ecommerceapp.data.model.customer.product.ProductResponse
-import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
-import com.tasks.ecommerceapp.data.model.customer.product.SearchProductRequest
-import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
+import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
@@ -135,6 +133,31 @@ class CustomerDataSourceImpl @Inject constructor(
 
     override suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>> {
         return customerService.getAllOrders()
+    }
+
+    override suspend fun createOrder(token: String,createOrdersRequest: CreateOrdersRequest): GetAllOrdersResponse {
+        return customerService.createOrder(
+            token,
+            CreateOrdersRequest(
+                email = createOrdersRequest.email,
+                mobile = createOrdersRequest.mobile,
+            )
+        )
+    }
+
+    override suspend fun addToWishlist(token: String, productId: String): ProductFilterResponse {
+        return customerService.addWishlist(token,productId)
+    }
+
+    override suspend fun getWishListProducts(token: String): ProductFilterResponse {
+        return customerService.getWishListProducts(token)
+    }
+
+    override suspend fun deleteProductFromWishList(
+        token: String,
+        productId: String
+    ): ProductFilterResponse {
+        return customerService.deleteProductFromWishList(token,productId)
     }
 
     override suspend fun addReview(data: OrderReviewRequest): Response<Any> {

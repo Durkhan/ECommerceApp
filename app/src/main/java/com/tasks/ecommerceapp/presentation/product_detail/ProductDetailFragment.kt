@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.ProductsResults
+import com.tasks.ecommerceapp.common.Results
+import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.OnItemClickListener
 import com.tasks.ecommerceapp.common.listener.SimilarItemClickListener
+import com.tasks.ecommerceapp.data.model.customer.orders.toRequest
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.databinding.FragmentProductDetailBinding
 import com.tasks.ecommerceapp.extensions.getCurrentPosition
@@ -30,7 +33,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBinding>(),OnItemClickListener,SimilarItemClickListener {
+class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBinding>(),
+    OnItemClickListener,SimilarItemClickListener,AddToWishListListener {
 
     private val imgSliderAdapter = ImgSliderAdapter()
     private lateinit var similarProductsAdapter:SimilarProductsAdapter
@@ -51,9 +55,40 @@ class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBindi
             findNavController().popBackStack()
         }
 
+        createOrders(productItem)
 
 
+    }
 
+    private fun createOrders(productItem: ProductsItem) {
+        val productsItemRequest=productItem.toRequest()
+        binding.btnBuyNow.setOnClickListener {
+            viewModel.getCustomer()
+            viewModel.customer.observe(viewLifecycleOwner){result->
+                when(result){
+                    is Results.Success ->{
+                        val response=result.data
+                       viewModel.createOrder(
+                           response.email.toString(),
+                           response.telephone.toString(),
+                           productsItemRequest
+                       )
+                }
+                    else -> {}
+                }
+
+            }
+            viewModel.orders.observe(viewLifecycleOwner){result->
+                when(result){
+                    is ProductsResults.Success ->{
+                        Toast.makeText(requireContext(),"buy succesfully",Toast.LENGTH_LONG).show()
+                    }
+                    is ProductsResults.Error ->{
+                        Log.d("OrdersError",result.exception)
+                    }
+                }
+            }
+        }
     }
 
     private fun addToCart(productItem: ProductsItem) {
@@ -78,6 +113,7 @@ class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBindi
     private fun setSimilarProducts(category: String) {
         binding.rvSimilarProducts.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         similarProductsAdapter = SimilarProductsAdapter(
+            this,
             this,
             SimilarProductsAdapter.DiffCallback()
         )
@@ -136,7 +172,6 @@ class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBindi
             }
 
 
-
             setProductImagesRecycleView(productItem,discountPercent)
             getProductReviews(productItem)
             setSimilarProducts(productItem.categories.toString())
@@ -157,7 +192,7 @@ class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBindi
         val layoutManager=
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         binding.rvProductImages.layoutManager =layoutManager
-        val adapter = ProductDetailImagesAdapter(productItem,discountPercent,this)
+        val adapter = ProductDetailImagesAdapter(productItem,discountPercent,this,this)
         binding.rvProductImages.adapter = adapter
     }
 
@@ -169,4 +204,20 @@ class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBindi
     override fun onSimilarItemClick(productItem: ProductsItem) {
          assignProductDetails(productItem)
     }
+
+    override fun addToWishList(productItem: ProductsItem) {
+        viewModel.addToWishList(productItem._id.toString())
+        viewModel.addToWishListLiveData.observe(viewLifecycleOwner){result->
+            when(result){
+                is ProductsResults.Success ->{
+                    Toast.makeText(requireContext(),getString(R.string.succesfully_added),Toast.LENGTH_LONG).show()
+                }
+                is ProductsResults.Error ->{
+                    Log.d("ProductsResultError ",result.exception)
+                }
+                else -> {}
+            }
+        }
+    }
+
 }

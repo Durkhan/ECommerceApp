@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.EmptyViewPageListener
 import com.tasks.ecommerceapp.common.ProductsResults
+import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.SimilarItemClickListener
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.databinding.FragmentProductFullDetailBinding
@@ -29,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDetailBinding>(),SimilarItemClickListener {
+class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDetailBinding>(),SimilarItemClickListener,AddToWishListListener {
 
     private val imgSliderAdapter = ImgSliderAdapter()
     private lateinit var similarProductsAdapter: SimilarProductsAdapter
@@ -135,7 +136,7 @@ class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDet
 
 
     private fun setProductImagesRecycleView(productItem: ProductsItem,discountPercent: Double) {
-        val adapter = ProductFullDetailImagesAdapter(requireContext(),productItem.imageUrls!!,discountPercent)
+        val adapter = ProductFullDetailImagesAdapter(requireContext(),productItem,discountPercent,this)
         binding.rvProductImages.adapter = adapter
     }
 
@@ -143,6 +144,7 @@ class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDet
     private fun setSimilarProducts(category: String) {
         binding.rvSimilarProducts.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         similarProductsAdapter = SimilarProductsAdapter(
+            this,
             this,
             SimilarProductsAdapter.DiffCallback(),
         )
@@ -158,6 +160,21 @@ class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDet
 
     override fun onSimilarItemClick(productItem: ProductsItem) {
         assignProductDetails(productItem)
+    }
+
+    override fun addToWishList(productItem: ProductsItem) {
+        viewModel.addToWishList(productItem._id.toString())
+        viewModel.addToWishListLiveData.observe(viewLifecycleOwner){result->
+            when(result){
+                is ProductsResults.Success ->{
+                    Toast.makeText(requireContext(),getString(R.string.succesfully_added),Toast.LENGTH_LONG).show()
+                }
+                is ProductsResults.Error ->{
+                    Log.d("ProductsResultsError",result.exception)
+                }
+                else -> {}
+            }
+        }
     }
 
 }

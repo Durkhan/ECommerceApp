@@ -41,7 +41,7 @@ class UpdateCustomerViewModel @Inject constructor(
 
     fun updateCustomer(token:String,email: String, gender: String, firstName: String, lastName: String,userName:String,avatarUrl:String,date: String,telephone:String) {
         viewModelScope.launch {
-            val updateCustomer=updateCustomerUseCase.updateCustomer(token,email,gender,firstName,lastName,userName,avatarUrl,date, telephone)
+            val updateCustomer=updateCustomerUseCase(token,email,gender,firstName,lastName,userName,avatarUrl,date, telephone)
             _updateCustomerResult.postValue(updateCustomer)
         }
     }

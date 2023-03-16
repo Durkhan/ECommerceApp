@@ -4,12 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.OnItemClickListener
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.databinding.ItemProductDetailBinding
 
 
-class ProductDetailImagesAdapter(private var productsItem: ProductsItem,private var discountPercent:Double,private var onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<ProductDetailImagesAdapter.ViewHolder>() {
+class ProductDetailImagesAdapter(
+    private var productsItem: ProductsItem,
+    private var discountPercent:Double,
+    private var onItemClickListener: OnItemClickListener,
+    private var addToWishListListener: AddToWishListListener
+    ) : RecyclerView.Adapter<ProductDetailImagesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -29,8 +35,11 @@ class ProductDetailImagesAdapter(private var productsItem: ProductsItem,private 
             .into(holder.binding.ivProduct);
         holder.binding.tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
 
-        holder.itemView.setOnClickListener {
+        holder.binding.ivProduct.setOnClickListener {
             onItemClickListener.onItemClick(productsItem)
+        }
+        holder.binding.ibHeart.setOnClickListener {
+            addToWishListListener.addToWishList(productsItem)
         }
     }
 

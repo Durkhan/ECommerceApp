@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ECommerceApp</string>
     <string name="welcome_to">Welcome to</string>
     <string name="data_store">Data Store!</string>
@@ -98,6 +98,16 @@
     <string name="log_out">Log out</string>
     <string name="add_new_product">Add new product</string>
     <string name="my_products">My products</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="completed">Completed</string>
+    <string name="canceled">Canceled</string>
+    <string name="orders">Orders</string>
+    <string name="orders_ongoing_desc">You don’t have an ongoing orders at this time</string>
+    <string name="orders_completed_desc">You don’t have completed orders yet</string>
+    <string name="orders_canceled_desc">There are no cancelled orders</string>
+    <string name="my_wishList">Wish List</string>
+    <string name="my_wish_List">My wish list</string>
+
 
     <string-array name="language_spinner_items">
         <item>US</item>

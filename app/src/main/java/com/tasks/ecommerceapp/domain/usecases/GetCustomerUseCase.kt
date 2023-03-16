@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetCustomerUseCase @Inject constructor(
         private val customerRepository: CustomerRepository
 ) {
-    suspend fun getCustomer(token:String): Results<CustomerResponse> {
+    suspend operator fun invoke(token:String): Results<CustomerResponse> {
         return customerRepository.getCustomer(token)
     }
 }

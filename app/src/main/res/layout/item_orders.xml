@@ -10,7 +10,7 @@
         android:id="@+id/cl_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_pin"
+        android:background="@drawable/orders_status_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -39,19 +39,8 @@
             android:background="@null"
             android:src="@drawable/ic_order_selection"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--            android:id="@+id/cl_status_details"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:layout_marginTop="@dimen/margin_small"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/cl_status"-->
-        <!--            >-->
-
-        <!--      -->
-
-        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/textColor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -65,20 +54,23 @@
         app:layout_constraintTop_toBottomOf="@id/cl_status">
 
         <ImageView
+            android:id="@+id/status_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_default"
             android:scaleType="centerCrop"
-            android:src="@drawable/img__category_phone_test" />
+            android:src="@drawable/ongoing" />
 
         <TextView
+            android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_marginTop="@dimen/margin_default"
             android:padding="@dimen/padding_small"
-            android:text="you dont have product" />
+            android:textColor="?attr/orders_status_stroke_color"
+             />
 
     </LinearLayout>
 
@@ -95,5 +87,15 @@
         tools:listitem="@layout/item_order_product_detail">
 
     </androidx.recyclerview.widget.RecyclerView>
-
+    <Button
+        android:id="@+id/my_wishList"
+        style="@style/CustomButtonStyle"
+        android:text="@string/my_wish_List"
+        android:enabled="true"
+        android:visibility="gone"
+        app:backgroundTint="?attr/button_backgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,6 +47,10 @@ class HomeProductsFragment : BaseViewBindingFragment<FragmentHomeProductsBinding
         binding.tvSeeAll.setOnClickListener {
             findNavController().navigate(R.id.action_homeProductsFragment_to_allProductsFragment)
         }
+
+        binding.ibHeart.setOnClickListener {
+            findNavController().navigate(R.id.action_homeProductsFragment_to_wishListFragment)
+        }
     }
 
 

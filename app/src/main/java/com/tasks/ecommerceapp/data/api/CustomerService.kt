@@ -6,6 +6,7 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
 import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
 import com.tasks.ecommerceapp.data.model.customer.product.*
@@ -70,6 +71,18 @@ interface CustomerService {
 
     @DELETE("cart/{productId}")
     suspend fun deleteProductFromCart(@Header("Authorization") token:String,@Path("productId") productId:String): CartResponse
+
+    @POST ("orders/")
+    suspend fun createOrder(@Header("Authorization") token:String,@Body createOrdersRequest: CreateOrdersRequest):GetAllOrdersResponse
+
+    @PUT ("wishlist/{productId}")
+    suspend fun addWishlist(@Header("Authorization") token:String,@Path("productId") productId:String):ProductFilterResponse
+
+    @GET("wishlist")
+    suspend fun getWishListProducts(@Header("Authorization") token:String): ProductFilterResponse
+
+    @DELETE("wishlist/{productId}")
+    suspend fun deleteProductFromWishList(@Header("Authorization") token:String,@Path("productId") productId:String): ProductFilterResponse
 
     @POST("comments")
     suspend fun addReview(@Body data: OrderReviewRequest?):Response<Any>

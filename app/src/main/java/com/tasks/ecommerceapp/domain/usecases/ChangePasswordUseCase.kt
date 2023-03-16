@@ -6,7 +6,8 @@ import com.tasks.ecommerceapp.common.Results
 import javax.inject.Inject
 
 class ChangePasswordUseCase @Inject constructor(private val repository: CustomerRepository) {
-    suspend fun changePassword(authHeader: String, password: String, newPassword: String): Results<ChangePasswordResponse> {
+
+    suspend operator fun invoke(authHeader: String, password: String, newPassword: String): Results<ChangePasswordResponse> {
         return repository.changePassword(authHeader, password, newPassword)
     }
 }

@@ -12,14 +12,13 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
 import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
-import com.tasks.ecommerceapp.data.model.customer.product.ProductResponse
-import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
-import com.tasks.ecommerceapp.data.model.customer.product.SearchProductRequest
-import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
+import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
+import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
+import com.tasks.ecommerceapp.data.model.customer.orders.ProductsItemRequest
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
@@ -31,7 +30,6 @@ class CustomerRepository @Inject constructor(
     private val customerDataSource: CustomerDataSource,
     private val apiAuthenticator: ApiAuthenticator,
 ) {
-
 
     suspend fun registerCustomer(
         email: String,
@@ -206,6 +204,49 @@ class CustomerRepository @Inject constructor(
         return try {
             ProductsResults.Loading<CartResponse>(true)
             val response = customerDataSource.deleteProductFromCart(token,productId)
+            ProductsResults.Success(response)
+        }catch (e:Exception){
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+
+    suspend fun createOrder(token:String,email: String,mobile:String,productsItem: ProductsItemRequest): ProductsResults<GetAllOrdersResponse>{
+        return try {
+            ProductsResults.Loading<CreateOrdersRequest>(true)
+            val response = customerDataSource.createOrder(token,CreateOrdersRequest(
+                email =email,
+                mobile = mobile,
+                )
+            )
+            ProductsResults.Success(response)
+        }catch (e:Exception){
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+
+    suspend fun addToWishList(token: String,productId:String): ProductsResults<ProductFilterResponse>{
+        return try {
+            ProductsResults.Loading<ProductFilterResponse>(true)
+            val response = customerDataSource.addToWishlist(token,productId)
+            ProductsResults.Success(response)
+        }catch (e:Exception){
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+
+    suspend fun getWishListProducts(token: String): ProductsResults<ProductFilterResponse> {
+        return try {
+            ProductsResults.Loading<ProductFilterResponse>(true)
+            val response = customerDataSource.getWishListProducts(token)
+            ProductsResults.Success(response)
+        } catch (e: Exception) {
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+    suspend fun deleteCartFromWishList(token: String,productId:String): ProductsResults<ProductFilterResponse>{
+        return try {
+            ProductsResults.Loading<ProductFilterResponse>(true)
+            val response = customerDataSource.deleteProductFromWishList(token,productId)
             ProductsResults.Success(response)
         }catch (e:Exception){
             ProductsResults.Error(e.message ?: "Unknown error occurred")

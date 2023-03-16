@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -15,12 +16,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.presentation.base.BaseViewBindingFragment
 import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
 import com.tasks.ecommerceapp.databinding.FragmentAllProductsBinding
 import com.tasks.ecommerceapp.presentation.adapter.AllProductsAdapter
 import com.tasks.ecommerceapp.presentation.adapter.SearchedProductsAdapter
 import com.tasks.ecommerceapp.common.*
+import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.OnItemClickListener
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +32,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(),OnItemClickListener {
+class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(),OnItemClickListener,AddToWishListListener {
     private lateinit var allProductsAdapter:AllProductsAdapter
     private lateinit var searchedProductsAdapter: SearchedProductsAdapter
     private var searchedProducts= listOf<SearchProductResponse>()
@@ -51,6 +54,11 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
 
         requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().popBackStack()
+        }
+
+
+        binding.ibHeart.setOnClickListener {
+            findNavController().navigate(R.id.action_allProductsFragment_to_wishListFragment)
         }
     }
 
@@ -105,6 +113,7 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
         allProductsAdapter = AllProductsAdapter(
             requireContext(),
             this@AllProductsFragment,
+            this@AllProductsFragment,
             AllProductsAdapter.DiffCallback()
         )
         lifecycleScope.launch {
@@ -119,6 +128,21 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
     override fun onItemClick(productItem: ProductsItem) {
         val action=AllProductsFragmentDirections.actionAllProductsFragmentToProductDetailFragment(productItem)
         findNavController().navigate(action)
+    }
+
+    override fun addToWishList(productItem: ProductsItem) {
+        viewModel.addToWishList(productItem._id.toString())
+        viewModel.addToWishListLiveData.observe(viewLifecycleOwner){result->
+               when(result){
+                   is ProductsResults.Success ->{
+                       Toast.makeText(requireContext(),getString(R.string.succesfully_added),Toast.LENGTH_LONG).show()
+                   }
+                   is ProductsResults.Error ->{
+                       Log.d("WisHList",result.exception.toString())
+                   }
+                   else -> {}
+               }
+        }
     }
 
 }

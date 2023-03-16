@@ -25,5 +25,9 @@
     <attr name="search_hint_color" format="color"/>
     <attr name="search_drawable_tint" format="color"/>
     <attr name="dialog_background" format="color"/>
+    <attr name="orders_status_stroke_color" format="color"/>
+    <attr name="orders_status_background" format="color"/>
+    <attr name="wishlist_buy_now_button_background" format="color"/>
+    <attr name="wishlist_buy_now_button_textColor" format="color"/>
 
 </resources>

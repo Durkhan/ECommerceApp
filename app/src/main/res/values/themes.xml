@@ -108,8 +108,14 @@
         <item name="dark_light_background_color">@color/carrot</item>
         <item name="dark_icon_color_background">@color/background_light</item>
         <item name="search_hint_color">@color/grey_20</item>
+        <item name="search_stroke_color">@color/textColor_light</item>
         <item name="search_drawable_tint">@color/background_dark</item>
         <item name="dialog_background">@color/white</item>
+        <item name="orders_status_background">@color/background_light</item>
+        <item name="orders_status_stroke_color">@color/grey_40</item>
+        <item name="wishlist_buy_now_button_background">@color/color_secondary_light</item>
+        <item name="wishlist_buy_now_button_textColor">@color/button_text_color</item>
+
     </style>
 
 
@@ -130,7 +136,7 @@
         <item name="not_focused_edittext_drawableTintColor">@color/grey_40_dark</item>
         <item name="focused_edittext_drawableTintColor">@color/textColor_dark</item>
         <item name="text_previous_color">@color/text_previous_color_dark</item>
-        <item name="text_input_color">#233447</item>
+        <item name="text_input_color">@color/text_input_color_dark</item>
         <item name="selectable_edittext_background">@color/editText_background_color_dark</item>
         <item name="button_backgroundColor">@color/button_backgroundColor_dark</item>
         <item name="non_selected_edittext_background">@color/non_selected_edittext_backroun_dark</item>
@@ -143,6 +149,10 @@
         <item name="search_hint_color">@color/text_input_color_dark</item>
         <item name="search_drawable_tint">@color/background_light</item>
         <item name="dialog_background">@color/color_secondary_light</item>
+        <item name="orders_status_background">@color/color_secondary_light</item>
+        <item name="orders_status_stroke_color">@color/grey_20</item>
+        <item name="wishlist_buy_now_button_background">@color/text_input_color_dark</item>
+        <item name="wishlist_buy_now_button_textColor">@color/grey_20</item>
     </style>
 
 

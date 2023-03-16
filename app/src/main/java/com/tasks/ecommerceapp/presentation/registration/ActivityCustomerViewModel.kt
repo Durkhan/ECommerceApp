@@ -8,13 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.auth0.jwt.JWT
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.tasks.ecommerceapp.common.DataStoreManager
-import com.tasks.ecommerceapp.domain.usecases.ChangePasswordUseCase
-import com.tasks.ecommerceapp.domain.usecases.GetCustomerUseCase
 import com.tasks.ecommerceapp.domain.usecases.RegisterCustomerUseCase
 import com.tasks.ecommerceapp.domain.usecases.SendVerificationUseCase
-import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
-import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.common.Results
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
