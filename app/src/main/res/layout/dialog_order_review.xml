@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_review_dialog"
+    android:paddingBottom="@dimen/padding_huge">
+
+    <TextView
+        android:id="@+id/tv_order_check"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_20_dp"
+        android:fontFamily="@font/nunito_font_400"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/order_status_question"
+        android:textColor="?attr/color_secondary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_product"
+        android:layout_width="@dimen/shop_category_size"
+        android:layout_height="@dimen/shop_category_size"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_huge"
+        android:src="@drawable/img_phone_test"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_check"
+        app:riv_corner_radius="16dp" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:ellipsize="marquee"
+        android:fontFamily="@font/nunito_font_400"
+        android:singleLine="true"
+        android:text="Iphone 13 pro max"
+        android:textColor="?attr/color_secondary"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/iv_product"
+        app:layout_constraintTop_toTopOf="@id/iv_product" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_micro"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:ellipsize="end"
+        android:fontFamily="@font/nunito_bold"
+        android:maxLines="1"
+        android:text="asdsad"
+        android:textColor="?attr/color_secondary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_micro"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@drawable/bg_order_detail_status"
+        android:ellipsize="end"
+        android:fontFamily="@font/nunito"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/padding_small"
+        android:paddingVertical="@dimen/padding_micro"
+        android:text="@string/completed"
+        android:textColor="?attr/color_secondary"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_price" />
+
+    <EditText
+        android:id="@+id/et_review"
+        style="@style/MyEditTextStyle"
+        android:layout_marginTop="@dimen/margin_huge"
+        android:drawablePadding="5dp"
+        android:hint="@string/type_review"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_status"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_product_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/et_review"
+        tools:listitem="@layout/item_add_product" />
+
+    <ImageView
+        android:id="@+id/iv_add_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:src="@drawable/ic_add_photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_product_images" />
+
+
+    <TextView
+        android:id="@+id/tv_add_photo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12_dp"
+        android:ellipsize="marquee"
+        android:fontFamily="@font/nunito_font_400"
+        android:singleLine="true"
+        android:text="@string/add_more_products"
+        android:textColor="?attr/carrot"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/iv_add_photo"
+        app:layout_constraintTop_toTopOf="@id/iv_add_photo" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        style="@style/CustomButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/margin_huge"
+        android:background="@drawable/skip_background"
+        android:enabled="true"
+        android:text="@string/cancel"
+        android:textColor="?attr/color_secondary"
+        app:layout_constraintEnd_toStartOf="@id/btn_submit"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_add_photo" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/CustomButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="0dp"
+        android:enabled="true"
+        android:text="@string/submit"
+        android:textColor="?attr/button_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_cancel"
+        app:layout_constraintTop_toTopOf="@id/btn_cancel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

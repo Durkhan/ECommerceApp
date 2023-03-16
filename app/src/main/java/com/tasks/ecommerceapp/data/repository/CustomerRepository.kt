@@ -5,17 +5,21 @@ import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.common.Results
 import com.tasks.ecommerceapp.data.api.ApiAuthenticator
 import com.tasks.ecommerceapp.data.datasource.CustomerDataSource
+import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
 import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRequest
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
 import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
-import com.tasks.ecommerceapp.data.model.customer.product.*
+import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
+import com.tasks.ecommerceapp.data.model.customer.product.ProductResponse
+import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
+import com.tasks.ecommerceapp.data.model.customer.product.SearchProductRequest
+import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
-import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
@@ -206,5 +210,9 @@ class CustomerRepository @Inject constructor(
         }catch (e:Exception){
             ProductsResults.Error(e.message ?: "Unknown error occurred")
         }
+    }
+
+    suspend fun addReview(data: OrderReviewRequest): Response<Any> {
+        return customerDataSource.addReview(data)
     }
 }

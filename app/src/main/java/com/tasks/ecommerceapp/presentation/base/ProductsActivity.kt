@@ -38,6 +38,10 @@ class ProductsActivity : AppCompatActivity() {
         val navController = findNavController(R.id.fragmentContainerView)
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
 
+//        binding.bottomNav.setOnItemReselectedListener { item ->
+//            if (item.itemId != binding.bottomNav.selectedItemId)
+//                NavigationUI.onNavDestinationSelected(item, navController)
+//        }
 
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
