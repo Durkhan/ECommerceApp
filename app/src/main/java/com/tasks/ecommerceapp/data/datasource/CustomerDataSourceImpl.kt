@@ -13,6 +13,7 @@ import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
 import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
 import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
