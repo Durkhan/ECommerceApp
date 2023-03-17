@@ -99,7 +99,6 @@
     <string name="add_new_product">Add new product</string>
     <string name="my_products">My products</string>
     <string name="ongoing">Ongoing</string>
-    <string name="completed">Completed</string>
     <string name="canceled">Canceled</string>
     <string name="orders">Orders</string>
     <string name="orders_ongoing_desc">You don’t have an ongoing orders at this time</string>
@@ -119,4 +118,11 @@
         <item>UK</item>
         <item>AZ</item>
     </string-array>
+    <string name="order_status_question">How is your order?</string>
+    <string name="type_review">Type review</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_more_products">Add more products</string>
+    <string name="completed">Completed</string>
+    <string name="my_wish_list">My wish list</string>
 </resources>

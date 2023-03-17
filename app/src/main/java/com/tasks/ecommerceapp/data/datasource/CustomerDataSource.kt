@@ -7,6 +7,9 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
+import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
 import com.tasks.ecommerceapp.data.model.customer.orders.*
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
@@ -40,4 +43,5 @@ interface CustomerDataSource {
     suspend fun updateOrder(token:String,orderId:String,updateOrderRequest: UpdateOrderRequest):Order
 
 
+    suspend fun addReview(data: OrderReviewRequest): Response<Any>
 }

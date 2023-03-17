@@ -17,6 +17,9 @@ import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRespo
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
 import com.tasks.ecommerceapp.data.model.customer.orders.*
+import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
+import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
+import com.tasks.ecommerceapp.data.model.customer.orders.ProductsItemRequest
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
@@ -275,5 +278,9 @@ class CustomerRepository @Inject constructor(
          }catch (e:Exception){
              ProductsResults.Error(e.message ?: "Unknown error occurred")
          }
+    }
+
+    suspend fun addReview(data: OrderReviewRequest): Response<Any> {
+        return customerDataSource.addReview(data)
     }
 }
