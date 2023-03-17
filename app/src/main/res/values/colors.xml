@@ -23,6 +23,8 @@
     <color name="text_previous_color">#16212D</color>
     <color name="editText_background_color">#16212D</color>
     <color name="non_selected_edittext_backroun_light">#E0E0E0</color>
+    <color name="order_cancel">#EB2D2D</color>
+    <color name="order_completed">#0CA71B</color>
 
 
 

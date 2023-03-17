@@ -1,24 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".presentation.orders.OrdersFragment">
-
-    <include
-        android:id="@+id/header"
-        layout="@layout/header_title" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_orders"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_default"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        tools:itemCount="3"
-        tools:listitem="@layout/item_orders" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".presentation.orders.OrdersFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/header"
+            layout="@layout/header_title" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_ongoing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/orders_status_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_ongoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default"
+                android:fontFamily="@font/nunito_font_400"
+                android:text="@string/ongoing"
+                android:textColor="?attr/color_secondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/ib_selection_ongoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_default"
+                android:background="@null"
+                android:src="@drawable/ic_order_selection"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/textColor" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_orders_ongoing"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:layout_below="@+id/cl_ongoing"
+            android:layout_marginTop="@dimen/margin_default"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_orders" />
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_status_completed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_orders_ongoing"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/orders_status_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_status_complted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default"
+                android:fontFamily="@font/nunito_font_400"
+                android:text="@string/completed"
+                android:textColor="?attr/color_secondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/ib_selection_completed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_default"
+                android:background="@null"
+                android:src="@drawable/ic_order_selection"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/textColor" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_orders_completed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            tools:itemCount="3"
+            android:layout_below="@id/cl_status_completed"
+            tools:listitem="@layout/item_orders" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_status_canceled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@id/rv_orders_completed"
+            android:background="@drawable/orders_status_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_status_canceled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default"
+                android:fontFamily="@font/nunito_font_400"
+                android:textColor="?attr/color_secondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/canceled" />
+
+            <ImageButton
+                android:id="@+id/ib_selection_canceled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_default"
+                android:background="@null"
+                android:src="@drawable/ic_order_selection"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/textColor" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_orders_canceled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            tools:itemCount="3"
+            android:layout_below="@id/cl_status_canceled"
+            tools:listitem="@layout/item_orders" />
+        <Button
+            android:id="@+id/my_wishList"
+            style="@style/CustomButtonStyle"
+            android:text="@string/my_wish_List"
+            android:enabled="true"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="20dp"
+            app:backgroundTint="?attr/button_backgroundColor"
+            android:layout_marginBottom="@dimen/margin_20_dp"
+            />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

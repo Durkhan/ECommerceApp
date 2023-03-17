@@ -120,6 +120,7 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
             viewModel.getFilteredProducts(null, null, null, null)
                 .asFlow().collect{pagingData->
                     allProductsAdapter.submitData(pagingData)
+                    Log.d("pagingData",""+pagingData)
                 }
         }
         rvAllProducts.adapter = allProductsAdapter

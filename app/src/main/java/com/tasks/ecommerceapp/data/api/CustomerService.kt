@@ -6,14 +6,12 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
-import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.*
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
-import retrofit2.Response
 import retrofit2.http.*
 
 interface CustomerService {
@@ -56,9 +54,6 @@ interface CustomerService {
     @POST("products/search")
     suspend fun getSearchedProducts(@Body searched: SearchProductRequest?):List<SearchProductResponse>
 
-    @GET("orders")
-    suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>>
-
     @GET("comments/product/{productId}")
     suspend fun getProductReviews(@Path("productId") productId:String):List<ProductReviewResponse>
 
@@ -71,9 +66,6 @@ interface CustomerService {
     @DELETE("cart/{productId}")
     suspend fun deleteProductFromCart(@Header("Authorization") token:String,@Path("productId") productId:String): CartResponse
 
-    @POST ("orders/")
-    suspend fun createOrder(@Header("Authorization") token:String,@Body createOrdersRequest: CreateOrdersRequest):GetAllOrdersResponse
-
     @PUT ("wishlist/{productId}")
     suspend fun addWishlist(@Header("Authorization") token:String,@Path("productId") productId:String):ProductFilterResponse
 
@@ -83,4 +75,15 @@ interface CustomerService {
     @DELETE("wishlist/{productId}")
     suspend fun deleteProductFromWishList(@Header("Authorization") token:String,@Path("productId") productId:String): ProductFilterResponse
 
+    @POST ("orders/")
+    suspend fun createOrder(@Body createOrdersRequest: CreateOrdersRequest): OrdersResponse
+
+    @GET("orders")
+    suspend fun getAllOrders(@Header("Authorization") token:String): List<Order>
+
+    @GET("orders/{orderNo}")
+    suspend fun getOrderByOrderNo(@Header("Authorization") token:String,@Path("orderNo") orderNo:String):Order
+
+    @PUT("orders/{id}")
+    suspend fun updateOrder(@Header("Authorization") token:String,@Path("id") orderId:String,@Body updateOrderRequest: UpdateOrderRequest):Order
 }

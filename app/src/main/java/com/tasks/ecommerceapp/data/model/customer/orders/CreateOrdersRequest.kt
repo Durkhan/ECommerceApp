@@ -1,20 +1,17 @@
 package com.tasks.ecommerceapp.data.model.customer.orders
 
-import com.squareup.moshi.Json
+
 import com.squareup.moshi.JsonClass
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
+import com.tasks.ecommerceapp.data.model.customer.cart.CustomerId
 import org.bson.types.ObjectId
-import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class CreateOrdersRequest(
-    var customerId: ObjectId? = null,
+    val customerId: String,
     val email: String,
     val mobile: String,
-    val letterSubject: String?=null,
-    val letterHtml: String? =null,
-    @Json(name = "deliveryAddress") var deliveryAddress: DeliveryAddress? = null,
-    var shipping: String? = null,
-    var paymentInfo: String? = null,
-    var status: String? = null,
-    val date: Date? = null
+    val products: List<CartProductsItem>,
+    val letterSubject:String= "Thank you for order! You are welcome!",
+    val letterHtml: String="Your order is placed. OrderNo is 023689452.Other details about order in your",
 )

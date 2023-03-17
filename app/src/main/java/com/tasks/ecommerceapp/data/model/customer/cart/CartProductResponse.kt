@@ -1,6 +1,7 @@
 package com.tasks.ecommerceapp.data.model.customer.cart
 
 import com.google.gson.annotations.SerializedName
+import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 
 data class CartProductResponse(
 
@@ -29,7 +30,7 @@ data class CartProductResponse(
 	val size: String? = null,
 
 	@field:SerializedName("imageUrls")
-	val imageUrls: List<String?>? = null,
+	val imageUrls: List<String>? = null,
 
 	@field:SerializedName("__v")
 	val v: Int? = null,
@@ -64,3 +65,22 @@ data class CartProductResponse(
 	@field:SerializedName("oneMoreCustomParam")
 	val oneMoreCustomParam: OneMoreCustomParam? = null
 )
+fun ProductsItem.toRequest(): CartProductResponse {
+	return CartProductResponse(
+		date =date,
+		quantity=quantity,
+		color=color,
+		currentPrice = currentPrice,
+		previousPrice = previousPrice,
+		someOtherFeature = someOtherFeature,
+		weight = weight,
+		itemNo = itemNo,
+		enabled = enabled,
+		size = size,
+		imageUrls = imageUrls,
+		v = v,
+		name= name,
+		_id = _id,
+		ram = ram
+	)
+}

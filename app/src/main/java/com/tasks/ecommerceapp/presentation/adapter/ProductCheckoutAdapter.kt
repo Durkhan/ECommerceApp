@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.tasks.ecommerceapp.databinding.ItemCardCheckoutBinding
 import com.tasks.ecommerceapp.common.ProductCheckOutData
 
-class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewHolder>() {
+class ProductCheckoutAdapter() : RecyclerView.Adapter<ProductCheckoutAdapter.ViewHolder>() {
     private val products = mutableListOf<ProductCheckOutData>()
 
     var productDeleteEvent: ((Boolean) -> Unit?)? = null
@@ -19,14 +19,14 @@ class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewH
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(context: Context) = with(binding) {
-
+            val product=products[absoluteAdapterPosition].product.product
             chkSelect.isChecked = false
 
-            tvName.text = products[absoluteAdapterPosition].name
-            tvPrice.text="US $${products[absoluteAdapterPosition].price}"
+            tvName.text = product?.name
+            tvPrice.text="US $${product?.currentPrice}"
 
             Glide.with(context)
-                .load(products[absoluteAdapterPosition].imageUrl)
+                .load(product?.imageUrls?.get(0))
                 .into(ivProduct)
             ibRemove.setOnClickListener {
                 if (tvProductCount.text.toString() == "1") {
@@ -100,7 +100,7 @@ class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewH
         notifyDataSetChanged()
     }
 
-    fun removeSelectedProducts():List<ProductCheckOutData> {
+    fun selectedProducts():List<ProductCheckOutData> {
         val selectedProducts = mutableListOf<ProductCheckOutData>()
 
         products.forEach { item ->
@@ -115,7 +115,7 @@ class ProductCheckoutAdapter : RecyclerView.Adapter<ProductCheckoutAdapter.ViewH
         var productTotalPrice = 0.0
         products.forEach {
             if (it.selected) {
-                productTotalPrice += (it.price) * it.count
+                productTotalPrice += (it.product.product?.currentPrice)?.times(it.count) ?:0.0
             }
         }
         return productTotalPrice

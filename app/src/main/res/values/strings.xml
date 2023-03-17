@@ -82,7 +82,7 @@
     <string name="user_already_exists">User already exists,please try another username or email</string>
     <string name="password_is_incorrect">password is incorrect</string>
     <string name="reviews">Reviews</string>
-    <string name="track_order">Track order</string>
+    <string name="complete_order">Complete order</string>
     <string name="questions">Questions</string>
     <string name="specifications">Specifications</string>
     <string name="similar_goods">Similar goods</string>
@@ -107,6 +107,9 @@
     <string name="orders_canceled_desc">There are no cancelled orders</string>
     <string name="my_wishList">Wish List</string>
     <string name="my_wish_List">My wish list</string>
+    <string name="in_delivery">in delivery</string>
+    <string name="buy_again">Buy again</string>
+    <string name="leave_review">Leave review</string>
 
 
     <string-array name="language_spinner_items">

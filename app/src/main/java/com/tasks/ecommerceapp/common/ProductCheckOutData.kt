@@ -1,10 +1,9 @@
 package com.tasks.ecommerceapp.common
 
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
+
 data class ProductCheckOutData(
-    val name: String,
-    val price: Double,
-    val imageUrl:String,
-    val productId:String,
+    var product:CartProductsItem,
     var selected: Boolean = false,
     var count: Int = 1
 )

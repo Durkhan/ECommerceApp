@@ -11,5 +11,6 @@ data class CustomerResponse(
     val login: String? = null,
     val firstName: String? = null,
     val password: String? = null,
-    val token:String?=null
+    val token:String?=null,
+    val _id:String?=null
 )

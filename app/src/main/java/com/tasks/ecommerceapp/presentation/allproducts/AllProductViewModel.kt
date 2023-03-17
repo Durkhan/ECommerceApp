@@ -6,9 +6,9 @@ import androidx.paging.PagingData
 import com.tasks.ecommerceapp.common.DataStoreManager
 import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.common.Results
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
 import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.ProductsItemRequest
+import com.tasks.ecommerceapp.data.model.customer.orders.OrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.product.ProductFilterResponse
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
@@ -27,8 +27,6 @@ class AllProductViewModel @Inject constructor(
     private val getSearchedProductsUseCase: GetSearchedProductsUseCase,
     private val getProductReviewsUseCase: GetProductReviewsUseCase,
     private val addToCartUseCase: AddToCartUseCase,
-    private val createOrderUseCase: CreateOrderUseCase,
-    private val getCustomerUseCase: GetCustomerUseCase,
     private val addToWishListUseCase: AddToWishListUseCase,
     private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
@@ -46,8 +44,6 @@ class AllProductViewModel @Inject constructor(
     private val _customer = MutableLiveData<Results<CustomerResponse>>()
     val customer: LiveData<Results<CustomerResponse>> = _customer
 
-    private val _orders = MutableLiveData<ProductsResults<GetAllOrdersResponse>>()
-    val orders: LiveData<ProductsResults<GetAllOrdersResponse>> = _orders
 
     private val _addToWishListLiveData = MutableLiveData<ProductsResults<ProductFilterResponse>>()
     val addToWishListLiveData: LiveData<ProductsResults<ProductFilterResponse>> = _addToWishListLiveData
@@ -86,19 +82,6 @@ class AllProductViewModel @Inject constructor(
         }
     }
 
-    fun createOrder(email:String,mobile:String,productsItem: ProductsItemRequest){
-        viewModelScope.launch {
-            val result=createOrderUseCase(dataStoreManager.token.first(),email,mobile,productsItem)
-            _orders.postValue(result)
-        }
-    }
-
-    fun getCustomer() {
-        viewModelScope.launch {
-            val result=getCustomerUseCase(dataStoreManager.token.first())
-            _customer.postValue(result)
-        }
-    }
 
     fun addToWishList(productId: String){
         viewModelScope.launch {

@@ -7,16 +7,13 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
-import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.*
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
-import retrofit2.Response
-import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.Path
 
@@ -34,10 +31,13 @@ interface CustomerDataSource {
     suspend fun addToCart(token: String,productId:String): CartResponse
     suspend fun getCartProducts(token: String):CartResponse
     suspend fun deleteProductFromCart(token: String,productId: String):CartResponse
-    suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>>
-    suspend fun createOrder(token: String,createOrdersRequest: CreateOrdersRequest):GetAllOrdersResponse
-    suspend fun addToWishlist(@Header("Authorization") token:String, @Path("productId") productId:String):ProductFilterResponse
+    suspend fun getAllOrders(token:String): List<Order>
+    suspend fun createOrder(createOrdersRequest: CreateOrdersRequest):OrdersResponse
+    suspend fun addToWishlist(token:String,productId:String):ProductFilterResponse
     suspend fun getWishListProducts(token:String): ProductFilterResponse
-    suspend fun deleteProductFromWishList(token:String,@Path("productId") productId:String): ProductFilterResponse
+    suspend fun deleteProductFromWishList(token:String,productId:String): ProductFilterResponse
+    suspend fun getOrderByOrderNo(token:String,orderNo:String):Order
+    suspend fun updateOrder(token:String,orderId:String,updateOrderRequest: UpdateOrderRequest):Order
+
 
 }

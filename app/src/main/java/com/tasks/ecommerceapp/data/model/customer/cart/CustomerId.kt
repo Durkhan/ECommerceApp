@@ -38,7 +38,7 @@ data class CustomerId(
 	val v: Int? = null,
 
 	@field:SerializedName("_id")
-	val id: String? = null,
+	val _id: String? = null,
 
 	@field:SerializedName("email")
 	val email: String? = null

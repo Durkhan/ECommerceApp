@@ -1,6 +1,8 @@
 package com.tasks.ecommerceapp.di
 
 import android.content.Context
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tasks.ecommerceapp.data.api.*
 import com.tasks.ecommerceapp.data.repository.CustomerRepository
 import com.tasks.ecommerceapp.common.Constants.BASE_URL
@@ -53,9 +55,12 @@ object AppModule {
     @Singleton
     @Provides
     fun provideCustomerService(mOkHttpClient: OkHttpClient): CustomerService {
+        val moshi = Moshi.Builder()
+            .addLast(KotlinJsonAdapterFactory())
+            .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(mOkHttpClient)
             .build()
 

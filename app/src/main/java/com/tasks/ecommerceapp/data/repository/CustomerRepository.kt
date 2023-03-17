@@ -5,23 +5,21 @@ import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.common.Results
 import com.tasks.ecommerceapp.data.api.ApiAuthenticator
 import com.tasks.ecommerceapp.data.datasource.CustomerDataSource
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
 import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRequest
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
-import com.tasks.ecommerceapp.data.model.customer.orders.ProductsItemRequest
+import com.tasks.ecommerceapp.data.model.customer.orders.*
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
@@ -164,8 +162,14 @@ class CustomerRepository @Inject constructor(
         }
     }
 
-    suspend fun getAllOrders() : Response<List<GetAllOrdersResponse>>{
-        return customerDataSource.getAllOrders()
+    suspend fun getAllOrders(token:String) : ProductsResults<List<Order>>{
+        return try {
+            ProductsResults.Loading<List<Order>>(true)
+            val response = customerDataSource.getAllOrders(token)
+            ProductsResults.Success(response)
+        }catch (e:Exception){
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
     }
 
     suspend fun getProductReview(productId:String):ProductsResults<List<ProductReviewResponse>>{
@@ -209,13 +213,14 @@ class CustomerRepository @Inject constructor(
         }
     }
 
-    suspend fun createOrder(token:String,email: String,mobile:String,productsItem: ProductsItemRequest): ProductsResults<GetAllOrdersResponse>{
+    suspend fun createOrder(customerId:String,email: String,mobile:String,productsItem:List<CartProductsItem>): ProductsResults<OrdersResponse>{
         return try {
             ProductsResults.Loading<CreateOrdersRequest>(true)
-            val response = customerDataSource.createOrder(token,CreateOrdersRequest(
+            val response = customerDataSource.createOrder(CreateOrdersRequest(
+                customerId=customerId,
                 email =email,
                 mobile = mobile,
-                )
+                products=productsItem)
             )
             ProductsResults.Success(response)
         }catch (e:Exception){
@@ -250,5 +255,25 @@ class CustomerRepository @Inject constructor(
         }catch (e:Exception){
             ProductsResults.Error(e.message ?: "Unknown error occurred")
         }
+    }
+
+    suspend fun getOrderByOrderNo(token: String,orderNo:String):ProductsResults<Order>{
+        return try {
+            ProductsResults.Loading<Order>(true)
+            val response = customerDataSource.getOrderByOrderNo(token,orderNo)
+            ProductsResults.Success(response)
+        }catch (e:Exception){
+            ProductsResults.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+
+    suspend fun updateOrder(token:String,orderId: String,email: String,shipping:String):ProductsResults<Order>{
+         return try{
+             ProductsResults.Loading<Order>(true)
+             val response = customerDataSource.updateOrder(token,orderId,UpdateOrderRequest(email,shipping))
+             ProductsResults.Success(response)
+         }catch (e:Exception){
+             ProductsResults.Error(e.message ?: "Unknown error occurred")
+         }
     }
 }

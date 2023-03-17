@@ -56,14 +56,17 @@
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.255" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/background_not_focused_edittext_fields.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/backgrounds_for_registrationsfields.xml" value="0.2725" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/bg_order_detail_status.xml" value="0.192" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/bg_pin.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/bg_search_products.xml" value="0.193" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/button_backgroun.xml" value="0.255" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/button_background.xml" value="0.19" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/canceled_order.xml" value="0.192" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/chip_background.xml" value="0.193" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/chip_dark_mode_background.xml" value="0.193" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/chip_light_mode_background.xml" value="0.193" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/circle_imageview.xml" value="0.19" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/completed_order.xml" value="0.192" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_chevron_left.xml" value="0.138" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_choose_photo.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_dark_mode.xml" value="0.193" />
@@ -71,6 +74,7 @@
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_help_center.xml" value="0.193" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_image_slider.xml" value="0.193" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19" />
+        <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_order_selection.xml" value="0.192" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_password.xml" value="0.19" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_slide_unchecked.xml" value="0.193" />
         <entry key="..\:/Users/Durkhan/AndroidStudioProjects/ECommerceApp/app/src/main/res/drawable/ic_wishlists.xml" value="0.192" />

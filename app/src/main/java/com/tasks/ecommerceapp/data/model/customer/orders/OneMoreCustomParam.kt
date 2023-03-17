@@ -4,8 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class OneMoreCustomParam(
 
-    @SerializedName("description") var description: String? = null,
-    @SerializedName("rate") var rate: Double? = null,
-    @SerializedName("likes") var likes: Int? = null
+    @field:SerializedName("rate")
+    val rate: Any? = null,
 
+    @field:SerializedName("description")
+    val description: String? = null,
+
+    @field:SerializedName("likes")
+    val likes: Int? = null
 )

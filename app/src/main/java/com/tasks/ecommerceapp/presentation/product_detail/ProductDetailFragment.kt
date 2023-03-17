@@ -20,7 +20,9 @@ import com.tasks.ecommerceapp.common.Results
 import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.OnItemClickListener
 import com.tasks.ecommerceapp.common.listener.SimilarItemClickListener
-import com.tasks.ecommerceapp.data.model.customer.orders.toRequest
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductResponse
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
+import com.tasks.ecommerceapp.data.model.customer.cart.toRequest
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.databinding.FragmentProductDetailBinding
 import com.tasks.ecommerceapp.extensions.getCurrentPosition
@@ -31,6 +33,8 @@ import com.tasks.ecommerceapp.presentation.adapter.SimilarProductsAdapter
 import com.tasks.ecommerceapp.presentation.allproducts.AllProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.bson.types.ObjectId
+import kotlin.math.log
 
 @AndroidEntryPoint
 class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBinding>(),
@@ -53,41 +57,6 @@ class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBindi
         }
         requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().popBackStack()
-        }
-
-        createOrders(productItem)
-
-
-    }
-
-    private fun createOrders(productItem: ProductsItem) {
-        val productsItemRequest=productItem.toRequest()
-        binding.btnBuyNow.setOnClickListener {
-            viewModel.getCustomer()
-            viewModel.customer.observe(viewLifecycleOwner){result->
-                when(result){
-                    is Results.Success ->{
-                        val response=result.data
-                       viewModel.createOrder(
-                           response.email.toString(),
-                           response.telephone.toString(),
-                           productsItemRequest
-                       )
-                }
-                    else -> {}
-                }
-
-            }
-            viewModel.orders.observe(viewLifecycleOwner){result->
-                when(result){
-                    is ProductsResults.Success ->{
-                        Toast.makeText(requireContext(),"buy succesfully",Toast.LENGTH_LONG).show()
-                    }
-                    is ProductsResults.Error ->{
-                        Log.d("OrdersError",result.exception)
-                    }
-                }
-            }
         }
     }
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -11,16 +12,20 @@ import androidx.navigation.fragment.findNavController
 import com.tasks.ecommerceapp.databinding.FragmentCardBinding
 import com.tasks.ecommerceapp.common.ProductCheckOutData
 import com.tasks.ecommerceapp.common.ProductsResults
+import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
+import com.tasks.ecommerceapp.data.model.customer.cart.toRequest
+import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.presentation.base.BaseViewBindingFragment
 import com.tasks.ecommerceapp.presentation.adapter.ProductCheckoutAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class CardFragment : BaseViewBindingFragment<FragmentCardBinding>() {
+class CardFragment : BaseViewBindingFragment<FragmentCardBinding>(){
 
     private val productsAdapter = ProductCheckoutAdapter()
     private val cardProductsViewModel:CartProductsViewModel by viewModels()
+    private val checkedoutedProductList= mutableListOf<CartProductsItem>()
     override fun getViewBinding() = FragmentCardBinding.inflate(layoutInflater)
 
     @SuppressLint("SetTextI18n")
@@ -45,9 +50,11 @@ class CardFragment : BaseViewBindingFragment<FragmentCardBinding>() {
 
         binding.ibDelete.setOnClickListener {
             if (binding.ibDelete.isEnabled) {
-               val selectedProducts = productsAdapter.removeSelectedProducts()
+               val selectedProducts = productsAdapter.selectedProducts()
                 selectedProducts.forEach{
-                        cardProductsViewModel.deleteProductFromCart(it.productId)
+                    it.product.product?._id?.let { it ->
+                        cardProductsViewModel.deleteProductFromCart(it)
+                    }
                 }
                 cardProductsViewModel.deleteProductFromCartLivedata.observe(viewLifecycleOwner){result->
                     when(result){
@@ -61,6 +68,7 @@ class CardFragment : BaseViewBindingFragment<FragmentCardBinding>() {
         }
 
         getCartProducts()
+        createOrders()
 
         binding.ibReturnBack.setOnClickListener {
             clickBackPressed()
@@ -73,7 +81,34 @@ class CardFragment : BaseViewBindingFragment<FragmentCardBinding>() {
     private fun clickBackPressed() {
         findNavController().popBackStack()
     }
+    private fun createOrders() {
 
+        binding.btnAddToCard.setOnClickListener {
+           var selectedList:List<ProductCheckOutData> = productsAdapter.selectedProducts()
+             for (product in selectedList){
+                 checkedoutedProductList.add(product.product)
+             }
+            cardProductsViewModel.createOrder(
+                cardProductsViewModel.customerId,
+                cardProductsViewModel.email,
+                cardProductsViewModel.mobile,
+                checkedoutedProductList
+            )
+
+            cardProductsViewModel.orders.observe(viewLifecycleOwner){result->
+                when(result){
+                    is ProductsResults.Success ->{
+                        Toast.makeText(requireContext(),"buy succesfully", Toast.LENGTH_LONG).show()
+                        Log.d("OrdersErrorNumer",""+result.data)
+                    }
+
+                    is ProductsResults.Error ->{
+                        Log.d("OrdersError",result.exception)
+                    }
+                }
+            }
+        }
+    }
     private fun getCartProducts() {
         cardProductsViewModel.getCartProducts()
         cardProductsViewModel.cartProductsLivedata.observe(viewLifecycleOwner){result ->
@@ -85,14 +120,13 @@ class CardFragment : BaseViewBindingFragment<FragmentCardBinding>() {
                 is ProductsResults.Success -> {
                     val productList= mutableListOf<ProductCheckOutData>()
                     for (product in result.data.products!!)
-                        productList.add(ProductCheckOutData(
-                            product?.product?.name.toString(),
-                            product?.product?.currentPrice!!.toDouble(),
-                            product.product.imageUrls?.get(0)!!,
-                            product.product._id.toString()
-                        ))
+                        product?.let { ProductCheckOutData(it) }?.let { productList.add(it) }
                     productsAdapter.submitData(productList)
                     binding.progressBar.isVisible=false
+
+                    cardProductsViewModel.email=result.data.customerId?.email.toString()
+                    cardProductsViewModel.mobile=result.data.customerId?.telephone.toString()
+                    cardProductsViewModel.customerId=result.data.customerId?._id.toString()
                 }
 
                 is ProductsResults.Error ->{
@@ -101,5 +135,7 @@ class CardFragment : BaseViewBindingFragment<FragmentCardBinding>() {
             }
         }
     }
+
+
 
 }

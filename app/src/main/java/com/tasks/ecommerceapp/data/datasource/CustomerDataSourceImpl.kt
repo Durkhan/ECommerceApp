@@ -10,8 +10,7 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordResponse
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
-import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
+import com.tasks.ecommerceapp.data.model.customer.orders.*
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
@@ -19,7 +18,7 @@ import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import com.tasks.ecommerceapp.presentation.allproducts.ProductFilterPagingSource
 import kotlinx.coroutines.flow.Flow
-import retrofit2.Response
+import retrofit2.http.Header
 import javax.inject.Inject
 
 class CustomerDataSourceImpl @Inject constructor(
@@ -130,16 +129,17 @@ class CustomerDataSourceImpl @Inject constructor(
         return customerService.deleteProductFromCart(token,productId)
     }
 
-    override suspend fun getAllOrders(): Response<List<GetAllOrdersResponse>> {
-        return customerService.getAllOrders()
+    override suspend fun getAllOrders(@Header("Authorization") token:String): List<Order> {
+        return customerService.getAllOrders(token)
     }
 
-    override suspend fun createOrder(token: String,createOrdersRequest: CreateOrdersRequest): GetAllOrdersResponse {
+    override suspend fun createOrder(createOrdersRequest: CreateOrdersRequest): OrdersResponse {
         return customerService.createOrder(
-            token,
             CreateOrdersRequest(
+                customerId=createOrdersRequest.customerId,
                 email = createOrdersRequest.email,
                 mobile = createOrdersRequest.mobile,
+                products = createOrdersRequest.products
             )
         )
     }
@@ -157,5 +157,16 @@ class CustomerDataSourceImpl @Inject constructor(
         productId: String
     ): ProductFilterResponse {
         return customerService.deleteProductFromWishList(token,productId)
+    }
+
+    override suspend fun getOrderByOrderNo(token: String,orderNo: String): Order {
+        return customerService.getOrderByOrderNo(token,orderNo)
+    }
+
+    override suspend fun updateOrder(token: String, orderId: String,updateOrderRequest: UpdateOrderRequest):Order {
+        return customerService.updateOrder(token,orderId,UpdateOrderRequest(
+            email = updateOrderRequest.email,
+            status = updateOrderRequest.status
+        ))
     }
 }

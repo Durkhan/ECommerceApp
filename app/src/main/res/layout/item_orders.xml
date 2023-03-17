@@ -6,52 +6,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_default">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/orders_status_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginVertical="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
-            android:fontFamily="@font/nunito_font_400"
-            android:textColor="?attr/color_secondary"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Ongoing" />
-
-        <ImageButton
-            android:id="@+id/ib_selection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default"
-            android:background="@null"
-            android:src="@drawable/ic_order_selection"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="?attr/textColor" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/ln_empty_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_status">
+        >
 
         <ImageView
             android:id="@+id/status_image"
@@ -70,32 +32,96 @@
             android:layout_marginTop="@dimen/margin_default"
             android:padding="@dimen/padding_small"
             android:textColor="?attr/orders_status_stroke_color"
-             />
+            />
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_products"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_default"
-        android:orientation="vertical"
-        android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/cl_status"
-        tools:itemCount="4"
-        tools:listitem="@layout/item_order_product_detail">
-
-    </androidx.recyclerview.widget.RecyclerView>
-    <Button
-        android:id="@+id/my_wishList"
-        style="@style/CustomButtonStyle"
-        android:text="@string/my_wish_List"
-        android:enabled="true"
-        android:visibility="gone"
-        app:backgroundTint="?attr/button_backgroundColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="@dimen/margin_default">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_product"
+            android:layout_width="@dimen/shop_category_size"
+            android:layout_height="@dimen/shop_category_size"
+            android:src="@drawable/img_phone_test"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="16dp" />
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/nunito_font_400"
+            android:singleLine="true"
+            android:text="asdsad"
+            android:textColor="?attr/color_secondary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/iv_product"
+            app:layout_constraintTop_toTopOf="@id/iv_product"
+            tools:text="Iphone 11 pro max" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_micro"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_bold"
+            android:maxLines="1"
+            android:text="asdsad"
+            android:textColor="?attr/color_secondary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:text="USD500" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_micro"
+            android:layout_marginTop="@dimen/margin_small"
+            android:background="@drawable/bg_order_detail_status"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/padding_small"
+            android:paddingVertical="@dimen/padding_micro"
+            android:text="asdsad"
+            android:textColor="@color/carrot"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@id/tv_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            tools:text="In delivery" />
+
+        <Button
+            android:id="@+id/btn_status"
+            style="@style/CustomButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/margin_24_dp"
+            android:enabled="true"
+            android:layout_marginEnd="0dp"
+            android:layout_height="30dp"
+            android:paddingVertical="0dp"
+            android:textSize="12sp"
+            android:text="@string/complete_order"
+            app:backgroundTint="?attr/button_backgroundColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

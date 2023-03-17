@@ -48,7 +48,7 @@ class UpdateCustomerViewModel @Inject constructor(
 
 
     fun getUploadedImageUrl(uri: Uri, context: Context) {
-        uploadImageCloudinaryUseCase.invoke(uri, context, object : UploadImageCallback {
+        uploadImageCloudinaryUseCase(uri, context, object : UploadImageCallback {
             override fun onUploadSuccess(url: String) {
                _imageUrl.postValue(url)
             }
