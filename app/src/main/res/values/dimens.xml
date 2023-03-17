@@ -17,7 +17,8 @@
     <dimen name="margin_medium">6dp</dimen>
     <dimen name="margin_min">4dp</dimen>
     <dimen name="margin_micro">2dp</dimen>
-
+    <dimen name="dialog_horizontal_margin">20dp</dimen>
+    <dimen name="dialog_vertical_margin">20d</dimen>
 
     <!--    paddings-->
     <dimen name="padding_huge">32dp</dimen>
@@ -32,5 +33,6 @@
     <dimen name="product_size">160dp</dimen>
     <dimen name="checkout_item_img_size">97dp</dimen>
     <dimen name="product_detail_rv_size">327dp</dimen>
+
 
 </resources>

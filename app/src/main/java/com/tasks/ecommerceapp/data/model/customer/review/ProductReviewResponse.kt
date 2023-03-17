@@ -12,7 +12,7 @@ data class ProductReviewResponse(
     val v: Int? = null,
 
     @field:SerializedName("_id")
-    val id: String? = null,
+    val _id: String? = null,
 
     @field:SerializedName("content")
     val content: String? = null,

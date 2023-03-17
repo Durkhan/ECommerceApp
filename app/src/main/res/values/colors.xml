@@ -26,8 +26,6 @@
     <color name="order_cancel">#EB2D2D</color>
     <color name="order_completed">#0CA71B</color>
 
-
-
     ----> dark color
     <color name="background_dark">#131C26</color>
     <color name="textColor_dark">#F2F2F2</color>

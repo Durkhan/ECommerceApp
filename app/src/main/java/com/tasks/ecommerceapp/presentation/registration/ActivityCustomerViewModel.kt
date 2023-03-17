@@ -69,7 +69,6 @@ class ActivityCustomerViewModel @Inject constructor(
             val token=getToken().removePrefix("Bearer ")
             val jwt: DecodedJWT = JWT.decode(token)
             val expirationTime: Date = jwt.expiresAt
-
             Date().after(expirationTime)
         }catch (e:Exception){
             Log.d("AccessTokenDecoded",e.message.toString())

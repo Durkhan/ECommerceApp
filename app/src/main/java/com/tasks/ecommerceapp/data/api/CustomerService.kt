@@ -8,8 +8,7 @@ import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
 import com.tasks.ecommerceapp.data.model.customer.orders.*
 import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
-import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
+import com.tasks.ecommerceapp.data.model.customer.review.OrderReviewRequest
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
@@ -89,7 +88,8 @@ interface CustomerService {
 
     @PUT("orders/{id}")
     suspend fun updateOrder(@Header("Authorization") token:String,@Path("id") orderId:String,@Body updateOrderRequest: UpdateOrderRequest):Order
+
     @POST("comments")
-    suspend fun addReview(@Body data: OrderReviewRequest?):Response<Any>
+    suspend fun addReview(@Header("Authorization")token:String,@Body data: OrderReviewRequest?): ProductReviewResponse
 
 }

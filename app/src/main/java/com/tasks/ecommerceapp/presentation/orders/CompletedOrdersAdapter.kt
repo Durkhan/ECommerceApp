@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.listener.CompleteOrderListener
+import com.tasks.ecommerceapp.common.listener.LeaveReviewListener
 import com.tasks.ecommerceapp.data.model.customer.orders.Order
 import com.tasks.ecommerceapp.databinding.ItemOrdersBinding
 
-class CompletedOrdersAdapter (private val orders:List<Order>, private val completeOrderListener: CompleteOrderListener) : RecyclerView.Adapter<CompletedOrdersAdapter.ViewHolder>() {
+class CompletedOrdersAdapter (private val orders:List<Order>, private val leaveReviewListener: LeaveReviewListener) : RecyclerView.Adapter<CompletedOrdersAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompletedOrdersAdapter.ViewHolder {
@@ -43,6 +45,8 @@ class CompletedOrdersAdapter (private val orders:List<Order>, private val comple
                 Glide.with(holder.itemView.context)
                     .load(product?.imageUrls?.get(0))
                     .into(ivProduct)
+
+                btnStatus.setOnClickListener {leaveReviewListener.leaveReview(orders[position])}
             }
         }
     }

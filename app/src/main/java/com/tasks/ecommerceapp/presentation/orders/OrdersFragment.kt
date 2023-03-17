@@ -9,15 +9,20 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentOrdersBinding
 import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.common.listener.CompleteOrderListener
+import com.tasks.ecommerceapp.common.listener.LeaveReviewListener
 import com.tasks.ecommerceapp.data.model.customer.orders.Order
+import com.tasks.ecommerceapp.data.model.customer.review.OrderReview
+import com.tasks.ecommerceapp.data.model.customer.review.OrderReviewRequest
 import com.tasks.ecommerceapp.presentation.base.BaseViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrdersFragment : BaseViewBindingFragment<FragmentOrdersBinding>(),CompleteOrderListener {
+class OrdersFragment : BaseViewBindingFragment<FragmentOrdersBinding>(),CompleteOrderListener,LeaveReviewListener{
 
 
     private val ordersViewModel: OrdersViewModel by viewModels()
@@ -30,8 +35,14 @@ class OrdersFragment : BaseViewBindingFragment<FragmentOrdersBinding>(),Complete
         initOrdersObserver()
         returnBack()
         showingOrdersShippingTypes()
+
+        binding.myWishList.setOnClickListener {
+            findNavController().navigate(R.id.action_ordersFragment_to_wishListFragment)
+        }
 //        getOrderByOrderNo()
     }
+
+
 
     private fun showingOrdersShippingTypes() {
         binding.ibSelectionOngoing.isSelected=true
@@ -133,6 +144,18 @@ class OrdersFragment : BaseViewBindingFragment<FragmentOrdersBinding>(),Complete
                   else -> {}
               }
           }
+    }
+
+    override fun leaveReview(order: Order) {
+        val product= order.products?.let {
+            OrderReview(
+                order.customerId?._id.toString(),
+                order.products[0].product?._id.toString(),
+                it[0]
+            )
+        }
+        val action=OrdersFragmentDirections.actionOrdersFragmentToAddReviewDialogFragment(product)
+        findNavController().navigate(action)
     }
 
 

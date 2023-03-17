@@ -26,6 +26,10 @@ class WishListFragment: BaseViewBindingFragment<FragmentWishlistBinding>(),Delet
         super.onViewCreated(view, savedInstanceState)
         binding.header.fragName.text=getString(R.string.my_wishList)
         getWishListProducts()
+
+        binding.header.ibBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
 
 

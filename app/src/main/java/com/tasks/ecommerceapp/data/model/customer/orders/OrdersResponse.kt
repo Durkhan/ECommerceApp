@@ -1,6 +1,8 @@
 package com.tasks.ecommerceapp.data.model.customer.orders
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class OrdersResponse(
 
@@ -11,6 +13,7 @@ data class OrdersResponse(
 	val order: Order? = null
 )
 
+@Parcelize
 data class Product(
 
 	@field:SerializedName("date")
@@ -47,7 +50,7 @@ data class Product(
 	val previousPrice: Int? = null,
 
 	@field:SerializedName("_id")
-	val id: String? = null,
+	val _id: String? = null,
 
 	@field:SerializedName("categories")
 	val categories: String? = null,
@@ -60,7 +63,7 @@ data class Product(
 
 	@field:SerializedName("oneMoreCustomParam")
 	val oneMoreCustomParam: OneMoreCustomParam? = null
-)
+):Parcelable
 
 data class MailResult(
 
@@ -152,59 +155,10 @@ data class CustomerId(
 	val v: Int? = null,
 
 	@field:SerializedName("_id")
-	val id: String? = null,
+	val _id: String? = null,
 
 	@field:SerializedName("email")
 	val email: String? = null
 )
 
-data class Order(
 
-	@field:SerializedName("date")
-	val date: String? = null,
-
-	@field:SerializedName("orderNo")
-	val orderNo: String? = null,
-
-	@field:SerializedName("mobile")
-	val mobile: String? = null,
-
-	@field:SerializedName("letterHtml")
-	val letterHtml: String? = null,
-
-	@field:SerializedName("letterSubject")
-	val letterSubject: String? = null,
-
-	@field:SerializedName("products")
-	val products: List<OrderProductsItem>? = null,
-
-	@field:SerializedName("totalSum")
-	val totalSum: Int? = null,
-
-	@field:SerializedName("canceled")
-	val canceled: Boolean? = null,
-
-	@field:SerializedName("shipping")
-	val shipping: String? = null,
-
-	@field:SerializedName("deliveryAddress")
-	val deliveryAddress: DeliveryAddress? = null,
-
-	@field:SerializedName("__v")
-	val v: Int? = null,
-
-	@field:SerializedName("customerId")
-	val customerId: CustomerId? = null,
-
-	@field:SerializedName("_id")
-	val _id: String? = null,
-
-	@field:SerializedName("paymentInfo")
-	val paymentInfo: String? = null,
-
-	@field:SerializedName("email")
-	val email: String? = null,
-
-	@field:SerializedName("status")
-	val status: String? = null
-)

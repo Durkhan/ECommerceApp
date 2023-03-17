@@ -121,11 +121,24 @@
         <action
             android:id="@+id/action_ordersFragment_to_wishListFragment"
             app:destination="@id/wishListFragment" />
+        <action
+            android:id="@+id/action_ordersFragment_to_addReviewDialogFragment"
+            app:destination="@id/addReviewDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/wishListFragment"
         android:name="com.tasks.ecommerceapp.presentation.wishlist.WishListFragment"
         android:label="WishListFragment" />
+    <dialog
+        android:id="@+id/addReviewDialogFragment"
+        android:name="com.tasks.ecommerceapp.presentation.dialog.AddReviewDialogFragment"
+        android:label="AddReviewDialogFragment">
+        <argument
+            android:name="product"
+            app:nullable="true"
+            app:argType="com.tasks.ecommerceapp.data.model.customer.review.OrderReview"/>
+    </dialog>
+
 
 
 </navigation>

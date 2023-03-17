@@ -8,8 +8,7 @@ import com.tasks.ecommerceapp.data.model.customer.chagepassword.ChangePasswordRe
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginRequest
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
 import com.tasks.ecommerceapp.data.model.customer.orders.CreateOrdersRequest
-import com.tasks.ecommerceapp.data.model.customer.orders.GetAllOrdersResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
+import com.tasks.ecommerceapp.data.model.customer.review.OrderReviewRequest
 import com.tasks.ecommerceapp.data.model.customer.orders.*
 import com.tasks.ecommerceapp.data.model.customer.product.*
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
@@ -17,8 +16,6 @@ import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRespo
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.Header
-import retrofit2.http.Path
 
 interface CustomerDataSource {
     suspend fun registerCustomer(customer: CustomerRegisterRequest): CustomerRegisterResponse
@@ -41,7 +38,5 @@ interface CustomerDataSource {
     suspend fun deleteProductFromWishList(token:String,productId:String): ProductFilterResponse
     suspend fun getOrderByOrderNo(token:String,orderNo:String):Order
     suspend fun updateOrder(token:String,orderId:String,updateOrderRequest: UpdateOrderRequest):Order
-
-
-    suspend fun addReview(data: OrderReviewRequest): Response<Any>
+    suspend fun addReview(token:String,data: OrderReviewRequest): ProductReviewResponse
 }

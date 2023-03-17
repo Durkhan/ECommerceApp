@@ -1,22 +1,31 @@
 package com.tasks.ecommerceapp.presentation.dialog
 
+
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.InsetDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.util.Log
+import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.tasks.ecommerceapp.R
+import com.tasks.ecommerceapp.common.EmptyTextWatcher
+import com.tasks.ecommerceapp.common.ProductsResults
+import com.tasks.ecommerceapp.common.isName
+import com.tasks.ecommerceapp.common.listener.CompleteOrderListener
 import com.tasks.ecommerceapp.common.listener.UploadImageCallback
-import com.tasks.ecommerceapp.data.model.customer.orders.OrderReviewRequest
+import com.tasks.ecommerceapp.data.model.customer.orders.Order
+import com.tasks.ecommerceapp.data.model.customer.review.OrderReviewRequest
 import com.tasks.ecommerceapp.data.model.customer.review.Product
 import com.tasks.ecommerceapp.databinding.DialogOrderReviewBinding
 import com.tasks.ecommerceapp.domain.usecases.UploadImageCloudinaryUseCase
@@ -36,6 +45,7 @@ class AddReviewDialogFragment : DialogFragment() {
 
     private var productImagesCounter = 0
     private var productImagesList = mutableListOf<Uri>()
+    private val args:AddReviewDialogFragmentArgs by navArgs()
 
     @Inject
     lateinit var uploadImageCloudinaryUseCase: UploadImageCloudinaryUseCase
@@ -48,11 +58,6 @@ class AddReviewDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DialogOrderReviewBinding.inflate(layoutInflater)
-
-        if (dialog != null && dialog?.window != null) {
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        }
         return binding.root
     }
 
@@ -65,8 +70,21 @@ class AddReviewDialogFragment : DialogFragment() {
         initImagePicker()
         initClickEvents()
         initSubmitBtnVisibility()
-    }
+        assignDataOfProduct()
 
+    }
+    @SuppressLint("SetTextI18n")
+    private fun assignDataOfProduct() {
+        val product=args.product
+        with(binding){
+            Glide.with(requireContext())
+                .load(product?.productsItem?.product?.imageUrls?.get(0))
+                .into(ivProduct)
+            tvName.text=product?.productsItem?.product?.name
+            tvPrice.text="US $${product?.productsItem?.product?.currentPrice}"
+        }
+
+    }
     private fun setReviewObserver() {
         viewModel.addReviewLiveData.observe(viewLifecycleOwner, Observer {
             dismiss()
@@ -74,7 +92,7 @@ class AddReviewDialogFragment : DialogFragment() {
     }
 
     private fun uploadImages2Cloud(uri: Uri) {
-        uploadImageCloudinaryUseCase.invoke(uri, requireContext(), object : UploadImageCallback {
+        uploadImageCloudinaryUseCase(uri, requireContext(), object : UploadImageCallback {
             override fun onUploadSuccess(url: String) {
                 productImagesCloudUrlsList.add(url)
                 productImagesCounter++
@@ -89,17 +107,42 @@ class AddReviewDialogFragment : DialogFragment() {
 
     private fun prepareDataForSubmit() {
         val data = OrderReviewRequest(
-            productData?.id,
+            args.product?.customerId.toString(),
+            args.product?.product.toString(),
             binding.etReview.text.toString(),
             productImagesCloudUrlsList
         )
         viewModel.submitReview(data)
+
+        viewModel.addReviewLiveData.observe(viewLifecycleOwner){result ->
+            when(result){
+                is ProductsResults.Success -> {
+                    dismiss()
+                }
+                else -> {}
+            }
+
+        }
     }
 
     private fun initSubmitBtnVisibility() {
-        binding.etReview.doAfterTextChanged {
-            binding.btnSubmit.isClickable = it.isNullOrEmpty()
-        }
+        binding.etReview.addTextChangedListener(object :EmptyTextWatcher() {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0.toString().isNotBlank()){
+                    binding.btnSubmit.isEnabled = true
+                    binding.btnSubmit.backgroundTintList=ContextCompat.getColorStateList(requireContext(),
+                        R.color.button_tint_enabled
+                    )
+                }else{
+                    binding.btnSubmit.isEnabled = false
+                    binding.btnSubmit.backgroundTintList=ContextCompat.getColorStateList(requireContext(),
+                        R.color.button_is_not_enabled
+                    )
+                }
+
+            }
+
+        })
     }
 
     private fun initClickEvents() {
@@ -139,7 +182,6 @@ class AddReviewDialogFragment : DialogFragment() {
         if (productData == null) {
             return@with
         }
-
         tvName.text = productData?.name
         tvPrice.text = productData?.currentPrice?.toString()
 
@@ -148,10 +190,13 @@ class AddReviewDialogFragment : DialogFragment() {
         }
     }
 
-
-    fun setProduct(productData: Product, productImageUrl: String): DialogFragment {
-        this.productData = productData
-        this.productImageUrl = productImageUrl
-        return this
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        val back = ColorDrawable(Color.TRANSPARENT)
+        val margin = 50
+        val inset = InsetDrawable(back, margin)
+        dialog?.window?.setBackgroundDrawable(inset)
     }
+
 }

@@ -154,7 +154,6 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="0dp"
-        android:enabled="true"
         android:text="@string/submit"
         android:textColor="?attr/button_text_color"
         app:layout_constraintEnd_toEndOf="parent"

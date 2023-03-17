@@ -38,10 +38,10 @@ class ProductsActivity : AppCompatActivity() {
         val navController = findNavController(R.id.fragmentContainerView)
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
 
-//        binding.bottomNav.setOnItemReselectedListener { item ->
-//            if (item.itemId != binding.bottomNav.selectedItemId)
-//                NavigationUI.onNavDestinationSelected(item, navController)
-//        }
+        binding.bottomNav.setOnItemReselectedListener { item ->
+            if (item.itemId != binding.bottomNav.selectedItemId)
+                NavigationUI.onNavDestinationSelected(item, navController)
+        }
 
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -71,7 +71,11 @@ class ProductsActivity : AppCompatActivity() {
     private fun configureBottomNavVisibility() = with(binding) {
         findNavController(R.id.fragmentContainerView).addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.productFullDetailFragment -> bottomNav.hide()
+                R.id.productFullDetailFragment,
+                R.id.changePasswordFragment,
+                R.id.getRecoveryFragment,
+                R.id.recoveryFragment-> bottomNav.hide()
+
                 else -> {
                     bottomNav.show()
                 }

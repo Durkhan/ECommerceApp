@@ -41,7 +41,7 @@ data class Product(
 	val name: String? = null,
 
 	@field:SerializedName("_id")
-	val id: String? = null,
+	val _id: String? = null,
 
 	@field:SerializedName("categories")
 	val categories: String? = null,
