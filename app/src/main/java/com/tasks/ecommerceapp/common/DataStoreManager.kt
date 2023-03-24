@@ -18,22 +18,33 @@ val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = "pr
 @Singleton
 class DataStoreManager@Inject constructor(@ApplicationContext private val context: Context) {
     private val dataStore: DataStore<Preferences> = context.datastore
-    val token:Flow<String>
-        get() = dataStore.data.map {
-            it[token_]?:""
-        }
 
     private companion object {
         val token_= stringPreferencesKey(name="token")
+        val language_= stringPreferencesKey(name="language")
         val pin_= stringPreferencesKey(name="pin")
         val rememberMe= booleanPreferencesKey(name = "rememberMe_")
         val firstTime= booleanPreferencesKey(name = "firstTime_")
         val darkMode= booleanPreferencesKey(name = "darkMode_")
     }
+    val token:Flow<String>
+        get() = dataStore.data.map {
+            it[token_]?:""
+        }
 
     suspend fun saveToken(string: String){
         dataStore.edit {
             it[token_]=string
+        }
+    }
+    val language:Flow<String>
+        get() = dataStore.data.map {
+            it[language_]?:"en"
+        }
+
+    suspend fun saveLanguage(string: String){
+        dataStore.edit {
+            it[language_]=string
         }
     }
     val pin:Flow<String>

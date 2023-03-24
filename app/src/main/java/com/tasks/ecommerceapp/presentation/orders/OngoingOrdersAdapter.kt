@@ -31,7 +31,7 @@ class OngoingOrdersAdapter(private val orders:List<Order>,private val completeOr
                 val product = orders[position].products?.get(0)?.product
                 tvStatus.text = holder.itemView.context.getString(R.string.in_delivery)
                 tvName.text = product?.name
-                btnStatus.text = holder.itemView.context.getString(R.string.completed)
+                btnStatus.text = holder.itemView.context.getString(R.string.complete)
                 tvPrice.text = "US $${product?.currentPrice}"
                 Glide.with(holder.itemView.context)
                     .load(product?.imageUrls?.get(0))

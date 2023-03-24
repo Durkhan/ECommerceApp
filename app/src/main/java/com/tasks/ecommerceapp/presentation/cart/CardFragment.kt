@@ -84,7 +84,7 @@ class CardFragment : BaseViewBindingFragment<FragmentCardBinding>(){
     private fun createOrders() {
 
         binding.btnAddToCard.setOnClickListener {
-           var selectedList:List<ProductCheckOutData> = productsAdapter.selectedProducts()
+           val selectedList:List<ProductCheckOutData> = productsAdapter.selectedProducts()
              for (product in selectedList){
                  checkedoutedProductList.add(product.product)
              }

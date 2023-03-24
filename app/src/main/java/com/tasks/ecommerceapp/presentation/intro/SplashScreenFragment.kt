@@ -1,5 +1,6 @@
 package com.tasks.ecommerceapp.presentation.intro
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -17,8 +18,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.auth0.jwt.JWT
+import com.auth0.jwt.interfaces.DecodedJWT
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.DARK_MODE
+import com.tasks.ecommerceapp.common.DataStoreManager
+import com.tasks.ecommerceapp.common.LANGUAGE
 import com.tasks.ecommerceapp.databinding.FragmentSplashScreenBinding
 import com.tasks.ecommerceapp.presentation.base.ProductsActivity
 import com.tasks.ecommerceapp.presentation.registration.ActivityCustomerViewModel
@@ -26,21 +31,28 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.*
+import javax.inject.Inject
 
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashScreenFragment :Fragment() {
     private  var _binding: FragmentSplashScreenBinding?=null
     private val binding get()=_binding!!
-    private val viewModel:ActivityCustomerViewModel by activityViewModels()
+
+    @Inject
+    lateinit var dataStoreManager:DataStoreManager
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         lifecycleScope.launch{
-            DARK_MODE=viewModel.isDarkMode()
+            DARK_MODE=dataStoreManager.isDarkMode.first()
           if(DARK_MODE) {
               requireActivity().setTheme(R.style.DarkTheme)
               val window=requireActivity().window
@@ -76,10 +88,14 @@ class SplashScreenFragment :Fragment() {
             binding.imageView.startAnimation(scaleAnimation)
             delay(700)
             try {
-                if (viewModel.getFirstTime()){
+                setLocale(dataStoreManager.language.first())
+                if (dataStoreManager.isFirstTime.first()){
                     findNavController().navigate(R.id.action_spllashScreenFragment_to_welcomeFragment)
                 }
-                else if (!viewModel.getRememberUser() || viewModel.getToken().isBlank() || viewModel.isAccessTokenExpired()){
+                else if (!dataStoreManager.isRemember.first()
+                    || dataStoreManager.token.first().isBlank()
+                    || isAccessTokenExpired())
+                {
                     findNavController().navigate(R.id.action_spllashScreenFragment_to_signinFragment)
                 }
                 else{
@@ -96,6 +112,25 @@ class SplashScreenFragment :Fragment() {
         }
     }
 
+    private fun setLocale(language: String) {
+        LANGUAGE=language
+        val locale= Locale(language)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+    }
+
+    private suspend fun isAccessTokenExpired(): Boolean {
+        return try{
+            val token=dataStoreManager.token.first().removePrefix("Bearer ")
+            val jwt: DecodedJWT = JWT.decode(token)
+            val expirationTime: Date = jwt.expiresAt
+            Date().after(expirationTime)
+        }catch (e:Exception){
+            Log.d("AccessTokenDecoded",e.message.toString())
+            false
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding=null

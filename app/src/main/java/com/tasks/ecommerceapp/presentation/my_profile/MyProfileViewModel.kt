@@ -63,4 +63,9 @@ class MyProfileViewModel @Inject constructor(
         }
     }
 
+    fun saveLanguage(language:String){
+        viewModelScope.launch {
+            dataStoreManager.saveLanguage(language)
+        }
+    }
 }

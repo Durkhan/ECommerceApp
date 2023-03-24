@@ -109,15 +109,6 @@
     <string name="in_delivery">in delivery</string>
     <string name="buy_again">Buy again</string>
     <string name="leave_review">Leave review</string>
-
-
-    <string-array name="language_spinner_items">
-        <item>US</item>
-        <item>DE</item>
-        <item>TR</item>
-        <item>UK</item>
-        <item>AZ</item>
-    </string-array>
     <string name="order_status_question">How is your order?</string>
     <string name="type_review">Type review</string>
     <string name="submit">Submit</string>
@@ -125,4 +116,14 @@
     <string name="add_more_products">Add more products</string>
     <string name="completed">Completed</string>
     <string name="my_wish_list">My wish list</string>
+    <string name="complete">complete</string>
+
+    <string-array name="language_spinner_items">
+        <item>English</item>
+        <item>German</item>
+        <item>Turkish</item>
+        <item>Ukraine</item>
+        <item>Azerbaijani</item>
+    </string-array>
+
 </resources>

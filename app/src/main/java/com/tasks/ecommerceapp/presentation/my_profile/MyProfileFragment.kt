@@ -1,13 +1,14 @@
 package com.tasks.ecommerceapp.presentation.my_profile
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,11 +17,14 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.Constants.START_DESTINATION_CHANGED
 import com.tasks.ecommerceapp.common.DARK_MODE
+import com.tasks.ecommerceapp.common.LANGUAGE
 import com.tasks.ecommerceapp.common.Results
 import com.tasks.ecommerceapp.databinding.FragmentMyProfilBinding
 import com.tasks.ecommerceapp.presentation.MainActivity
 import com.tasks.ecommerceapp.presentation.base.BaseViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -42,17 +46,30 @@ class MyProfileFragment : BaseViewBindingFragment<FragmentMyProfilBinding>(){
 
 
     private fun setSpinner() {
-        val items= listOf("US","UK","AZ","TR","DE")
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            requireContext(),
-            R.layout.spinner_text,
-            items
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinner.adapter = adapter
+        val items = listOf("en", "de", "tr", "uk", "az")
+        lifecycleScope.launch{
+            val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.language_spinner_items, R.layout.spinner_text)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinner.adapter = adapter
+            val selected= LANGUAGE
+            binding.spinner.setSelection(items.indexOf(selected))
+            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                    val selectedItem = items[position]
+                    if (selectedItem!=selected){
+                        setLocale(selectedItem)
+                        viewModel.saveLanguage(selectedItem)
+                        LANGUAGE=selectedItem
+                    }
+                }
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
+
+        }
+
     }
 
-    private fun setDarkMode() {
+        private fun setDarkMode() {
         binding.dark.setOnClickListener {
             if (!DARK_MODE){
                 viewModel.setDarkMode(true)
@@ -76,6 +93,17 @@ class MyProfileFragment : BaseViewBindingFragment<FragmentMyProfilBinding>(){
         }
         binding.back.setOnClickListener {
             findNavController().popBackStack()
+        }
+    }
+
+    fun setLocale(language: String) {
+        val locale=Locale(language)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+        findNavController().run {
+            popBackStack()
+            navigate(R.id.myProfileFragment)
         }
     }
 

@@ -9,6 +9,7 @@ import com.tasks.ecommerceapp.common.Constants.START_DESTINATION_CHANGED
 import com.tasks.ecommerceapp.common.DARK_MODE
 import com.tasks.ecommerceapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,4 +41,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 }

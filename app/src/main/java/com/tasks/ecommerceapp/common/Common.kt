@@ -6,10 +6,12 @@ import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import com.tasks.ecommerceapp.R
+import org.intellij.lang.annotations.Language
 import java.util.*
 
 
 var DARK_MODE=false
+var LANGUAGE = "en"
 
 
 fun isEmail(text: String): Boolean {
