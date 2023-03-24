@@ -9,26 +9,28 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.*
 import com.tasks.ecommerceapp.databinding.FragmentSignUpBinding
+import com.tasks.ecommerceapp.presentation.verify.VerificationModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class SignupFragment:Fragment() {
+
     private var _binding: FragmentSignUpBinding?=null
     private val binding get()=_binding!!
-    private val viewModel: ActivityCustomerViewModel by activityViewModels()
+    private val viewModel: SignUpViewModel by viewModels()
     private var email =""
     private var password =""
+    private val args:SignupFragmentArgs by navArgs()
+    private val checksViewValid: CheckViewsValid by lazy { CheckViewsValid(requireContext()) }
 
-    private val checksViewValids: CheckViewsValid by lazy {
-        CheckViewsValid(requireContext())
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,35 +55,30 @@ class SignupFragment:Fragment() {
             }
         })
 
-        binding.signup.setOnClickListener {
-            registerCustomer()
-        }
-       binding.signIn.setOnClickListener {
-           findNavController().navigate(R.id.action_signupAccount_to_signinFragment)
-       }
+        binding.signup.setOnClickListener { registerCustomer() }
 
-        binding.back.setOnClickListener {
-            findNavController().popBackStack()
-        }
-        requireActivity().onBackPressedDispatcher.addCallback{
-            findNavController().popBackStack()
-        }
+        binding.signIn.setOnClickListener { findNavController().navigate(R.id.action_signupAccount_to_signinFragment) }
+
+        binding.back.setOnClickListener { findNavController().popBackStack() }
+
+        requireActivity().onBackPressedDispatcher.addCallback{ findNavController().popBackStack() }
     }
 
 
 
     private fun emailOrPasswordIsValid(editText:EditText) {
-        checksViewValids.checkFocusedEdittext(editText)
+        checksViewValid.checkFocusedEdittext(editText)
         if(!isEmail(email) || password.length<7){
-               checksViewValids.notEnabled(binding.signup)
+               checksViewValid.notEnabled(binding.signup)
         }else{
-            checksViewValids.setEnabled(binding.signup)
+            checksViewValid.setEnabled(binding.signup)
         }
     }
     private fun registerCustomer() {
-        val firstName = viewModel.firstName
-        val lastName = viewModel.lastName
-        val userName = viewModel.userName
+        val firstName = args.userInfo?.firstName.toString()
+        val lastName = args.userInfo?.lastName.toString()
+        val userName = args.userInfo?.login.toString()
+
         viewModel.registerCustomer(email,password,firstName,lastName,userName)
         viewModel.registerResult.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
@@ -98,10 +95,10 @@ class SignupFragment:Fragment() {
     }
     private fun sendVerificationNumber(toEmail: String) {
         val verificationCode = randomNumber()
-        viewModel.toEmail=toEmail
-        viewModel.verificationCode=verificationCode.toString()
+        val verificationData = VerificationModel(toEmail,verificationCode.toString())
         viewModel.sendVerificationNumber(toEmail,verificationCode)
-        findNavController().navigate(R.id.action_signupAccount_to_verifyFragment)
+        val action=SignupFragmentDirections.actionSignupAccountToVerifyFragment(verificationData)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

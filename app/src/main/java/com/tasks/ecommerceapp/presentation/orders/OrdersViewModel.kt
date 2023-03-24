@@ -7,11 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.tasks.ecommerceapp.common.DataStoreManager
 import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.data.model.customer.orders.Order
-import com.tasks.ecommerceapp.data.model.customer.orders.OrderProductsItem
-import com.tasks.ecommerceapp.data.model.customer.orders.OrdersResponse
-import com.tasks.ecommerceapp.domain.usecases.GetAllOrdersUseCase
-import com.tasks.ecommerceapp.domain.usecases.GetOrderByOrderNoUseCase
-import com.tasks.ecommerceapp.domain.usecases.UpdateOrderUseCase
+import com.tasks.ecommerceapp.domain.usecases.order.GetAllOrdersUseCase
+import com.tasks.ecommerceapp.domain.usecases.order.GetOrderByOrderNoUseCase
+import com.tasks.ecommerceapp.domain.usecases.order.UpdateOrderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch

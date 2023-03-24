@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="60dp"
     android:layout_marginEnd="@dimen/margin_10_dp"
     android:layout_marginTop="@dimen/margin_default">
 
@@ -43,7 +44,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/iv_product"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="-10%" />
+        android:text="0%" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -54,7 +55,6 @@
         android:ellipsize="marquee"
         android:fontFamily="@font/nunito_600"
         android:singleLine="true"
-        android:text="asdsad"
         android:textColor="?attr/textColor"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -72,7 +72,6 @@
         android:ellipsize="end"
         android:fontFamily="@font/nunito_font_400"
         android:maxLines="1"
-        android:text="asdsad"
         android:textColor="?attr/text_previous_color"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/iv_product"
@@ -89,7 +88,6 @@
         android:ellipsize="end"
         android:fontFamily="@font/nunito_bold"
         android:maxLines="1"
-        android:text="asdsad"
         android:textColor="?attr/textColor"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -107,7 +105,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/nunito_600"
         android:maxLines="1"
-        android:text="asdsad"
+        android:text="US $0.0"
         android:textColor="?attr/text_previous_color"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/iv_product"

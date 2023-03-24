@@ -27,14 +27,13 @@ import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.OnItemClickListener
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(),OnItemClickListener,AddToWishListListener {
     private lateinit var allProductsAdapter:AllProductsAdapter
-    private lateinit var searchedProductsAdapter: SearchedProductsAdapter
+    private  var searchedProductsAdapter: SearchedProductsAdapter = SearchedProductsAdapter(emptyList())
     private var searchedProducts= listOf<SearchProductResponse>()
     private val viewModel: AllProductViewModel by viewModels()
     override fun getViewBinding() = FragmentAllProductsBinding.inflate(layoutInflater)
@@ -72,12 +71,17 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
                 is ProductsResults.Success ->{
                     if (searched.isBlank()){
                         binding.progressbar.visibility=View.GONE
-                        initAllProductsRecyclerView()
+                        binding.rvAllProducts.visibility=View.VISIBLE
+                        binding.rvSearchProducts.visibility=View.GONE
+
                     }
                     else{
+                        setListType()
+                        binding.rvAllProducts.visibility=View.GONE
+                        binding.rvSearchProducts.visibility=View.VISIBLE
                         searchedProducts=result.data
                         searchedProductsAdapter=SearchedProductsAdapter(searchedProducts)
-                        binding.rvAllProducts.adapter=searchedProductsAdapter
+                        binding.rvSearchProducts.adapter=searchedProductsAdapter
                     }
                 }
                 is ProductsResults.Error ->{
@@ -88,22 +92,25 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
         }
     }
 
+    private fun setListType() = with(binding){
+        (rvSearchProducts.layoutManager as GridLayoutManager).spanCount =2
+        searchedProductsAdapter.setProductType(ProductListType.LIST_TYPE)
+
+    }
+
     private fun initProductsFilterEvents() = with(binding) {
         ibProductsGroup.setOnClickListener {
             (rvAllProducts.layoutManager as GridLayoutManager).spanCount = 1
             allProductsAdapter.setProductType(ProductListType.GROUP_TYPE)
+            (rvSearchProducts.layoutManager as GridLayoutManager).spanCount = 1
+            searchedProductsAdapter.setProductType(ProductListType.GROUP_TYPE)
 
-            if (searchedProducts.isNotEmpty()) {
-                searchedProductsAdapter.setProductType(ProductListType.GROUP_TYPE)
-            }
         }
         ibProductsList.setOnClickListener {
             (rvAllProducts.layoutManager as GridLayoutManager).spanCount = 2
             allProductsAdapter.setProductType(ProductListType.LIST_TYPE)
-
-            if (searchedProducts.isNotEmpty()){
-                searchedProductsAdapter.setProductType(ProductListType.LIST_TYPE)
-            }
+            (rvSearchProducts.layoutManager as GridLayoutManager).spanCount = 2
+            searchedProductsAdapter.setProductType(ProductListType.LIST_TYPE)
 
         }
 
@@ -120,7 +127,6 @@ class AllProductsFragment : BaseViewBindingFragment<FragmentAllProductsBinding>(
             viewModel.getFilteredProducts(null, null, null, null)
                 .asFlow().collect{pagingData->
                     allProductsAdapter.submitData(pagingData)
-                    Log.d("pagingData",""+pagingData)
                 }
         }
         rvAllProducts.adapter = allProductsAdapter

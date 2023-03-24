@@ -7,9 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.tasks.ecommerceapp.common.DataStoreManager
 import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.data.model.customer.product.ProductFilterResponse
-import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
-import com.tasks.ecommerceapp.domain.usecases.DeleteProductFromWishListUseCases
-import com.tasks.ecommerceapp.domain.usecases.GetWishListProductsUseCase
+import com.tasks.ecommerceapp.domain.usecases.wishlist.DeleteProductFromWishListUseCases
+import com.tasks.ecommerceapp.domain.usecases.wishlist.GetWishListProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch

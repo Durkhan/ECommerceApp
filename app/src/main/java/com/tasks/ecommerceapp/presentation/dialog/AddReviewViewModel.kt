@@ -8,8 +8,7 @@ import com.tasks.ecommerceapp.common.DataStoreManager
 import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.data.model.customer.review.OrderReviewRequest
 import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
-import com.tasks.ecommerceapp.data.repository.CustomerRepository
-import com.tasks.ecommerceapp.domain.usecases.AddReviewUseCase
+import com.tasks.ecommerceapp.domain.usecases.review.AddReviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first

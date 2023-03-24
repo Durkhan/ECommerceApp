@@ -9,9 +9,9 @@ import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.data.model.customer.catalog.CatalogResponse
 import com.tasks.ecommerceapp.data.model.customer.product.ProductResponse
 import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
-import com.tasks.ecommerceapp.domain.usecases.GetAllProductsUseCase
-import com.tasks.ecommerceapp.domain.usecases.GetCatalogUseCases
-import com.tasks.ecommerceapp.domain.usecases.GetSearchedProductsUseCase
+import com.tasks.ecommerceapp.domain.usecases.product.GetAllProductsUseCase
+import com.tasks.ecommerceapp.domain.usecases.product.GetCatalogUseCases
+import com.tasks.ecommerceapp.domain.usecases.product.GetSearchedProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

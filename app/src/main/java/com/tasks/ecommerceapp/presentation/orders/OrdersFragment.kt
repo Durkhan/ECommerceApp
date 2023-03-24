@@ -30,6 +30,7 @@ class OrdersFragment : BaseViewBindingFragment<FragmentOrdersBinding>(),Complete
     private val ongoingOrders= mutableListOf<Order>()
     private val canceledOrders= mutableListOf<Order>()
     private val completedOrders= mutableListOf<Order>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initOrdersObserver()

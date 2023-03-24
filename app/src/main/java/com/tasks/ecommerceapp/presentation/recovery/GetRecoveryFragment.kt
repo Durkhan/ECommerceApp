@@ -1,7 +1,6 @@
 package com.tasks.ecommerceapp.presentation.recovery
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,18 +8,16 @@ import android.widget.EditText
 import androidx.activity.addCallback
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentGetRecoveryBinding
-import com.tasks.ecommerceapp.presentation.registration.ActivityCustomerViewModel
 import com.tasks.ecommerceapp.common.*
-import com.tasks.ecommerceapp.presentation.my_profile.MyProfileViewModel
+import com.tasks.ecommerceapp.domain.usecases.registrion.SendVerificationUseCase
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -28,10 +25,14 @@ class GetRecoveryFragment:Fragment() {
     private var _binding:FragmentGetRecoveryBinding?=null
     private val binding get()=_binding!!
     private var toEmail=""
-    private val viewModel: MyProfileViewModel by activityViewModels()
+    private val args:GetRecoveryFragmentArgs by navArgs()
     private val checkViewsValid: CheckViewsValid by lazy {
         CheckViewsValid(requireContext())
     }
+
+    @Inject
+    lateinit var sendVerificationUseCase: SendVerificationUseCase
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,11 +74,16 @@ class GetRecoveryFragment:Fragment() {
     }
     private fun recoveryAccount() {
         toEmail=binding.userNameOrEmail.text.toString()
+        val email=args.userInfo?.email.toString()
+        val login=args.userInfo?.login.toString()
         val verificationCode= randomNumber()
-        viewModel.verificationCode= verificationCode.toString()
-        if(toEmail==viewModel.toEmail || toEmail==viewModel.login){
-            viewModel.sendVerificationNumber(viewModel.toEmail,verificationCode)
-            findNavController().navigate(R.id.recoveryFragment)
+        if(toEmail==email || toEmail==login){
+            val verifiedData = RecoveryPasswordModel(email,login, verificationCode.toString())
+            val action = GetRecoveryFragmentDirections.actionGetRecoveryFragmentToRecoveryFragment(verifiedData)
+            lifecycleScope.launch{
+                sendVerificationUseCase(email,verificationCode)
+            }
+            findNavController().navigate(action)
         }
         else{
             binding.userNameOrEmail.error=getString(R.string.please_write_correct_username)

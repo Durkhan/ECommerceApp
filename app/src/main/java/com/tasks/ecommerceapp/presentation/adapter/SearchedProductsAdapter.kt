@@ -11,7 +11,7 @@ import com.tasks.ecommerceapp.databinding.ItemProductsAllListBinding
 import com.tasks.ecommerceapp.databinding.ItemProductsGroupBinding
 import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
 import com.tasks.ecommerceapp.common.ProductListType
-/*   search api not support,that why we created this adapter*/
+
 
 class SearchedProductsAdapter(private val data: List<SearchProductResponse>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -30,18 +30,23 @@ class SearchedProductsAdapter(private val data: List<SearchProductResponse>) : R
             tvPrice.text="US $"+data[absoluteAdapterPosition].currentPrice.toString()
             val currentPrice=data[absoluteAdapterPosition].currentPrice
             val previousPrice=data[absoluteAdapterPosition].previousPrice
-            val discount=previousPrice!!-currentPrice!!
-            tvPriceBeforeDiscount.text= "US $$previousPrice"
-            if (currentPrice!=previousPrice){
-                val discountPercent=discount.div(previousPrice).times(100)
-                tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
-                tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
+            if(previousPrice!=null && currentPrice!=null){
+                tvPriceBeforeDiscount.text= "US $$previousPrice"
+                val discount=previousPrice-currentPrice
+                if (currentPrice!=previousPrice && previousPrice!=0.0){
+                    val discountPercent=discount.div(previousPrice).times(100)
+                    tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
+                    tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+                }
+                else{
+                    tvProductDiscount.text="0%"
+                    tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
+
+                }
             }
-            else{
-                tvProductDiscount.text="0%"
-                tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
-            }
+
 
         }
 
@@ -62,19 +67,23 @@ class SearchedProductsAdapter(private val data: List<SearchProductResponse>) : R
             tvPrice.text="US $"+data[absoluteAdapterPosition].currentPrice.toString()
             val currentPrice=data[absoluteAdapterPosition].currentPrice
             val previousPrice=data[absoluteAdapterPosition].previousPrice
-            val discount=previousPrice!!-currentPrice!!
-            tvPriceBeforeDiscount.text= "US $$previousPrice"
-            if (currentPrice!=previousPrice && previousPrice!=0.0){
-                val discountPercent=discount.div(previousPrice).times(100)
-                tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
-                tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-            }
-            else{
-                tvProductDiscount.text="0%"
-                tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
+            if(previousPrice!=null && currentPrice!=null){
+                tvPriceBeforeDiscount.text= "US $$previousPrice"
+                val discount=previousPrice-currentPrice
+                if (currentPrice!=previousPrice && previousPrice!=0.0){
+                    val discountPercent=discount.div(previousPrice).times(100)
+                    tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
+                    tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
+                }
+                else{
+                    tvProductDiscount.text="0%"
+                    tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
+
+                }
             }
+
 
         }
 

@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.DataStoreManager
 import com.tasks.ecommerceapp.databinding.StepsFragmentBinding
-import com.tasks.ecommerceapp.presentation.registration.ActivityCustomerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

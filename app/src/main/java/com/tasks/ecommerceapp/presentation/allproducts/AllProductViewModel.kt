@@ -6,15 +6,15 @@ import androidx.paging.PagingData
 import com.tasks.ecommerceapp.common.DataStoreManager
 import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.common.Results
-import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
 import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
-import com.tasks.ecommerceapp.data.model.customer.orders.OrdersResponse
 import com.tasks.ecommerceapp.data.model.customer.product.ProductFilterResponse
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.data.model.customer.product.SearchProductResponse
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerResponse
-import com.tasks.ecommerceapp.data.model.customer.review.ProductReviewResponse
-import com.tasks.ecommerceapp.domain.usecases.*
+import com.tasks.ecommerceapp.domain.usecases.cart.AddToCartUseCase
+import com.tasks.ecommerceapp.domain.usecases.product.GetFilteringProductsUseCase
+import com.tasks.ecommerceapp.domain.usecases.product.GetSearchedProductsUseCase
+import com.tasks.ecommerceapp.domain.usecases.wishlist.AddToWishListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -25,8 +25,6 @@ import javax.inject.Inject
 class AllProductViewModel @Inject constructor(
     private val getFilteringProductsUseCase: GetFilteringProductsUseCase,
     private val getSearchedProductsUseCase: GetSearchedProductsUseCase,
-    private val getProductReviewsUseCase: GetProductReviewsUseCase,
-    private val addToCartUseCase: AddToCartUseCase,
     private val addToWishListUseCase: AddToWishListUseCase,
     private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
@@ -35,11 +33,6 @@ class AllProductViewModel @Inject constructor(
     private val _searchedProductsLiveData = MutableLiveData<ProductsResults<List<SearchProductResponse>>>()
     val searchedProductsLiveData: LiveData<ProductsResults<List<SearchProductResponse>>> = _searchedProductsLiveData
 
-    private val _reviewsLiveData = MutableLiveData<ProductsResults<List<ProductReviewResponse>>>()
-    val reviewsLiveData: LiveData<ProductsResults<List<ProductReviewResponse>>> = _reviewsLiveData
-
-    private val _addToCartLiveData = MutableLiveData<ProductsResults<CartResponse>>()
-    val addToCartLiveData: LiveData<ProductsResults<CartResponse>> = _addToCartLiveData
 
     private val _customer = MutableLiveData<Results<CustomerResponse>>()
     val customer: LiveData<Results<CustomerResponse>> = _customer
@@ -62,23 +55,6 @@ class AllProductViewModel @Inject constructor(
         viewModelScope.launch {
             val searchedProducts=getSearchedProductsUseCase(searchedText)
             _searchedProductsLiveData.postValue(searchedProducts)
-        }
-    }
-
-
-
-    fun getProductReviews(productId:String){
-        viewModelScope.launch {
-            val result = getProductReviewsUseCase(productId)
-            _reviewsLiveData.postValue(result)
-        }
-    }
-
-
-    fun addToCard(productId: String){
-        viewModelScope.launch {
-            val result=addToCartUseCase(dataStoreManager.token.first(),productId)
-            _addToCartLiveData.postValue(result)
         }
     }
 

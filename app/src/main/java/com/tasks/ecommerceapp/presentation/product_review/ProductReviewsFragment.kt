@@ -19,8 +19,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProductReviewsFragment : BaseViewBindingFragment<FragmentProductReviewsBinding>() {
 
     private var productReviewsAdapter = ProductReviewsAdapter()
-    private val viewModel: AllProductViewModel by viewModels()
+    private val viewModel: GetReviewsViewModel by viewModels()
     private val args:ProductReviewsFragmentArgs by navArgs()
+
     override fun getViewBinding() = FragmentProductReviewsBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

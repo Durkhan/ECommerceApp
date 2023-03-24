@@ -62,9 +62,14 @@
         android:id="@+id/signupAccount"
         android:name="com.tasks.ecommerceapp.presentation.registration.SignupFragment"
         android:label="SignupAccount" >
+
         <action
             android:id="@+id/action_signupAccount_to_createAccountFragment"
             app:destination="@id/createAccountFragment" />
+        <argument
+            app:argType="com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest"
+            android:name="userInfo"
+            app:nullable="true"/>
         <action
             android:id="@+id/action_signupAccount_to_verifyFragment"
             app:destination="@id/verifyFragment" />
@@ -79,6 +84,11 @@
         <action
             android:id="@+id/action_verifyFragment_to_signinFragment"
             app:destination="@id/signinFragment" />
+        <argument
+            app:nullable="true"
+            app:argType="com.tasks.ecommerceapp.presentation.verify.VerificationModel"
+            android:name="verifiedData"/>
+
 
     </fragment>
     <fragment
@@ -109,6 +119,7 @@
             android:id="@+id/action_SetPinFragment_to_SetFingerPrintFragment"
             app:destination="@id/SetFingerPrintFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/SetFingerPrintFragment"
         android:name="com.tasks.ecommerceapp.presentation.set_pin.SetFingerPinFragment"

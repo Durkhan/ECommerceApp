@@ -9,11 +9,9 @@ import com.tasks.ecommerceapp.common.ProductsResults
 import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
 import com.tasks.ecommerceapp.data.model.customer.cart.CartResponse
 import com.tasks.ecommerceapp.data.model.customer.orders.OrdersResponse
-import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
-import com.tasks.ecommerceapp.domain.usecases.CreateOrderUseCase
-import com.tasks.ecommerceapp.domain.usecases.DeleteProductFromCartUseCases
-import com.tasks.ecommerceapp.domain.usecases.GetCartAllProductsUseCase
-import com.tasks.ecommerceapp.domain.usecases.GetCustomerUseCase
+import com.tasks.ecommerceapp.domain.usecases.order.CreateOrderUseCase
+import com.tasks.ecommerceapp.domain.usecases.cart.DeleteProductFromCartUseCases
+import com.tasks.ecommerceapp.domain.usecases.cart.GetCartAllProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch

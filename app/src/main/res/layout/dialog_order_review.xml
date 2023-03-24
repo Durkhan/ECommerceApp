@@ -59,7 +59,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/nunito_bold"
         android:maxLines="1"
-        android:text="asdsad"
+        android:text="US $0.0"
         android:textColor="?attr/color_secondary"
         android:textSize="14sp"
         android:textStyle="bold"

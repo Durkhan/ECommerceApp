@@ -27,6 +27,7 @@ class CompletedOrdersAdapter (private val orders:List<Order>, private val leaveR
     override fun onBindViewHolder(holder: CompletedOrdersAdapter.ViewHolder, position: Int) {
         with(holder.binding){
             lnEmptyDetail.isVisible=orders.isEmpty()
+            constraint.isVisible=orders.isNotEmpty()
             statusImage.setImageResource(R.drawable.completed)
             statusText.text=holder.itemView.context.getString(R.string.orders_completed_desc)
             if (orders.isNotEmpty()) {

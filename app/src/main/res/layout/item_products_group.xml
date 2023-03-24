@@ -13,6 +13,7 @@
         android:layout_height="@dimen/shop_category_size"
         android:src="@drawable/img_phone_test"
         app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="20dp" />
 
@@ -30,7 +31,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/iv_product"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="-10%" />
+        android:text="0%" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -41,7 +42,6 @@
         android:ellipsize="marquee"
         android:fontFamily="@font/nunito_600"
         android:singleLine="true"
-        android:text="asdsad"
         android:textColor="?attr/textColor"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -51,14 +51,13 @@
 
     <TextView
         android:id="@+id/tv_desc"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_micro"
         android:layout_marginTop="@dimen/margin_micro"
         android:ellipsize="end"
         android:fontFamily="@font/nunito_font_400"
         android:maxLines="1"
-        android:text="asdsad"
         android:layout_marginEnd="15dp"
         android:textColor="?attr/text_previous_color"
         android:textSize="16sp"
@@ -68,14 +67,14 @@
 
     <TextView
         android:id="@+id/tv_price"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_micro"
         android:layout_marginTop="@dimen/margin_small"
         android:ellipsize="end"
         android:fontFamily="@font/nunito_bold"
         android:maxLines="1"
-        android:text="asdsad"
+        android:text="US $0.0"
         android:textColor="?attr/textColor"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -85,13 +84,13 @@
 
     <TextView
         android:id="@+id/tv_price_before_discount"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
         android:ellipsize="end"
         android:fontFamily="@font/nunito_font_400"
         android:maxLines="1"
-        android:text="asdsad"
+        android:text="US $0.0"
         android:textColor="?attr/text_previous_color"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/tv_price"

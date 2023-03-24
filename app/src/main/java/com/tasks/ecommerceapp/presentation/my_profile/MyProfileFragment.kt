@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.addCallback
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,19 +19,24 @@ import com.tasks.ecommerceapp.common.Constants.START_DESTINATION_CHANGED
 import com.tasks.ecommerceapp.common.DARK_MODE
 import com.tasks.ecommerceapp.common.LANGUAGE
 import com.tasks.ecommerceapp.common.Results
+import com.tasks.ecommerceapp.common.listener.PasswordChangeListener
 import com.tasks.ecommerceapp.databinding.FragmentMyProfilBinding
 import com.tasks.ecommerceapp.presentation.MainActivity
 import com.tasks.ecommerceapp.presentation.base.BaseViewBindingFragment
+import com.tasks.ecommerceapp.presentation.recovery.RecoveryPasswordModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
 
 
 @AndroidEntryPoint
-class MyProfileFragment : BaseViewBindingFragment<FragmentMyProfilBinding>(){
+class MyProfileFragment : BaseViewBindingFragment<FragmentMyProfilBinding>(),PasswordChangeListener{
 
     override fun getViewBinding()=FragmentMyProfilBinding.inflate(layoutInflater)
-    private val viewModel: MyProfileViewModel by activityViewModels()
+    private val viewModel: MyProfileViewModel by viewModels()
+
+    private var email:String = ""
+    private var login:String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -121,8 +126,8 @@ class MyProfileFragment : BaseViewBindingFragment<FragmentMyProfilBinding>(){
             when(result){
                 is Results.Success -> {
                     val response=result.data
-                    viewModel.toEmail=response.email.toString()
-                    viewModel.login=response.login.toString()
+                    email=response.email.toString()
+                    login=response.login.toString()
                     Glide.with(requireContext())
                         .load(response.avatarUrl)
                         .error(R.drawable.user_photo)
@@ -139,7 +144,7 @@ class MyProfileFragment : BaseViewBindingFragment<FragmentMyProfilBinding>(){
     }
 
     private fun initializeRecycleView() {
-        var texts= mutableListOf(
+        val texts= mutableListOf(
             getString(R.string.adress),
             getString(R.string.notification),
             getString(R.string.payment),
@@ -157,12 +162,18 @@ class MyProfileFragment : BaseViewBindingFragment<FragmentMyProfilBinding>(){
             R.drawable.ic_help_center,
             R.drawable.ic_log_out,
         )
-        val adapter = MyProfileItemsAdapter(texts,icons)
+        val adapter = MyProfileItemsAdapter(texts,icons,this)
         val layoutManager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
 
         }
+
+    override fun onClick() {
+        val userInfo = RecoveryPasswordModel(email,login)
+        val action = MyProfileFragmentDirections.actionMyProfileFragmentToGetRecoveryFragment(userInfo)
+        findNavController().navigate(action)
+    }
 
 
 }

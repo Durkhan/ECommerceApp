@@ -84,6 +84,11 @@
         <action
             android:id="@+id/action_getRecoveryFragment_to_recoveryFragment"
             app:destination="@id/recoveryFragment" />
+
+        <argument
+            app:argType="com.tasks.ecommerceapp.presentation.recovery.RecoveryPasswordModel"
+            app:nullable="true"
+            android:name="userInfo"/>
     </fragment>
     <fragment
         android:id="@+id/recoveryFragment"
@@ -92,10 +97,14 @@
         <action
             android:id="@+id/action_recoveryFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
+        <argument
+            app:argType="com.tasks.ecommerceapp.presentation.recovery.RecoveryPasswordModel"
+            app:nullable="true"
+            android:name="userInfo"/>
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.tasks.ecommerceapp.presentation.recovery.ChangePasswordFragment"
+        android:name="com.tasks.ecommerceapp.presentation.change_password.ChangePasswordFragment"
         android:label="ChangePasswordFragment" >
         <action
             android:id="@+id/action_changePasswordFragment_to_homeProductsFragment"

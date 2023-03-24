@@ -23,9 +23,10 @@ class OngoingOrdersAdapter(private val orders:List<Order>,private val completeOr
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: OngoingOrdersAdapter.ViewHolder, position: Int) {
         with(holder.binding) {
-                lnEmptyDetail.isVisible = orders.isEmpty()
-                statusImage.setImageResource(R.drawable.ongoing)
-                statusText.text = holder.itemView.context.getString(R.string.orders_ongoing_desc)
+            lnEmptyDetail.isVisible = orders.isEmpty()
+            statusImage.setImageResource(R.drawable.ongoing)
+            constraint.isVisible=orders.isNotEmpty()
+            statusText.text = holder.itemView.context.getString(R.string.orders_ongoing_desc)
 
             if (orders.isNotEmpty()) {
                 val product = orders[position].products?.get(0)?.product

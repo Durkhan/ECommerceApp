@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tasks.ecommerceapp.common.DataStoreManager
-import com.tasks.ecommerceapp.domain.usecases.LoginCustomerUseCase
+import com.tasks.ecommerceapp.domain.usecases.login.LoginCustomerUseCase
 import com.tasks.ecommerceapp.data.model.customer.login.CustomerLoginResponse
 import com.tasks.ecommerceapp.common.Results
 import dagger.hilt.android.lifecycle.HiltViewModel

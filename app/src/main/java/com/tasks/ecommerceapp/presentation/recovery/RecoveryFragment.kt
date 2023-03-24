@@ -13,28 +13,34 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentRecoveryBinding
-import com.tasks.ecommerceapp.presentation.registration.ActivityCustomerViewModel
 import com.tasks.ecommerceapp.common.CheckViewsValid
 import com.tasks.ecommerceapp.common.EmptyTextWatcher
 import com.tasks.ecommerceapp.common.obfuscateString
 import com.tasks.ecommerceapp.common.randomNumber
-import com.tasks.ecommerceapp.presentation.my_profile.MyProfileViewModel
+import com.tasks.ecommerceapp.domain.usecases.registrion.SendVerificationUseCase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecoveryFragment:Fragment() {
     private var _binding: FragmentRecoveryBinding?=null
     private val binding get()=_binding
     private var verifyCode =""
-    private val viewModel: MyProfileViewModel by activityViewModels()
+    private var sendVerifiedCode=""
+    private val args:RecoveryFragmentArgs by navArgs()
 
     private val checkViewsValid: CheckViewsValid by lazy {
         CheckViewsValid(requireContext())
     }
+    @Inject
+    lateinit var sendVerificationUseCase: SendVerificationUseCase
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,7 +52,8 @@ class RecoveryFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toEmail=viewModel.toEmail
+        val toEmail=args.userInfo?.email.toString()
+        sendVerifiedCode=args.userInfo?.code.toString()
         val length=toEmail.length
 
 
@@ -60,7 +67,7 @@ class RecoveryFragment:Fragment() {
         binding?.etxtPinEntry?.addTextChangedListener(object : EmptyTextWatcher() {
             override fun onTextChanged(pinText: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 verifyCode =pinText.toString()
-                checkVerifedCode()
+                checkVerifiedCode()
             }
 
         })
@@ -68,7 +75,7 @@ class RecoveryFragment:Fragment() {
         setTimer().start()
 
         binding?.verify?.setOnClickListener {
-            if (verifyCode==viewModel.verificationCode){
+            if (verifyCode==sendVerifiedCode){
                 setTimer().cancel()
                 findNavController().navigate(R.id.action_recoveryFragment_to_changePasswordFragment)
             }
@@ -80,8 +87,11 @@ class RecoveryFragment:Fragment() {
 
         binding?.resend?.setOnClickListener {
             val verificationCode = randomNumber()
-            viewModel.verificationCode=verificationCode.toString()
-            viewModel.sendVerificationNumber(toEmail,verificationCode)
+            sendVerifiedCode=verificationCode.toString()
+            lifecycleScope.launch {
+                sendVerificationUseCase(toEmail,verificationCode)
+            }
+
             setTimer().start()
         }
 
@@ -124,7 +134,7 @@ class RecoveryFragment:Fragment() {
 
     }
 
-    private fun checkVerifedCode() {
+    private fun checkVerifiedCode() {
         if(verifyCode.length!=4){
             checkViewsValid.notEnabled(binding?.verify)
         }

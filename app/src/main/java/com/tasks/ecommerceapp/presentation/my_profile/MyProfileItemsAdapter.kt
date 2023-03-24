@@ -6,9 +6,14 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.tasks.ecommerceapp.R
+import com.tasks.ecommerceapp.common.listener.PasswordChangeListener
 import com.tasks.ecommerceapp.databinding.MyProfileItemsBinding
 
-class MyProfileItemsAdapter(private val texts:List<String>, private val icons :List<Int>):RecyclerView.Adapter<MyProfileItemsAdapter.ItemsViewHolder>() {
+class MyProfileItemsAdapter(
+    private val texts:List<String>,
+    private val icons :List<Int>,
+    private var passwordChangeListener: PasswordChangeListener
+    ):RecyclerView.Adapter<MyProfileItemsAdapter.ItemsViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -30,7 +35,7 @@ class MyProfileItemsAdapter(private val texts:List<String>, private val icons :L
                       R.color.carrot
                   )
                   holder.itemView.setOnClickListener {
-                      Navigation.findNavController(holder.itemView).navigate(R.id.getRecoveryFragment)
+                     passwordChangeListener.onClick()
                   }
               }
           }

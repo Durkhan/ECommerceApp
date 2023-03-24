@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,21 +20,26 @@ import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.SimilarItemClickListener
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.databinding.FragmentProductFullDetailBinding
+import com.tasks.ecommerceapp.domain.usecases.product.GetFilteringProductsUseCase
 import com.tasks.ecommerceapp.presentation.base.BaseViewBindingFragment
 import com.tasks.ecommerceapp.presentation.adapter.ImgSliderAdapter
 import com.tasks.ecommerceapp.presentation.adapter.ProductFullDetailImagesAdapter
 import com.tasks.ecommerceapp.presentation.adapter.SimilarProductsAdapter
-import com.tasks.ecommerceapp.presentation.allproducts.AllProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDetailBinding>(),SimilarItemClickListener,AddToWishListListener {
+class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDetailBinding>(),
+    SimilarItemClickListener,AddToWishListListener {
 
     private val imgSliderAdapter = ImgSliderAdapter()
     private lateinit var similarProductsAdapter: SimilarProductsAdapter
     private val args:ProductFullDetailFragmentArgs by navArgs()
-    private val viewModel: AllProductViewModel by viewModels()
+    private val viewModel: ProductFullDetailViewModel by viewModels()
+
+    @Inject
+    lateinit var getFilteringProductsUseCase: GetFilteringProductsUseCase
 
     override fun getViewBinding() = FragmentProductFullDetailBinding.inflate(layoutInflater)
 
@@ -149,8 +153,8 @@ class ProductFullDetailFragment : BaseViewBindingFragment<FragmentProductFullDet
             SimilarProductsAdapter.DiffCallback(),
         )
         lifecycleScope.launch {
-            viewModel.getFilteredProducts(null, null, category, null)
-                .asFlow().collect{pagingData->
+           getFilteringProductsUseCase(null, null, category, null)
+                .collect{pagingData->
                     similarProductsAdapter.submitData(pagingData)
                 }
         }

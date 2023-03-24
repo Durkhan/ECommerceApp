@@ -12,26 +12,32 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentVerifyBinding
-import com.tasks.ecommerceapp.presentation.registration.ActivityCustomerViewModel
 import com.tasks.ecommerceapp.common.CheckViewsValid
 import com.tasks.ecommerceapp.common.EmptyTextWatcher
 import com.tasks.ecommerceapp.common.obfuscateString
 import com.tasks.ecommerceapp.common.randomNumber
+import com.tasks.ecommerceapp.domain.usecases.registrion.SendVerificationUseCase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class VerifyFragment:Fragment() {
     private var _binding: FragmentVerifyBinding?=null
     private val binding get()=_binding
     private var verifyCode =""
-    private val viewModel: ActivityCustomerViewModel by activityViewModels()
+    private var sendVerifiedCode=""
+    private val args:VerifyFragmentArgs by navArgs()
     private val checkViewsValid: CheckViewsValid by lazy {
         CheckViewsValid(requireContext())
     }
+    @Inject
+    lateinit var sendVerificationUseCase: SendVerificationUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,8 +52,8 @@ class VerifyFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val toEmail=viewModel.toEmail
+        sendVerifiedCode = args.verifiedData?.verificationCode.toString()
+        val toEmail=args.verifiedData?.email.toString()
         val length=toEmail.length
         val obfuscatedEmail = obfuscateString(toEmail)
 
@@ -67,7 +73,7 @@ class VerifyFragment:Fragment() {
         setTimer().start()
 
         binding?.verify?.setOnClickListener {
-              if (verifyCode==viewModel.verificationCode){
+              if (verifyCode==sendVerifiedCode){
                   setTimer().cancel()
                   findNavController().navigate(R.id.action_verifyFragment_to_signinFragment)
               }
@@ -79,8 +85,10 @@ class VerifyFragment:Fragment() {
 
         binding?.resend?.setOnClickListener {
             val verificationCode = randomNumber()
-            viewModel.verificationCode=verificationCode.toString()
-            viewModel.sendVerificationNumber(toEmail,verificationCode)
+            sendVerifiedCode=verificationCode.toString()
+            lifecycleScope.launch{
+                sendVerificationUseCase(toEmail,verificationCode)
+            }
             setTimer().start()
         }
 
@@ -104,7 +112,6 @@ class VerifyFragment:Fragment() {
             }
 
             override fun onFinish() {
-                // Countdown is finished
                 binding?.resend?.text=getString(R.string.resend_code)
                 binding?.resend?.isEnabled=true
             }
@@ -129,5 +136,4 @@ class VerifyFragment:Fragment() {
         super.onDestroyView()
         _binding=null
     }
-
 }

@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,25 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.ProductsResults
-import com.tasks.ecommerceapp.common.Results
 import com.tasks.ecommerceapp.common.listener.AddToWishListListener
 import com.tasks.ecommerceapp.common.listener.OnItemClickListener
 import com.tasks.ecommerceapp.common.listener.SimilarItemClickListener
-import com.tasks.ecommerceapp.data.model.customer.cart.CartProductResponse
-import com.tasks.ecommerceapp.data.model.customer.cart.CartProductsItem
-import com.tasks.ecommerceapp.data.model.customer.cart.toRequest
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
 import com.tasks.ecommerceapp.databinding.FragmentProductDetailBinding
+import com.tasks.ecommerceapp.domain.usecases.product.GetFilteringProductsUseCase
 import com.tasks.ecommerceapp.extensions.getCurrentPosition
 import com.tasks.ecommerceapp.presentation.base.BaseViewBindingFragment
 import com.tasks.ecommerceapp.presentation.adapter.ImgSliderAdapter
 import com.tasks.ecommerceapp.presentation.adapter.ProductDetailImagesAdapter
 import com.tasks.ecommerceapp.presentation.adapter.SimilarProductsAdapter
-import com.tasks.ecommerceapp.presentation.allproducts.AllProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.bson.types.ObjectId
-import kotlin.math.log
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBinding>(),
@@ -44,7 +38,12 @@ class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBindi
     private lateinit var similarProductsAdapter:SimilarProductsAdapter
     private val args:ProductDetailFragmentArgs by navArgs()
     override fun getViewBinding() = FragmentProductDetailBinding.inflate(layoutInflater)
-    private val viewModel:AllProductViewModel by viewModels()
+
+    @Inject
+    lateinit var getFilteringProductsUseCase: GetFilteringProductsUseCase
+
+
+    private val viewModel:ProductDetailViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -87,8 +86,8 @@ class ProductDetailFragment : BaseViewBindingFragment<FragmentProductDetailBindi
             SimilarProductsAdapter.DiffCallback()
         )
         lifecycleScope.launch {
-            viewModel.getFilteredProducts(null, null, category, null)
-                .asFlow().collect{pagingData->
+            getFilteringProductsUseCase(null, null, category, null)
+              .collect{pagingData->
                     similarProductsAdapter.submitData(pagingData)
                 }
         }

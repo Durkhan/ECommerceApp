@@ -9,6 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.ItemProductsAllListBinding
 import com.tasks.ecommerceapp.databinding.ItemProductsGroupBinding
 import com.tasks.ecommerceapp.data.model.customer.product.ProductsItem
@@ -34,28 +35,34 @@ class AllProductsAdapter(
             context: Context?,
             onItemClickListener: OnItemClickListener
         ) = with(binding) {
-            Glide.with(context!!)
-                .load(productItem.imageUrls?.get(0)!!)
-                .into(binding.ivProduct)
-            tvName.text=productItem.name
-            tvDesc.text=productItem.description
-            val currentPrice=productItem.currentPrice
-            val previousPrice=productItem.previousPrice
-            val discount=previousPrice!!-currentPrice!!
-            tvPrice.text= "US $$currentPrice"
-            tvPriceBeforeDiscount.text="US $$previousPrice"
+            if (productItem.imageUrls?.isNotEmpty() == true) {
+                Glide.with(context!!)
+                    .load(productItem.imageUrls[0])
+                    .into(binding.ivProduct)
+            }
 
-            if (currentPrice!=previousPrice && previousPrice!=0.0){
-                val discountPercent=discount.div(previousPrice).times(100)
-                tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
-                tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            }
-            else{
-                tvProductDiscount.text="0%"
-                tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
-            }
-            ivProduct.setOnClickListener {
-                onItemClickListener.onItemClick(productItem)
+            tvName.text = productItem.name
+            tvDesc.text = productItem.description
+            val currentPrice = productItem.currentPrice
+            val previousPrice = productItem.previousPrice
+            if (previousPrice != null && currentPrice != null) {
+                val discount = previousPrice - currentPrice
+
+                tvPrice.text = "US $$currentPrice"
+                tvPriceBeforeDiscount.text = "US $$previousPrice"
+
+                if (currentPrice != previousPrice && previousPrice != 0.0) {
+                    val discountPercent = discount.div(previousPrice).times(100)
+                    tvProductDiscount.text = "-" + String.format("%.0f", discountPercent) + "%"
+                    tvPriceBeforeDiscount.paintFlags =
+                        tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                } else {
+                    tvProductDiscount.text = "0%"
+                    tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
+                }
+                ivProduct.setOnClickListener {
+                    onItemClickListener.onItemClick(productItem)
+                }
             }
 
         }
@@ -71,31 +78,37 @@ class AllProductsAdapter(
             addToWishListListener: AddToWishListListener,
             onItemClickListener: OnItemClickListener
         ) = with(binding) {
-            Glide.with(context!!)
-                .load(productItem.imageUrls?.get(0)!!)
-                .into(binding.ivProduct)
-            tvName.text=productItem.name
-            tvDesc.text=productItem.description
-            val currentPrice=productItem.currentPrice
-            val previousPrice=productItem.previousPrice
-            val discount=previousPrice!!-currentPrice!!
-            tvPrice.text= "US $$currentPrice"
-            tvPriceBeforeDiscount.text="US $$previousPrice"
+            if (productItem.imageUrls?.isNotEmpty() == true) {
+                Glide.with(context!!)
+                    .load(productItem.imageUrls[0])
+                    .into(binding.ivProduct)
+            }
 
-            if (currentPrice!=previousPrice){
-                val discountPercent=discount.div(previousPrice).times(100)
-                tvProductDiscount.text="-"+String.format("%.0f", discountPercent)+"%"
-                tvPriceBeforeDiscount.paintFlags = tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            }
-            else{
-                tvProductDiscount.text="0%"
-                tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
-            }
-            ibHeart.setOnClickListener {
-                addToWishListListener.addToWishList(productItem)
-            }
-            ivProduct.setOnClickListener {
-                onItemClickListener.onItemClick(productItem)
+            tvName.text = productItem.name
+            tvDesc.text = productItem.description
+            val currentPrice = productItem.currentPrice
+            val previousPrice = productItem.previousPrice
+            if (previousPrice != null && currentPrice != null) {
+                val discount = previousPrice - currentPrice
+
+                tvPrice.text = "US $$currentPrice"
+                tvPriceBeforeDiscount.text = "US $$previousPrice"
+
+                if (currentPrice != previousPrice && previousPrice != 0.0) {
+                    val discountPercent = discount.div(previousPrice).times(100)
+                    tvProductDiscount.text = "-" + String.format("%.0f", discountPercent) + "%"
+                    tvPriceBeforeDiscount.paintFlags =
+                        tvPriceBeforeDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                } else {
+                    tvProductDiscount.text = "0%"
+                    tvPriceBeforeDiscount.paintFlags = Paint.HINTING_OFF
+                }
+                ibHeart.setOnClickListener {
+                    addToWishListListener.addToWishList(productItem)
+                }
+                ivProduct.setOnClickListener {
+                    onItemClickListener.onItemClick(productItem)
+                }
             }
         }
 

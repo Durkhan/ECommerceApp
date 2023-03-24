@@ -7,13 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tasks.ecommerceapp.common.DataStoreManager
-import com.tasks.ecommerceapp.domain.usecases.UpdateCustomerUseCase
+import com.tasks.ecommerceapp.domain.usecases.customer.UpdateCustomerUseCase
 import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterResponse
 import com.tasks.ecommerceapp.common.Results
 import com.tasks.ecommerceapp.common.listener.UploadImageCallback
-import com.tasks.ecommerceapp.domain.usecases.UploadImageCloudinaryUseCase
+import com.tasks.ecommerceapp.domain.usecases.cloudinary.UploadImageCloudinaryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject

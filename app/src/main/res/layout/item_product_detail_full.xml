@@ -40,6 +40,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/iv_product"
-        tools:text="-10%" />
+        android:text="0%" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

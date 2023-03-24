@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.databinding.FragmentCreateAccountBinding
 import com.tasks.ecommerceapp.common.CheckViewsValid
 import com.tasks.ecommerceapp.common.EmptyTextWatcher
 import com.tasks.ecommerceapp.common.isName
+import com.tasks.ecommerceapp.data.model.customer.register.CustomerRegisterRequest
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +23,6 @@ class CreateAccountFragment:Fragment() {
     private var firstName =""
     private var lastName =""
     private var userName =""
-    private val registrationViewModel: ActivityCustomerViewModel by activityViewModels()
     private val checkViewsValid: CheckViewsValid by lazy {
         CheckViewsValid(requireContext())
     }
@@ -57,25 +56,26 @@ class CreateAccountFragment:Fragment() {
                 userName=s.toString()
                 checkEdittextNotEmpty(binding.userName)
             }
-
-
         })
-         binding.mcontinue.setOnClickListener {
-             registrationViewModel.firstName=firstName
-             registrationViewModel.lastName=lastName
-             registrationViewModel.userName=userName
-             findNavController().navigate(R.id.action_createAccountFragment_to_signupAccount)
-         }
 
-        binding.signIn.setOnClickListener {
-            findNavController().navigate(R.id.action_createAccountFragment_to_signinFragment)
-        }
-        binding.back.setOnClickListener {
-            findNavController().popBackStack()
-        }
-        requireActivity().onBackPressedDispatcher.addCallback {
-            requireActivity().finishAffinity()
-        }
+
+        binding.mcontinue.setOnClickListener { sendUserInfoForSignUp() }
+
+        binding.signIn.setOnClickListener { findNavController().navigate(R.id.action_createAccountFragment_to_signinFragment) }
+
+        binding.back.setOnClickListener { findNavController().popBackStack() }
+
+        requireActivity().onBackPressedDispatcher.addCallback { requireActivity().finishAffinity() }
+    }
+
+    private fun sendUserInfoForSignUp() {
+        val info= CustomerRegisterRequest(
+            firstName = firstName,
+            lastName = lastName,
+            login =  userName
+        )
+        val action = CreateAccountFragmentDirections.actionCreateAccountFragmentToSignupAccount(info)
+        findNavController().navigate(action)
     }
 
 

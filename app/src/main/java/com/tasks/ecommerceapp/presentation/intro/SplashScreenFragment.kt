@@ -15,7 +15,6 @@ import android.view.animation.ScaleAnimation
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.auth0.jwt.JWT
@@ -26,7 +25,6 @@ import com.tasks.ecommerceapp.common.DataStoreManager
 import com.tasks.ecommerceapp.common.LANGUAGE
 import com.tasks.ecommerceapp.databinding.FragmentSplashScreenBinding
 import com.tasks.ecommerceapp.presentation.base.ProductsActivity
-import com.tasks.ecommerceapp.presentation.registration.ActivityCustomerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
