@@ -3,6 +3,7 @@ package com.tasks.ecommerceapp.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.onesignal.OneSignal
 import com.tasks.ecommerceapp.R
 import com.tasks.ecommerceapp.common.Constants
 import com.tasks.ecommerceapp.common.Constants.START_DESTINATION_CHANGED
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId("8be53908-ad56-488a-9a79-0f7fca4cdf1d");
+
         if (DARK_MODE)
             setTheme(R.style.DarkTheme)
         else
