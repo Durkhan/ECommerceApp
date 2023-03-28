@@ -34,16 +34,9 @@
         <activity android:name=".presentation.base.ProductsActivity"
             android:exported="true"
             android:configChanges="orientation|screenSize|keyboard">
-
         </activity>
 
-        <service
-            android:name=".service.PushNotificationService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+
 
     </application>
 
